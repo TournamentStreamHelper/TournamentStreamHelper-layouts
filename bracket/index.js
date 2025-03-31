@@ -611,13 +611,13 @@ LoadEverything().then(() => {
                   : ""
               );
 
-              await CharacterDisplay(
+              /* await CharacterDisplay(
                 $(element).find(`.character_container`),
                 {
                   source: `bracket.players.slot.${pid}`,
                 },
                 event
-              );
+              ); */
 
               SetInnerHtml(
                 $(element).find(`.sponsor_icon`),
@@ -681,14 +681,14 @@ LoadEverything().then(() => {
               SetInnerHtml($(element).find(`.flagcountry`), "");
               SetInnerHtml($(element).find(`.flagstate`), "");
 
-              await CharacterDisplay(
+              /* await CharacterDisplay(
                 $(element).find(`.character_container`),
                 {
                   slice_character: [0, 1],
                   source: `bracket.players.slot.${pid}`,
                 },
                 event
-              );
+              ); */
 
               SetInnerHtml($(element).find(`.sponsor_icon`), "");
               SetInnerHtml($(element).find(`.avatar`), "");
