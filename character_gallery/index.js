@@ -38,6 +38,7 @@ LoadEverything().then(() => {
           variant_html += "<div></div>"
         }
       }
+      console.log("VARIEATETET OOOOOOO")
       $(".variant_display").html(variant_html);
     }
 
@@ -71,12 +72,11 @@ LoadEverything().then(() => {
       cycleIndex = (cycleIndex + 1) % imgs.length;
     } else if (imgs.length == 1) {
       gsap.to(imgs[0], 1, { autoAlpha: 1 });
-      gsap.to(variant_imgs[0, 1], { autoAlpha: 1 })
+      gsap.to(variant_imgs[0], 1, { autoAlpha: 1 })
       $(".index_display").html(`1/1`);
       cycleIndex = 0;
     }
 
-    let variant = _.get(data)
   }
 
   var cycle = setInterval(crossfade, 3000);

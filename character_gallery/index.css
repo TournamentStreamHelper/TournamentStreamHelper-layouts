@@ -54,4 +54,5 @@ body {
   height: 5vw;
 
   background-size: contain;
+  background-repeat: no-repeat;
 }
