@@ -38,7 +38,6 @@ LoadEverything().then(() => {
           variant_html += "<div></div>"
         }
       }
-      console.log("VARIEATETET OOOOOOO")
       $(".variant_display").html(variant_html);
     }
 
