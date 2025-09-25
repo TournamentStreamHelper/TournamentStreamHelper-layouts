@@ -5,6 +5,10 @@ var data = {};
 // Used for comparing what changed since last update
 var oldData = {};
 
+// Global variable that tracks the max delta index that has been applied.
+// Used as a failsafe to prevent stale state-changes from being processed.
+var maxAppliedDeltaIdx = -1;
+
 // Global variable containing settings red from settings.json
 // The settings under /layout/settings.json (global) are merged with /layout/<directory>/settings.json (local),
 // where the local settings have priority over global ones
@@ -115,9 +119,13 @@ async function UpdateData_SocketIO() {
       console.log(err);
     });
 
-    socket.on('program_state', (newData) => {
+    socket.on('program_state', (message) => {
       oldData = data;
-      data = newData;
+      data = message['state'];
+
+      // Fine to reset the max applied index here, since we know that we've
+      // received a complete valid state for a point in time.
+      maxAppliedDeltaIdx = message['delta_index'];
 
       let event = new CustomEvent("tsh_update");
       event.data = data;
@@ -125,6 +133,16 @@ async function UpdateData_SocketIO() {
 
       console.log(data);
       document.dispatchEvent(event);
+    });
+
+    socket.on('program_state_update', (message) => {
+      try {
+        console.log("Handling state delta: ", message);
+        HandleTSHStateUpdateMessage(message);
+      } catch (e) {
+        // We failed to handle the program state, so request a new update.
+        socket.emit("program_state", {});
+      }
     });
   } catch(e) {
     console.log(e);
@@ -801,4 +819,70 @@ class ContentResolver {
           SetInnerHtml($(element.s), element.v);
       }
   }
+}
+
+function HandleTSHStateUpdateMessage(message) {
+  const deltaIdx = message['delta_index'];
+  const deltas = message['delta'];
+
+  if (deltaIdx < maxAppliedDeltaIdx) {
+    throw Error(`Received out of order delta ${deltaIdx} (applied: ${maxAppliedDeltaIdx}`);
+  }
+
+  let event = new CustomEvent("tsh_update")
+  // Ancient jutsu to deep-clone an object. We will be modifying
+  event.oldData = JSON.parse(JSON.stringify(data));
+
+  applyDeltas(data, deltas);
+  event.data = data;
+  maxAppliedDeltaIdx = Math.max(deltaIdx, maxAppliedDeltaIdx);
+  console.log(data);
+
+  // it's fine if this doesn't fire because we threw an exception earlier, because
+  // that means state wasn't applied and we've requested new program state.
+  document.dispatchEvent(event);
+}
+
+/**
+ * Takes a single delta operation, and modifies the data object.
+ *
+ * @param {Object} data
+ * @param {Delta} delta
+ */
+function applyDelta(data, delta) {
+  const pathPieces = delta.path;
+  /** @type {DeltaOpType} */ const deltaOp = delta.action;
+  const newValue = delta.value;
+  const lastPiece = pathPieces[pathPieces.length-1];
+
+  let currentData = data;
+  for (let i = 0; i < pathPieces.length-1; i += 1) {
+    if (!currentData.hasOwnProperty(pathPieces[i])) {
+      currentData[pathPieces[i]] = {};
+    }
+
+    currentData = currentData[pathPieces[i]];
+  }
+
+  if (deltaOp === 'dictionary_item_removed') {
+    if (currentData.hasOwnProperty(lastPiece)) {
+      delete currentData[lastPiece];
+    } else {
+      console.warn(`Couldn't find data to delete for path: ${pathPieces}`);
+    }
+  } else {
+    currentData[lastPiece] = newValue;
+  }
+}
+
+/**
+ * @param {Object} data
+ * @param {Delta[]} deltas python deep-diff delta object.
+ */
+function applyDeltas(data, deltas) {
+  for (let delta of deltas) {
+    applyDelta(data, delta);
+  }
+
+  return data;
 }
