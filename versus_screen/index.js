@@ -130,7 +130,7 @@ LoadEverything().then(() => {
               for (const c of characterValues){
                 if (c.variant){
                   if (single_variant){
-                    single_variant == false;
+                    single_variant = false;
                   } else if (single_variant === null) { //fist variant
                     single_variant = c.variant;
                   }
