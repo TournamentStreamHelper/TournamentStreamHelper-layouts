@@ -113,8 +113,8 @@ LoadEverything().then(() => {
               ? `
               <div>
                   <div class='controller_wrapper'>
-                  <img src='../../${player.controller.icon_path}' width="25" height="25">
-                  <span class = "controller_name">${player.controller.name}</span>
+                  <img src='../../${player.controller.icon_path}' height="25">
+                  <span class = "controller_name">${player.controller.short_name}</span>
                   </div>
               </div>`
               : ""
