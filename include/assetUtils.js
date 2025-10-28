@@ -253,7 +253,7 @@ async function updateCharacterContainer(e, event) {
             let character = player[j];
             if (!_.get(character, "codename")) continue;
             let _div = $(
-              "<div class='tsh_character' style='opacity: 0;'><img /></div>"
+              "<div class='tsh_character' style='opacity: 0;'><div></div></div>"
             );
             e.appendChild($(_div).get(0));
 
