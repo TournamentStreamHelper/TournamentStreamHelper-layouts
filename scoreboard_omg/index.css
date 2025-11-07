@@ -29,7 +29,7 @@ body {
   /* background-size: cover; */
 
   background-image:
-    /* url("./p+_example.png"), */
+    /* url("./p+_mockup.png"), */
     /* url("./p+_test_css.png"), */
     /* url("./p+_test_sss.png"), */
     url("./p+_test_match.png"),
@@ -71,6 +71,11 @@ body {
   align-items: center;
 }
 
+.omg .container {
+  border-radius: unset;
+  background: rgba(0,0,0,0.85);
+}
+
 .player.container {
   width: 500px;
   height: 64px;
@@ -88,6 +93,14 @@ body {
   width: 652px;
 }
 
+.omg .player.container {
+  top: 89px;
+  width: 350px;
+  height: 38px;
+  transform: skewX(30deg);
+  border-radius: calc(var(--border-readius) / 2);
+  padding: 0 16px;
+}
 .tekken8 .player.container {
   top: 32px;
   width: 540px;
@@ -97,33 +110,18 @@ body {
   padding: 0px 16px;
 }
 
+.omg .p2.player.container > div:not(.score) {
+  transform: skewX(30deg);
+}
 .tekken8 .p2.player.container > div:not(.score) {
   transform: skewX(45deg);
 }
 
+.omg .p1.player.container > div:not(.score) {
+  transform: skewX(-30deg);
+}
 .tekken8 .p1.player.container > div:not(.score) {
   transform: skewX(-45deg);
-}
-
-.pbrave .player.container {
-  width: 622px;
-  height: 65px;
-  top: 35px;
-}
-
-.skullgirls .player.container {
-  width: 535px;
-}
-
-.fgc.thin .player.container {
-  top: 2px;
-  height: 48px;
-  width: 640px;
-}
-
-.fgc.thin.strive .player.container {
-  width: 580px;
-  top: 60px;
 }
 
 .sf6 .player.container {
@@ -133,35 +131,6 @@ body {
   transform: skewX(35deg);
   border-radius: calc(var(--border-radius) / 2);
   padding: 0px 16px;
-}
-
-.sf6 .p2.player.container > div:not(.score) {
-  transform: skewX(35deg);
-}
-
-.sf6 .p1.player.container > div:not(.score) {
-  transform: skewX(-35deg);
-}
-
-.roa2 .player.container {
-  top: 0px;
-  height: 100px;
-  width: 550px;
-}
-
-.mk1 .player.container {
-  top: 105px;
-  height: 48px;
-  width: 500px;
-}
-
-.fgc.thin.uni2 .player.container {
-  width: 520px;
-}
-
-.pokken .player.container {
-  height: 48px;
-  width: 500px;
 }
 
 .p1.container {
@@ -178,33 +147,16 @@ body {
   left: 250px;
 }
 
+.omg .p1.container {
+  left: 462px;
+}
 .tekken8 .p1.container {
   left: 160px;
-}
-
-.pbrave .p1.container {
-  left: 222px;
-}
-
-.skullgirls .p1.container {
-  left: 235px;
-}
-
-.fgc.thin .p1.container {
-  left: 164px;
-}
-
-.sf6 .p1.container {
-  left: 248px;
 }
 
 .roa2 .p1.container {
   left: 0px;
   border-radius: 0px 0px var(--border-radius) 0px;
-}
-
-.mk1 .p1.container {
-  left: 350px;
 }
 
 .pokken .p1.container {
@@ -227,21 +179,13 @@ body {
   right: 250px;
 }
 
+.omg .p2.container {
+  transform: skew(-30deg);
+  right: 462px;
+}
 .tekken8 .p2.container {
   transform: skewX(-45deg);
   right: 160px;
-}
-
-.pbrave .p2.container {
-  right: 222px;
-}
-
-.skullgirls .p2.container {
-  right: 235px;
-}
-
-.fgc.thin .p2.container {
-  right: 164px;
 }
 
 .sf6 .p2.container {
@@ -252,10 +196,6 @@ body {
 .roa2 .p2.container {
   right: 0px;
   border-radius: 0px 0px 0px var(--border-radius);
-}
-
-.mk1 .p2.container {
-  right: 350px;
 }
 
 .pokken .p2.container {
@@ -282,6 +222,11 @@ body {
   font-size: 30px;
 }
 
+.omg .name,
+.omg .name_twitter {  /* not .twitter? */
+  font-size: 24px;
+}
+
 .chips {
   display: flex;
   position: absolute;
@@ -293,26 +238,8 @@ body {
   overflow: hidden;
 }
 
-.nasb2 .chips {
-  top: 137px
-}
-
-.sf6 .chips {
-  top: 106px;
-  height: 32px;
-}
-
-.sf6.offline .chips {
-  width: 450px;
-}
-
-.roa2 .chips {
-  top: 106px;
-  height: 32px;
-}
-
-.roa2.offline .chips {
-  width: 720px;
+.omg.pplus .chips {
+  top: 134px;
 }
 
 .sf6.online .chips {
@@ -329,27 +256,6 @@ body {
   transform: skewX(-35deg);
 }
 
-.mk1 .chips {
-  top: 4px;
-  height: 32px;
-}
-
-.mk1.online .chips {
-  width: 350px;
-  background: var(--bg-color);
-  border-radius: calc(var(--border-radius) / 2);
-}
-
-.pokken .chips {
-  height: 32px;
-}
-
-.pokken.online .chips {
-  width: 270px;
-  background: var(--bg-color);
-  border-radius: calc(var(--border-radius) / 2);
-}
-
 .tekken8 .chips {
   top: 4px;
   width: 530px;
@@ -364,22 +270,8 @@ body {
   left: 380px;
 }
 
-.nasb2 .p1.chips {
-  left: 350px;
-}
-
-.sf6 .chip {
-  height: 32px;
-}
-
-.sf6.online .p1.chips {
-  left: 200px;
-  justify-content: left;
-}
-
-.sf6.offline .p1.chips {
-  left: 8px;
-  justify-content: left;
+.omg.pplus .p1.chips {
+  left: 325px;
 }
 
 .roa2.offline .p1.chips {
@@ -391,19 +283,6 @@ body {
   left: 142px;
   justify-content: left;
   flex-direction: row-reverse;
-}
-
-.mk1 .chip {
-  height: 32px;
-}
-
-.mk1.online .p1.chips {
-  left: 25px;
-  justify-content: left;
-}
-
-.pokken .chip {
-  height: 32px;
 }
 
 .pokken.online .p1.chips {
@@ -419,21 +298,9 @@ body {
   justify-content: left;
 }
 
-.nasb2 .p2.chips {
+.omg.pplus .p2.chips {
   left: unset;
-  right: 350px;
-}
-
-.sf6.online .p2.chips {
-  left: unset;
-  right: 200px;
-  justify-content: right;
-}
-
-.mk1.online .p2.chips {
-  left: unset;
-  right: 25px;
-  justify-content: right;
+  right: 326px;
 }
 
 .pokken.online .p2.chips {
@@ -441,12 +308,6 @@ body {
   right: 227px;
   bottom: unset;
   top: 118px;
-  justify-content: right;
-}
-
-.sf6.offline .p2.chips {
-  left: unset;
-  right: 8px;
   justify-content: right;
 }
 
@@ -463,42 +324,6 @@ body {
   flex-direction: row;
 }
 
-.sf6.online .seed {
-  position: absolute;
-  top: 106px;
-}
-
-.sf6.online .p1 .seed {
-  left: -16px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.sf6.online .p2 .seed {
-  left: unset;
-  right: -16px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.mk1.online .seed {
-  position: absolute;
-  top: 190px;
-}
-
-.mk1.online .p1 .seed {
-  left: 0;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.mk1.online .p2 .seed {
-  left: unset;
-  right: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
 .chip .text:not(.text_empty) {
   margin-left: 4px;
   margin-right: 4px;
@@ -512,6 +337,12 @@ body {
   min-width: unset;
   padding-left: 8px;
   padding-right: 8px;
+}
+
+.omg .chip .text:not(.text_empty) {
+  height: 18px;
+  font-size: 12px;
+  background: rgba(0,0,0,0.85);
 }
 
 .sf6 .chip .text:not(.text_empty) {
@@ -631,11 +462,6 @@ body {
   height: 100%;
 }
 
-.nasb2 .chip .text:not(.text_empty) {
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
 .sf6.online .seed.chip .text:not(.text_empty) {
   margin: 0;
   border-radius: 0;
@@ -670,28 +496,6 @@ body {
   transform: skewX(35deg);
 }
 
-.mk1 .chip .text:not(.text_empty) {
-  font-size: 20px;
-  height: 100%;
-}
-
-.mk1.online .seed.chip .text:not(.text_empty) {
-  margin: 0;
-  border-radius: 0;
-  width: 130px;
-}
-
-.pokken .chip .text:not(.text_empty) {
-  font-size: 20px;
-  height: 100%;
-}
-
-.pokken.online .seed.chip .text:not(.text_empty) {
-  margin: 0;
-  border-radius: 0;
-  width: 130px;
-}
-
 .fgc .name_twitter {
   flex-direction: row;
   justify-content: space-between;
@@ -719,21 +523,6 @@ body {
   width: 100%;
 }
 
-.roa2 .name_twitter .name {
-  width: 100%;
-  font-size: 40px;
-}
-
-.mk1 .name_twitter .name {
-  width: 100%;
-  font-size: 30px;
-}
-
-.pokken .name_twitter .name {
-  width: 100%;
-  font-size: 30px;
-}
-
 .fgc .p1 .name_twitter .name .text {
   justify-content: flex-start;
 }
@@ -742,20 +531,18 @@ body {
   justify-content: flex-end;
 }
 
+.omg .p1 .score > .text {
+  transform: skewX(-30deg);
+}
 .tekken8 .p1 .name_twitter, .tekken8 .p1 .score > .text {
   transform: skewX(-45deg);
 }
 
+.omg .p2 .score > .text {
+  transform: skewX(30deg);
+}
 .tekken8 .p2 .name_twitter, .tekken8 .p2 .score > .text {
   transform: skewX(45deg);
-}
-
-.sf6 .p1 .name_twitter, .sf6 .p1 .score > .text {
-  transform: skewX(-35deg);
-}
-
-.sf6 .p2 .name_twitter, .sf6 .p2 .score > .text {
-  transform: skewX(35deg);
 }
 
 .name_twitter {
@@ -837,143 +624,14 @@ body {
   z-index: 9;
 }
 
-.fgc .logo {
-  top: 145px;
-  width: 120px;
-  height: 120px;
-}
-
-.fgc.thin .logo {
-  top: 140px;
-  width: 100px;
-  height: 100px;
-}
-
-.fgc.thin.uni2 .logo {
-  top: 160px;
-}
-
-.nasb2 .logo {
-  top: 150px;
-}
-
-.fgc.thin.arms .player.container {
-  top: 55px;
-}
-
-.fgc.thin.gbvsr .player.container {
-  top: 15px;
-  width: 550px;
-}
-
-.fgc.thin.dbfz .player.container {
-  height: 47px;
-  width: 635px;
-}
-
-.nasb2 .player.container {
-  top: 63px;
-}
-
-.fgc.thin.arms .p1.container {
-  left: 110px;
-}
-
-.fgc.thin.gbvsr .p1.container {
-  left: 180px;
-}
-
-.fgc.thin.dbfz .p1.container {
-  left: 185px;
-}
-
-.nasb2 .p1.container {
-  left: 350px;
-}
-
-.fgc.thin.arms .p2.container {
-  right: 110px;
-}
-
-.fgc.thin.gbvsr .p2.container {
-  right: 180px;
-}
-
-.fgc.thin.dbfz .p2.container {
-  right: 185px;
-}
-
-.nasb2 .p2.container {
-  right: 350px;
-}
-
-.fgc.thin.arms .logo {
-  top: 150px;
-  width: 192px;
-  height: 108px;
-}
-
-.fgc.thin.gbvsr .logo {
-  top: unset;
-  bottom: 20px;
-}
-
-.fgc.thin.dbfz .logo {
-  top: 200px;
-}
-
-.fgc.thin.strive .logo {
-  top: 200px;
-}
-
-.fgc.thin.bblue .logo {
-  top: 970px;
-}
-
-.sf6 .logo {
-  width: 80px;
-  height: 80px;
-  top: 924px;
-}
-
-.roa2 .logo {
-  width: 80px;
-  height: 80px;
-  top: 130px;
-}
-
-.mk1 .logo {
-  width: 80px;
-  height: 80px;
-  bottom: 90px;
-  top: unset;
-}
-
-.pokken .logo {
-  width: 80px;
-  height: 80px;
-  bottom: 10px;
-  top: unset;
-}
-
-.skullgirls .logo {
-  width: 80px;
-  height: 80px;
-  bottom: 90px;
-  top: unset;
+.omg .logo {
+  background-image: url("org_bsc.png");
 }
 
 .tekken8 .logo {
   width: 80px;
   height: 80px;
   bottom: 72px;
-  top: unset;
-}
-
-.pbrave .logo {
-  width: 80px;
-  height: 80px;
-  bottom: 90px;
   top: unset;
 }
 
@@ -1011,15 +669,8 @@ body {
   padding: 8px 16px;
 }
 
-
 .omg .container.top,
 .ssbu .container.top {
-  bottom: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.nasb2 .container.top {
   bottom: 0;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -1031,18 +682,7 @@ body {
   height: 100%;
 }
 
-.roa2 .tournament_name {
-  font-size: 30px;
-  width: 100%;
-  height: 100%;
-}
-
 .tekken8 .tournament_name {
-  height: unset;
-  font-size: 24px;
-}
-
-.sf6 .tournament_name {
   height: unset;
   font-size: 24px;
 }
@@ -1057,25 +697,6 @@ body {
   justify-content: center;
 }
 
-.mk1 .info.container.top {
-  top: 160px;
-}
-
-.pokken .info.container.top {
-  top: unset;
-  bottom: 10px;
-  transform: unset;
-  left: unset;
-  right: 10px;
-}
-
-.skullgirls .info.container.top {
-  top: 0px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  height: 25px;
-}
-
 .tekken8 .info.container.top {
   height: 32px;
   top: 0px;
@@ -1085,45 +706,6 @@ body {
   overflow: visible;
   padding: 0 42px;
   justify-content: center;
-}
-
-.pbrave .info.container.top {
-  border-radius: var(--border-radius);
-  top: 0px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  height: 30px;
-}
-
-.fgc.thin .info.container.top {
-  top: 2px;
-  height: 48px;
-}
-
-.sf6 .info.container.top {
-  background: unset;
-  overflow: visible;
-  justify-content: center;
-  padding: 0 42px;
-  width: 470px;
-  top: 0;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  height: 28px;
-}
-
-
-.roa2 .info.container.top {
-  transform: unset;
-  top: unset;
-  left: unset;
-  right: 0px;
-  bottom: 0px;
-  width: 350px;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  height: 70px;
 }
 
 .info.container.bottom {
@@ -1137,6 +719,22 @@ body {
   height: 64px;
   font-size: 20px;
   padding: 4px 16px;
+}
+
+.omg .info.container.bottom {
+  top: 137px;
+  bottom: unset;
+  width: 270px;
+  height: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    calc(100% - 35px) 100%,
+    35px 100%
+  );
+  /* border: 2px solid white; */
 }
 
 .info.container.right {
@@ -1159,31 +757,16 @@ body {
   padding: 4px 16px;
 }
 
-.gbvsr .container.left {
-  bottom: 16px;
-  left: 16px;
-}
-
-.gbvsr .container.right {
-  bottom: 16px;
-  right: 16px;
-  left: unset;
-}
-
 .phase {
   font-size: 18px;
   letter-spacing: 3px;
   width: 100%;
 }
 
-.sf6 .phase {
-  font-size: 20px;
-  letter-spacing: 2px;
-}
-
-.roa2 .phase {
-  font-size: 20px;
-  letter-spacing: 2px;
+.omg .phase {
+  font-size: 12px;
+  letter-spacing: 0px;
+  color: rgb(128,128,128);
 }
 
 .tekken8 .phase {
@@ -1196,9 +779,9 @@ body {
   width: 100%;
 }
 
-.sf6 .match {
-  font-size: 26px;
-  letter-spacing: 2px;
+.omg .match {
+  font-size: 20px;
+  letter-spacing: 0px;
 }
 
 .fgc .info.container.bottom {
@@ -1209,10 +792,6 @@ body {
   transform: translateX(-50%);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-
-.nasb2 .info.container.bottom {
-  top: 63px;
 }
 
 .sf6 .info.container.bottom {
@@ -1239,57 +818,6 @@ body {
   border-radius: var(--border-radius);
 }
 
-.pokken .info.container.bottom {
-  top: 10px;
-  bottom: unset;
-  transform: unset;
-  left: 10px;
-  border-radius: var(--border-radius);
-}
-
-.roa2 .info.container.bottom {
-  bottom: unset;
-  top: 0px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  height: 40px;
-  width: 300px;
-}
-
-.arms .info.container.right {
-  top: unset;
-  bottom: 20px;
-  right: 15px;
-  left: unset;
-  transform: unset;
-}
-
-.gbvsr .info.container.bottom {
-  top: unset;
-  bottom: 20px;
-  right: 15px;
-  left: unset;
-  transform: unset;
-}
-
-.dbfz .info.container.bottom {
-  top: unset;
-  bottom: 0;
-  height: 48px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.uni2 .info.container.top {
-  border-radius: var(--border-radius);
-}
-
-.uni2 .info.container.bottom {
-  top: unset;
-  bottom: 130px;
-  border-radius: var(--border-radius);
-}
-
 .tekken8 .info.container.bottom {
   border-radius: calc(var(--border-radius) / 2);
   background: unset;
@@ -1298,50 +826,6 @@ body {
   justify-content: center;
   bottom: 0;
   width: 500px;
-}
-
-.roa2 .info.container.left {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-top-left-radius: 0;
-  left: 0;
-  bottom: 0;
-}
-
-.roa2 .info.container.right {
-  left: unset;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.fgc.thin.arms .info.container.left {
-  top: unset;
-  bottom: 20px;
-  right: unset;
-  left: 15px;
-  transform: unset;
-  width: 280px;
-  height: 64px;
-}
-
-.fgc.thin.gbvsr .info.container.top {
-  top: unset;
-  bottom: 20px;
-  right: unset;
-  left: 15px;
-  transform: unset;
-  width: 280px;
-  height: 64px;
-}
-
-.fgc.thin.dbfz .info.container.top {
-  top: 125px;
-  bottom: unset;
-  height: 64px;
-  border-radius: var(--border-radius);
 }
 
 .icon {
@@ -1386,21 +870,6 @@ body {
   background-size: cover;
 }
 
-.sf6 .icon div:not(.text) {
-  height: 34px;
-  width: 34px;
-}
-
-.roa2 .icon div:not(.text) {
-  height: 70px;
-  width: 70px;
-}
-
-.roa2 .character_container div:not(.text) {
-  height: 70px;
-  width: 70px;
-}
-
 .flags_container {
   display: flex;
   flex-direction: column;
@@ -1415,14 +884,14 @@ body {
   height: 24px;
 }
 
+.omg .flag {
+  width: 24px;
+  height: 18px;
+}
+
 .tekken8 .flag {
   width: 36px !important;
   height: 24px !important;
-}
-
-.roa2 .flag {
-  width: 47px !important;
-  height: 32px !important;
 }
 
 .fgc .flag {
@@ -1438,52 +907,6 @@ body {
   width: 48px;
   height: 48px;
   border-radius: var(--border-radius);
-}
-
-.fgc .sponsor_icon {
-  position: absolute;
-  right: 200px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.fgc .p2 .sponsor_icon {
-  right: unset;
-  left: 200px;
-}
-
-.fgc .sponsor_icon > div > div {
-  width: 80px;
-  height: 80px;
-}
-
-.skullgirls .sponsor_icon {
-  position: absolute;
-  right: 150px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.skullgirls .p2 .sponsor_icon {
-  right: unset;
-  left: 150px;
-}
-
-.pokken .sponsor_icon {
-  position: absolute;
-  right: 64px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.pokken .p2 .sponsor_icon {
-  right: unset;
-  left: 64px;
-}
-
-.pokken .sponsor_icon > div > div {
-  width: 80px;
-  height: 80px;
 }
 
 .tekken8 .sponsor_icon {
@@ -1503,78 +926,6 @@ body {
   height: 80px;
 }
 
-.sf6 .sponsor_icon {
-  position: absolute;
-  right: 90px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.sf6 .p2 .sponsor_icon {
-  right: unset;
-  left: 90px;
-}
-
-.sf6 .sponsor_icon > div > div {
-  width: 100px;
-  height: 100px;
-}
-
-.thin .sponsor_icon {
-  position: absolute;
-  right: 200px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.thin .p2 .sponsor_icon {
-  right: unset;
-  left: 200px;
-}
-
-.thin.gbvsr .p1 .sponsor_icon {
-  right: 150px;
-}
-
-.thin.gbvsr .p2 .sponsor_icon {
-  right: unset;
-  left: 150px;
-}
-
-.thin .sponsor_icon > div > div {
-  width: 100px;
-  height: 100px;
-}
-
-.uni2 .sponsor_icon {
-  position: absolute;
-  right: 120px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.uni2 .p2 .sponsor_icon {
-  right: unset;
-  left: 120px;
-}
-
-.roa2 .sponsor_icon {
-  position: absolute;
-  right: 64px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.roa2 .p2 .sponsor_icon {
-  right: unset;
-  left: 64px;
-}
-
-.roa2 .sponsor_icon > div > div {
-  width: 150px;
-  height: 150px;
-}
-
 .character_container {
   display: flex;
   overflow: hidden;
@@ -1589,10 +940,6 @@ body {
   overflow: hidden;
   height: 48px;
   width: 48px;
-}
-
-.fgc.thin .character_container > div {
-  height: 100%;
 }
 
 .fgc.thin .character_container > div > div {
@@ -1616,20 +963,7 @@ body {
   overflow: hidden;
 }
 
-.fgc.thin .score {
-  font-size: 32px;
-  width: 48px;
-}
-
-.sf6 .score {
-  font-size: 34px;
-}
-
-.roa2 .score {
-  height: 110px;
-  font-size: 50px;
-}
-
+.omg .score,
 .tekken8 .score {
   font-size: 38px;
   width: 80px;
@@ -1647,12 +981,8 @@ body {
   margin-left: 8px;
 }
 
+.omg .p1 .score,
 .tekken8 .p1 .score {
-  margin-right: -16px;
-  margin-left: 16px;
-}
-
-.sf6 .p1 .score {
   margin-right: -16px;
   margin-left: 16px;
 }
@@ -1677,12 +1007,8 @@ body {
   margin-right: 8px;
 }
 
+.omg .p2 .score,
 .tekken8 .p2 .score {
-  margin-left: -16px;
-  margin-right: 16px;
-}
-
-.sf6 .p2 .score {
   margin-left: -16px;
   margin-right: 16px;
 }
@@ -1709,64 +1035,4 @@ body {
 
 .p2 .losers {
   background: #308affff;
-}
-
-.top_bg_1, .top_bg_2, .bottom_bg_1, .bottom_bg_2 {
-  background: var(--bg-color);
-  position: fixed;
-  width: 60%;
-  height: 100%;
-  top: 0;
-  z-index: -1;
-  border-radius: calc(var(--border-radius) / 2);
-  overflow: hidden;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-}
-
-.bottom_bg_1, .bottom_bg_2 {
-  bottom: 0;
-  border-radius: calc(var(--border-radius) / 2);
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.top_bg_1 {
-  transform: skewX(45deg);
-  transform-origin: top right;
-  left: 0;
-}
-
-.sf6 .top_bg_1 {
-  transform: skewX(35deg);
-}
-
-.top_bg_2 {
-  transform: skewX(-45deg);
-  transform-origin: top left;
-  right: 0;
-}
-
-.sf6 .top_bg_2 {
-  transform: skewX(-35deg);
-}
-
-.bottom_bg_1 {
-  transform: skewX(45deg);
-  transform-origin: bottom right;
-  right: 0;
-}
-
-.sf6 .bottom_bg_1 {
-  transform: skewX(35deg);
-}
-
-.bottom_bg_2 {
-  transform: skewX(-45deg);
-  transform-origin: bottom left;
-  left: 0;
-}
-
-.sf6 .bottom_bg_2 {
-  transform: skewX(-35deg);
 }
