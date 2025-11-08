@@ -45,7 +45,7 @@ body {
 .anim_container_outer {
   position: absolute;
   overflow: hidden;
-  /* top: 0; */
+  top: 0; /* .omg .info.container.bottom { position: relative; } */
   left: 50%;
   transform: translateX(-50%);
   width: 1920px;
@@ -84,54 +84,26 @@ body {
   padding: 0px 6px;
 }
 
-.player.container > div:not(.score) > .text:not(.text_empty) {
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
-.fgc .player.container {
-  top: 8px;
-  width: 652px;
-}
-
 .omg .player.container {
-  top: 89px;
+  top: 71px;
   width: 350px;
   height: 38px;
   transform: skewX(30deg);
-  border-radius: calc(var(--border-readius) / 2);
-  padding: 0 16px;
+  padding: 0;
+  border: 2px solid rgba(255,255,255,0.8);
 }
-.tekken8 .player.container {
-  top: 32px;
-  width: 540px;
-  height: 38px;
-  transform: skewX(45deg);
-  border-radius: calc(var(--border-radius) / 2);
-  padding: 0px 16px;
+
+/* .player.container > div:not(.score) > .text:not(.text_empty) {
+  margin-left: 4px;
+  margin-right: 4px;
+} */
+
+.omg .p1.player.container > div:not(.score) {
+  transform: skewX(-30deg) translateX(calc(-21.939px / 2)); /* 38tan(30deg) */
 }
 
 .omg .p2.player.container > div:not(.score) {
-  transform: skewX(30deg);
-}
-.tekken8 .p2.player.container > div:not(.score) {
-  transform: skewX(45deg);
-}
-
-.omg .p1.player.container > div:not(.score) {
-  transform: skewX(-30deg);
-}
-.tekken8 .p1.player.container > div:not(.score) {
-  transform: skewX(-45deg);
-}
-
-.sf6 .player.container {
-  top: 10px;
-  height: 48px;
-  width: 480px;
-  transform: skewX(35deg);
-  border-radius: calc(var(--border-radius) / 2);
-  padding: 0px 16px;
+  transform: skewX(30deg) translateX(calc(+21.939px / 2));
 }
 
 .p1.container {
@@ -140,30 +112,8 @@ body {
   flex-direction: row;
 }
 
-.fgc .p1.container {
-  left: 154px;
-}
-
-.fgc.thin.uni2 .p1.container {
-  left: 250px;
-}
-
 .omg .p1.container {
-  left: 462px;
-}
-.tekken8 .p1.container {
-  left: 160px;
-}
-
-.roa2 .p1.container {
-  left: 0px;
-  border-radius: 0px 0px var(--border-radius) 0px;
-}
-
-.pokken .p1.container {
-  top: unset;
-  bottom: 50px;
-  left: 205px;
+  left: 457px;
 }
 
 .p2.container {
@@ -172,41 +122,9 @@ body {
   flex-direction: row-reverse;
 }
 
-.fgc .p2.container {
-  right: 154px;
-}
-
-.fgc.thin.uni2 .p2.container {
-  right: 250px;
-}
-
 .omg .p2.container {
   transform: skew(-30deg);
-  right: 462px;
-}
-.tekken8 .p2.container {
-  transform: skewX(-45deg);
-  right: 160px;
-}
-
-.sf6 .p2.container {
-  transform: skewX(-35deg);
-  right: 248px;
-}
-
-.roa2 .p2.container {
-  right: 0px;
-  border-radius: 0px 0px 0px var(--border-radius);
-}
-
-.pokken .p2.container {
-  bottom: unset;
-  top: 20px;
-  right: 180px;
-}
-
-.thin .player.container {
-  padding: 0 8px;
+  right: 457px;
 }
 
 .name,
@@ -240,26 +158,7 @@ body {
 }
 
 .omg.pplus .chips {
-  top: 134px;
-}
-
-.sf6.online .chips {
-  width: 270px;
-  background: var(--bg-color);
-  border-radius: calc(var(--border-radius) / 4);
-}
-
-.sf6.online .p1.chips {
-  transform: skewX(35deg);
-}
-
-.sf6.online .p2.chips {
-  transform: skewX(-35deg);
-}
-
-.tekken8 .chips {
-  top: 4px;
-  width: 530px;
+  top: 113px;
 }
 
 .chip {
@@ -272,25 +171,7 @@ body {
 }
 
 .omg.pplus .p1.chips {
-  left: 325px;
-}
-
-.roa2.offline .p1.chips {
-  left: 8px;
-  justify-content: left;
-}
-
-.tekken8 .p1.chips {
-  left: 142px;
-  justify-content: left;
-  flex-direction: row-reverse;
-}
-
-.pokken.online .p1.chips {
-  left: 265px;
-  top: unset;
-  bottom: 155px;
-  justify-content: left;
+  left: 320px;
 }
 
 .p2.chips {
@@ -301,28 +182,7 @@ body {
 
 .omg.pplus .p2.chips {
   left: unset;
-  right: 326px;
-}
-
-.pokken.online .p2.chips {
-  left: unset;
-  right: 227px;
-  bottom: unset;
-  top: 118px;
-  justify-content: right;
-}
-
-.roa2.offline .p2.chips {
-  left: unset;
-  right: 8px;
-  justify-content: right;
-}
-
-.tekken8 .p2.chips {
-  left: unset;
-  right: 142px;
-  justify-content: right;
-  flex-direction: row;
+  right: 320px;
 }
 
 .chip .text:not(.text_empty) {
@@ -330,8 +190,8 @@ body {
   margin-right: 4px;
   height: 24px;
   font-size: 18px;
-  padding-left: 12px;
-  padding-right: 12px;
+  /* padding-left: 12px;
+  padding-right: 12px; */
   background: var(--bg-color);
   color: var(--text-color);
   border-radius: calc(var(--border-radius) / 4);
@@ -341,36 +201,13 @@ body {
 }
 
 .omg .chip .text:not(.text_empty) {
+  margin-left: 2px;
+  margin-right: 2px;
   height: 18px;
   font-size: 12px;
+  padding-left: 4px;
+  padding-right: 4px;
   background: rgba(0,0,0,0.8);
-}
-
-.sf6 .chip .text:not(.text_empty) {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-.sf6 .chip .text {
-  background: none;
-  position: relative;
-}
-
-.sf6.offline .chip .text:not(.text_empty)::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(100% + 4px);
-  height: 100%;
-  background: var(--bg-color);
-  border-radius: calc(var(--border-radius) / 4);
-  transform: skewX(35deg);
-  content: " ";
-  z-index: -999;
-}
-
-.sf6.offline .p2 .chip .text:not(.text_empty)::before {
-  transform: skewX(-35deg);
 }
 
 .flagcountry, .flagstate {
@@ -381,169 +218,28 @@ body {
 .flagstate .text,
 .flagcountry .text {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   overflow: hidden;
 }
 
-.p2 .flagstate .text,
-.p2 .flagcountry .text {
-  flex-direction: row-reverse;
-}
-
-.omg .p2 .flagstate .text,
-.omg .p2 .flagcountry .text,
-.ssbu .p2 .flagstate .text,
-.ssbu .p2 .flagcountry .text,
-.roa2 .p2 .flagstate .text,
-.roa2 .p2 .flagcountry .text,
-.nasb2 .p2 .flagstate .text,
-.nasb2 .p2 .flagcountry .text {
-  flex-direction: row;
-  padding-left: 0 !important;
-}
-
 .omg .p1 .flagstate .text,
-.omg .p1 .flagcountry .text,
-.ssbu .p1 .flagstate .text,
-.ssbu .p1 .flagcountry .text,
-.roa2 .p1 .flagstate .text,
-.roa2 .p1 .flagcountry .text,
-.nasb2 .p1 .flagstate .text,
-.nasb2 .p1 .flagcountry .text,
-.nasb2 .p1 .flagstate .text,
-.nasb2 .p1 .flagcountry .text {
+.omg .p1 .flagcountry .text {
+  flex-direction: row-reverse;
   padding-right: 0 !important;
 }
 
-.omg .p1 .flagstate .text,
-.omg .p1 .flagcountry .text,
-.ssbu .p1 .flagstate .text,
-.ssbu .p1 .flagcountry .text,
-.roa2 .p1 .flagstate .text,
-.roa2 .p1 .flagcountry .text,
-.nasb2 .p1 .flagstate .text,
-.nasb2 .p1 .flagcountry .text {
-  flex-direction: row-reverse;
-}
-
-.fgc .flagcountry .text,
-.fgc .flagstate .text {
-  flex-direction: column;
-  gap: 0;
-  letter-spacing: 2px;
-  font-size: 18px;
-}
-
-.tekken8 .chip .text:not(.text_empty) {
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.tekken8 .p1 .flagstate .text,
-.tekken8 .p1 .flagcountry .text {
+.omg .p2 .flagstate .text,
+.omg .p2 .flagcountry .text {
   flex-direction: row;
-  padding-left: 0;
-  gap: 8px;
-}
-
-.tekken8 .p2 .flagstate .text,
-.tekken8 .p2 .flagcountry .text {
-  flex-direction: row-reverse;
-  padding-right: 0;
-  gap: 8px;
-}
-
-.sf6 .chip .text:not(.text_empty) {
-  font-size: 20px;
-  height: 100%;
-}
-
-.roa2 .chip .text:not(.text_empty) {
-  font-size: 20px;
-  height: 100%;
-}
-
-.sf6.online .seed.chip .text:not(.text_empty) {
-  margin: 0;
-  border-radius: 0;
-  width: 140px;
-}
-
-.sf6.online .p1 .chip {
-  transform: skewX(-35deg);
-}
-
-.sf6.online .p2 .chip {
-  transform: skewX(35deg);
-}
-
-.sf6.online .p1 .seed.chip {
-  background: var(--bg-color);
-  border-radius: calc(var(--border-radius) / 4);
-  transform: skewX(35deg);
-}
-
-.sf6.online .p2 .seed.chip {
-  background: var(--bg-color);
-  border-radius: calc(var(--border-radius) / 4);
-  transform: skewX(-35deg);
-}
-
-.sf6.online .p1 .seed.chip .text {
-  transform: skewX(-35deg);
-}
-
-.sf6.online .p2 .seed.chip .text {
-  transform: skewX(35deg);
-}
-
-.fgc .name_twitter {
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.fgc .p2 .name_twitter {
-  flex-direction: row-reverse;
-}
-
-.name_twitter .name {
-  font-size: 32px;
-}
-
-.fgc .name_twitter .name {
-  width: 60%;
-}
-
-.sf6 .name_twitter .name {
-  width: 100%;
-  font-size: 30px;
-}
-
-.tekken8 .name_twitter .name {
-  font-size: 28px;
-  width: 100%;
-}
-
-.fgc .p1 .name_twitter .name .text {
-  justify-content: flex-start;
-}
-
-.fgc .p2 .name_twitter .name .text {
-  justify-content: flex-end;
+  padding-left: 0 !important;
 }
 
 .omg .p1 .score > .text {
   transform: skewX(-30deg);
 }
-.tekken8 .p1 .name_twitter, .tekken8 .p1 .score > .text {
-  transform: skewX(-45deg);
-}
 
 .omg .p2 .score > .text {
   transform: skewX(30deg);
-}
-.tekken8 .p2 .name_twitter, .tekken8 .p2 .score > .text {
-  transform: skewX(45deg);
 }
 
 .name_twitter {
@@ -562,10 +258,6 @@ body {
   flex-direction: row-reverse;
 }
 
-.fgc .name_twitter .extra {
-  flex-direction: column;
-}
-
 .name_twitter .twitter {
   font-size: 18px;
   max-width: 100%;
@@ -573,22 +265,6 @@ body {
 
 .extra .pronoun {
   width: 100%;
-}
-
-.fgc .p1 .name_twitter .twitter .text {
-  justify-content: flex-end;
-}
-
-.fgc .p2 .name_twitter .twitter .text {
-  justify-content: flex-start;
-}
-
-.fgc .p1 .name_twitter .pronoun .text {
-  justify-content: flex-end;
-}
-
-.fgc .p2 .name_twitter .pronoun .text {
-  justify-content: flex-start;
 }
 
 .twitter_logo {
@@ -626,14 +302,13 @@ body {
 }
 
 .omg .logo {
+  /* width: 80px;
+  height: 80px; */
+  /* width: 100px;
+  height: 100px; */
+  /* width: 120px;
+  height: 120px; */
   background-image: url("org_bsc.png");
-}
-
-.tekken8 .logo {
-  width: 80px;
-  height: 80px;
-  bottom: 72px;
-  top: unset;
 }
 
 .info.container {
@@ -646,7 +321,7 @@ body {
   font-size: 20px;
 }
 
-.info.container_inner {
+/* .info.container_inner {
   display: flex;
   width: 100%;
   font-size: inherit;
@@ -656,9 +331,9 @@ body {
 .info.container_inner > div {
   flex-shrink: 0;
   text-align: center;
-}
+} */
 
-.info.container.top {
+/* .info.container.top {
   bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
@@ -681,33 +356,7 @@ body {
   font-size: 22px;
   width: 100%;
   height: 100%;
-}
-
-.tekken8 .tournament_name {
-  height: unset;
-  font-size: 24px;
-}
-
-.fgc .info.container.top {
-  top: 8px;
-  height: 34px;
-  width: 290px;
-  font-size: 16px;
-  padding: 8px 16px;
-  border-radius: calc(var(--border-radius) / 2);
-  justify-content: center;
-}
-
-.tekken8 .info.container.top {
-  height: 32px;
-  top: 0px;
-  width: 560px;
-  border-radius: calc(var(--border-radius) / 2);
-  background: unset;
-  overflow: visible;
-  padding: 0 42px;
-  justify-content: center;
-}
+} */
 
 .info.container.bottom {
   top: 42px;
@@ -725,20 +374,18 @@ body {
 .omg .info.container.bottom {
   position: relative;
   top: 137px;
-  bottom: unset;
   left: 50%;
   transform: translateX(-50%);
   width: 260px;
   height: 48px;
   padding: 0;
-  z-index: -1;
   clip-path: polygon(
     0% 0%,
     100% 0%,
     calc(100% - 27.713px) 100%, /* 48tan(30deg) */
     27.713px 100%
   );
-  overflow: visible;
+  z-index: -1;
 }
 
 .omg .transparent_border {
@@ -750,7 +397,7 @@ body {
   stroke-width: 4px;  /* centered on edge; halved after clip-path */
 }
 
-.info.container.right {
+/* .info.container.right {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -768,7 +415,7 @@ body {
   height: 64px;
   font-size: 20px;
   padding: 4px 16px;
-}
+} */
 
 .phase {
   font-size: 18px;
@@ -782,10 +429,6 @@ body {
   color: rgb(128,128,128);
 }
 
-.tekken8 .phase {
-  font-size: 20px;
-}
-
 .match {
   font-size: 24px;
   letter-spacing: 2px;
@@ -797,50 +440,7 @@ body {
   letter-spacing: 0px;
 }
 
-.fgc .info.container.bottom {
-  top: unset;
-  bottom: 0;
-  padding: 16px 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.sf6 .info.container.bottom {
-  border-radius: calc(var(--border-radius) / 2);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  top: unset;
-  bottom: 0;
-  width: 400px;
-  height: 64px;
-  background: unset;
-  overflow: visible;
-  padding: 0 42px;
-  justify-content: center;
-}
-
-.bblue .info.container.top {
-  border-radius: var(--border-radius);
-}
-
-.bblue .info.container.bottom {
-  top: 180px;
-  bottom: unset;
-  border-radius: var(--border-radius);
-}
-
-.tekken8 .info.container.bottom {
-  border-radius: calc(var(--border-radius) / 2);
-  background: unset;
-  overflow: visible;
-  padding: 0 70px;
-  justify-content: center;
-  bottom: 0;
-  width: 500px;
-}
-
+/* TODO: .icon */
 .icon {
   display: flex;
   justify-content: center;
@@ -902,43 +502,6 @@ body {
   height: 18px;
 }
 
-.tekken8 .flag {
-  width: 36px !important;
-  height: 24px !important;
-}
-
-.fgc .flag {
-  width: 28px;
-  height: 18px;
-}
-
-.sponsor_icon > div > div {
-  display: inline-block;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--border-radius);
-}
-
-.tekken8 .sponsor_icon {
-  position: absolute;
-  right: 100px;
-  z-index: -999;
-  opacity: 0.6;
-}
-
-.tekken8 .p2 .sponsor_icon {
-  right: unset;
-  left: 100px;
-}
-
-.tekken8 .sponsor_icon > div > div {
-  width: 80px;
-  height: 80px;
-}
-
 .character_container {
   display: flex;
   overflow: hidden;
@@ -966,68 +529,16 @@ body {
   align-items: center;
 }
 
+/* TODO: .score */
 .score {
-  width: 64px;
-  height: 64px;
-  font-size: 40px;
-  color: var(--bg-color);
-  flex-grow: 0;
-  flex-shrink: 0;
-  overflow: hidden;
-}
 
-.omg .score,
-.tekken8 .score {
-  font-size: 38px;
-  width: 80px;
-}
-
-.p1 .score {
-  color: var(--p1-score-color);
-  background: var(--p1-score-bg-color);
-  margin-right: -6px;
-  margin-left: 6px;
-}
-
-.thin .p1 .score {
-  margin-right: -8px;
-  margin-left: 8px;
-}
-
-.omg .p1 .score,
-.tekken8 .p1 .score {
-  margin-right: -16px;
-  margin-left: 16px;
 }
 
 .sponsor {
   margin-right: 6px;
 }
-
-.p1 .sponsor {
-  color: var(--p1-sponsor-color);
-}
-
-.p2 .score {
-  color: var(--p2-score-color);
-  background: var(--p2-score-bg-color);
-  margin-left: -6px;
-  margin-right: 6px;
-}
-
-.thin .p2 .score {
-  margin-left: -8px;
-  margin-right: 8px;
-}
-
-.omg .p2 .score,
-.tekken8 .p2 .score {
-  margin-left: -16px;
-  margin-right: 16px;
-}
-
-.p2 .sponsor {
-  color: var(--p2-sponsor-color);
+.omg .sponsor {
+  color: rgb(128,128,128);
 }
 
 .losers {
@@ -1042,10 +553,6 @@ body {
   margin: 0 6px;
 }
 
-.p1 .losers {
-  background: #ff3837ff;
-}
-
-.p2 .losers {
-  background: #308affff;
+.omg .losers {
+  background: rgb(128,128,128);
 }
