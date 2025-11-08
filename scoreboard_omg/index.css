@@ -83,27 +83,28 @@ body {
   top: 42px;
   padding: 0px 6px;
 }
-
 .omg .player.container {
   top: 71px;
   width: 350px;
   height: 38px;
   transform: skewX(30deg);
-  padding: 0;
+  padding: 0 calc(9.815px - 2.25px);  /* (34tan(30deg) / 2) */   /* HACK: eyeballed the ~2px distance from border-radius rounded edge */
   border: 2px solid rgba(255,255,255,0.8);
 }
 
+/* NOTE: Maybe used for doubles? */
+/* NOTE: Selects start.gg icons */
 /* .player.container > div:not(.score) > .text:not(.text_empty) {
   margin-left: 4px;
   margin-right: 4px;
 } */
 
 .omg .p1.player.container > div:not(.score) {
-  transform: skewX(-30deg) translateX(calc(-21.939px / 2)); /* 38tan(30deg) */
+  transform: skewX(-30deg);
 }
 
 .omg .p2.player.container > div:not(.score) {
-  transform: skewX(30deg) translateX(calc(+21.939px / 2));
+  transform: skewX(30deg);
 }
 
 .p1.container {
@@ -111,7 +112,6 @@ body {
   left: 380px;
   flex-direction: row;
 }
-
 .omg .p1.container {
   left: 457px;
 }
@@ -121,7 +121,6 @@ body {
   right: 380px;
   flex-direction: row-reverse;
 }
-
 .omg .p2.container {
   transform: skew(-30deg);
   right: 457px;
@@ -140,10 +139,11 @@ body {
   max-width: 100%;
   font-size: 30px;
 }
-
 .omg .name,
 .omg .name_twitter {  /* not .twitter? */
   font-size: 24px;
+  /* font-variant: small-caps; */
+  letter-spacing: 0;
 }
 
 .chips {
@@ -156,7 +156,6 @@ body {
   align-content: center;
   overflow: hidden;
 }
-
 .omg.pplus .chips {
   top: 113px;
 }
@@ -169,7 +168,6 @@ body {
 .p1.chips {
   left: 380px;
 }
-
 .omg.pplus .p1.chips {
   left: 320px;
 }
@@ -179,7 +177,6 @@ body {
   left: 1040px;
   justify-content: left;
 }
-
 .omg.pplus .p2.chips {
   left: unset;
   right: 320px;
@@ -199,7 +196,6 @@ body {
   padding-left: 8px;
   padding-right: 8px;
 }
-
 .omg .chip .text:not(.text_empty) {
   margin-left: 2px;
   margin-right: 2px;
@@ -227,20 +223,18 @@ body {
   flex-direction: row-reverse;
   padding-right: 0 !important;
 }
-
 .omg .p2 .flagstate .text,
 .omg .p2 .flagcountry .text {
   flex-direction: row;
   padding-left: 0 !important;
 }
 
-.omg .p1 .score > .text {
+/* .omg .p1 .score > .text {
   transform: skewX(-30deg);
 }
-
 .omg .p2 .score > .text {
   transform: skewX(30deg);
-}
+} */
 
 .name_twitter {
   max-width: 100%;
@@ -300,7 +294,6 @@ body {
   border-radius: var(--border-radius);
   z-index: 9;
 }
-
 .omg .logo {
   /* width: 80px;
   height: 80px; */
@@ -345,13 +338,6 @@ body {
   padding: 8px 16px;
 }
 
-.omg .container.top,
-.ssbu .container.top {
-  bottom: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
 .tournament_name {
   font-size: 22px;
   width: 100%;
@@ -370,7 +356,6 @@ body {
   font-size: 20px;
   padding: 4px 16px;
 }
-
 .omg .info.container.bottom {
   position: relative;
   top: 137px;
@@ -417,27 +402,25 @@ body {
   padding: 4px 16px;
 } */
 
-.phase {
-  font-size: 18px;
-  letter-spacing: 3px;
-  width: 100%;
-}
-
-.omg .phase {
-  font-size: 12px;
-  letter-spacing: 0px;
-  color: rgb(128,128,128);
-}
-
 .match {
   font-size: 24px;
   letter-spacing: 2px;
   width: 100%;
 }
-
 .omg .match {
   font-size: 20px;
   letter-spacing: 0px;
+}
+
+.phase {
+  font-size: 18px;
+  letter-spacing: 3px;
+  width: 100%;
+}
+.omg .phase {
+  font-size: 12px;
+  letter-spacing: 0px;
+  color: rgb(128,128,128);
 }
 
 /* TODO: .icon */
@@ -464,23 +447,20 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-color: #3f3f46;
-  border-radius: var(--border-radius);
+  /* border-radius: var(--border-radius); */
+  border-radius: calc(var(--border-radius) * 2 / 3);
+}
+.omg .icon div:not(.text) {
+  width: 30px;
+  height: 30px;
+  /* background-size: cover; */
+  border-radius: calc(var(--border-radius) * 1 / 2);
 }
 
 .tsh_character {
   background-color: #3f3f46;
   border-radius: var(--border-radius);
   overflow: hidden;
-}
-
-.icon div:not(.text) {
-  border-radius: calc(var(--border-radius) * 2 / 3);
-}
-
-.fgc.thin .icon div:not(.text) {
-  height: 38px;
-  width: 38px;
-  background-size: cover;
 }
 
 .flags_container {
@@ -496,7 +476,6 @@ body {
   width: 32px;
   height: 24px;
 }
-
 .omg .flag {
   width: 24px;
   height: 18px;
@@ -552,7 +531,6 @@ body {
   justify-content: center;
   margin: 0 6px;
 }
-
 .omg .losers {
-  background: rgb(128,128,128);
+  background: rgb(96,96,96);
 }
