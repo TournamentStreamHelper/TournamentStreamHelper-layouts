@@ -722,19 +722,40 @@ body {
 }
 
 .omg .info.container.bottom {
+  position: relative;
   top: 137px;
   bottom: unset;
-  width: 270px;
-  height: 48px;
   left: 50%;
   transform: translateX(-50%);
+  width: 270px;
+  height: 48px;
+  background: rgba(255,255,255,0.85);
+  z-index: -1;
   clip-path: polygon(
     0% 0%,
     100% 0%,
-    calc(100% - 35px) 100%,
-    35px 100%
+    calc(100% - 27.713px) 100%, /* 48tan(30deg) */
+    27.713px 100%
   );
+  overflow: visible;
   /* border: 2px solid white; */
+}
+
+.omg .info.container.bottom::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: rgba(0,0,0,0.85);
+  z-index: -1;
+  clip-path: polygon(
+    calc(2 * 0.577px) 0,  /* perpendicular = -(slope)^-1 = tan(30deg) */
+    calc(100% - 2 * 0.577px) 0,
+    calc(100% - 46 * 0.577px) 100%,
+    calc(46 * 0.577px) 100%
+  );
 }
 
 .info.container.right {
