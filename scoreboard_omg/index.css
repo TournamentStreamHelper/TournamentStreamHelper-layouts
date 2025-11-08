@@ -45,6 +45,7 @@ body {
 .anim_container_outer {
   position: absolute;
   overflow: hidden;
+  /* top: 0; */
   left: 50%;
   transform: translateX(-50%);
   width: 1920px;
@@ -73,7 +74,7 @@ body {
 
 .omg .container {
   border-radius: unset;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.8);
 }
 
 .player.container {
@@ -342,7 +343,7 @@ body {
 .omg .chip .text:not(.text_empty) {
   height: 18px;
   font-size: 12px;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.8);
 }
 
 .sf6 .chip .text:not(.text_empty) {
@@ -727,9 +728,9 @@ body {
   bottom: unset;
   left: 50%;
   transform: translateX(-50%);
-  width: 270px;
+  width: 260px;
   height: 48px;
-  background: rgba(255,255,255,0.85);
+  padding: 0;
   z-index: -1;
   clip-path: polygon(
     0% 0%,
@@ -738,24 +739,15 @@ body {
     27.713px 100%
   );
   overflow: visible;
-  /* border: 2px solid white; */
 }
 
-.omg .info.container.bottom::after {
-  content: "";
+.omg .transparent_border {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  background: rgba(0,0,0,0.85);
-  z-index: -1;
-  clip-path: polygon(
-    calc(2 * 0.577px) 0,  /* perpendicular = -(slope)^-1 = tan(30deg) */
-    calc(100% - 2 * 0.577px) 0,
-    calc(100% - 46 * 0.577px) 100%,
-    calc(46 * 0.577px) 100%
-  );
+}
+.omg .transparent_border > polygon {
+  fill: none;
+  stroke: rgba(255,255,255,0.8);
+  stroke-width: 4px;  /* centered on edge; halved after clip-path */
 }
 
 .info.container.right {
