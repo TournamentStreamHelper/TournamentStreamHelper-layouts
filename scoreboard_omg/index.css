@@ -13,6 +13,13 @@
   src: url("../include/Roboto-Regular.ttf") format("truetype");
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   font-family: var(--font);
   font-weight: bold;
@@ -81,7 +88,7 @@ body {
   display: flex;
   position: absolute;
   top: 4px;
-  right: calc(50% + 165px - 4px); /* (260px/2), (HACK: eyeballed skew shift) */
+  right: calc(50% + 175px - 4px); /* (260px/2), (HACK: eyeballed skew shift) */
   height: 41px;
   align-content: center;
   gap: 4px;
@@ -91,7 +98,7 @@ body {
 
 .p2.points {
   flex-direction: row-reverse;
-  left: calc(50% + 165px - 4px);
+  left: calc(50% + 175px - 4px);
   right: unset;
   justify-content: left;
   transform: skew(-20deg);
@@ -176,7 +183,7 @@ body {
   flex-direction: row;
 }
 .omg .p1.container {
-  left: 379px;
+  left: 369px;
 }
 
 .p2.container {
@@ -186,7 +193,7 @@ body {
 }
 .omg .p2.container {
   transform: skew(-20deg);
-  right: 379px;
+  right: 369px;
 }
 
 .name,
@@ -225,13 +232,14 @@ body {
   /* letter-spacing: 0; */
   gap: 12px;
   justify-content: center;
+  height:auto;
 }
 
 .p1.chips {
   left: 380px;
 }
 .omg.pplus .p1.chips {
-  flex-direction: row-reverse;
+  flex-direction: row;
   left: 8px;
 }
 
@@ -241,7 +249,7 @@ body {
   justify-content: left;
 }
 .omg.pplus .p2.chips {
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: center;
   left: unset;
   right: 8px;
@@ -268,24 +276,10 @@ body {
 }
 .omg .chip .text:not(.text_empty) {
   margin: 0;
-  height: 20px;
+  height: auto;
   font-size: 16px;
   padding: 2px 6px;
   background: rgba(0,0,0,0.8);
-}
-
-.omg .p2 .chip:first-child .text {
-  margin-left: 0;
-}
-.omg .p2 .chip:last-child .text {
-  margin-right: 0;
-}
-
-.omg .p1 .chip:first-child .text {
-  margin-right: 0;
-}
-.omg .p1 .chip:last-child .text {
-  margin-left: 0;
 }
 
 .flagcountry, .flagstate {
@@ -432,7 +426,7 @@ body {
   top: 4px;
   left: 50%;
   transform: translateX(-50%);
-  width: 330px;
+  width: 350px;
   height: 48px;
   padding: 0;
   clip-path: polygon(
@@ -441,7 +435,7 @@ body {
     calc(100% - 17.471px) 100%, /* 48tan(20deg) */
     17.471px 100%
   );
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 .omg .transparent_border {
