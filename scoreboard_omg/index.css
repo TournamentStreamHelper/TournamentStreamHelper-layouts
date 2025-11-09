@@ -29,16 +29,16 @@ body {
   /* background-size: cover; */
 
   background-image:
-    /* url("./p+_mockup.png"), */
-    url("./p+_test_c ss.png"),
+    url("./p+_background.png"),
+    /* url("./p+_test_css.png"), */
     /* url("./p+_test_sss.png"), */
     url("./p+_test_match.png"),
-    /* url("./p+_test_rss1.png"), */
-    /* url("./p+_test_rss2.png"), */
-    /* url("./p+_test_rss3.png"), */
-    /* url("./p+_test_rss4.png"), */
-    /* url("./p+_test_rss5.png"), */
-    url("./p+_background.png");
+    url("./p+_test_rss1.png"),
+    url("./p+_test_rss2.png"),
+    url("./p+_test_rss3.png"),
+    url("./p+_test_rss4.png"),
+    url("./p+_test_rss5.png"),
+    url("./p+_test_playercams.png");
   background-repeat: no-repeat;
 }
 
@@ -85,7 +85,7 @@ body {
   height: 41px;
   align-content: center;
   gap: 4px;
-  overflow: hidden;
+  /* overflow: hidden; */
   transform: skew(20deg);
 }
 
@@ -103,7 +103,7 @@ body {
   border: 2px solid rgba(255,255,255,0.8);
 }
 
-.points > div::after {
+.points > div.active::after {
   content: "";
   position: absolute;
   width: calc(15px - 4px);
@@ -118,13 +118,20 @@ body {
   );
 }
 
-.p2.points > div::after {
+.p2.points > div.active::after {
   clip-path: polygon(
     0 0,
     67% 0,
     30% 78%,
     0% 80%
   );
+}
+
+.point1 {
+  height: calc(100% - 6px);
+}
+.point3 {
+  height: calc(100% - 2px);
 }
 
 .player.container {
@@ -207,19 +214,17 @@ body {
   position: absolute;
   top: 112px;
   width: 500px;
-  height: 24px;
+  /* height: 24px; */
   justify-content: right;
   align-content: center;
   overflow: hidden;
 }
 .omg.pplus .chips {
-  top: 42px;
-  width: 354px;
-}
-
-.chip {
-  overflow: hidden;
-  border-radius: calc(var(--border-radius) / 2);
+  top: 1049px;
+  width: 260px;
+  /* letter-spacing: 0; */
+  gap: 12px;
+  justify-content: center;
 }
 
 .p1.chips {
@@ -227,9 +232,7 @@ body {
 }
 .omg.pplus .p1.chips {
   flex-direction: row-reverse;
-  justify-content: left;
-  left: 385px;
-  right: unset;
+  left: 8px;
 }
 
 .p2.chips {
@@ -239,9 +242,14 @@ body {
 }
 .omg.pplus .p2.chips {
   flex-direction: row;
-  justify-content: right;
+  justify-content: center;
   left: unset;
-  right: 385px;
+  right: 8px;
+}
+
+.chip {
+  overflow: hidden;
+  /* border-radius: calc(var(--border-radius) / 2); */
 }
 
 .chip .text:not(.text_empty) {
@@ -259,13 +267,25 @@ body {
   padding-right: 8px;
 }
 .omg .chip .text:not(.text_empty) {
-  margin-left: 2px;
-  margin-right: 2px;
-  height: 18px;
-  font-size: 12px;
-  padding-left: 4px;
-  padding-right: 4px;
+  margin: 0;
+  height: 20px;
+  font-size: 16px;
+  padding: 2px 6px;
   background: rgba(0,0,0,0.8);
+}
+
+.omg .p2 .chip:first-child .text {
+  margin-left: 0;
+}
+.omg .p2 .chip:last-child .text {
+  margin-right: 0;
+}
+
+.omg .p1 .chip:first-child .text {
+  margin-right: 0;
+}
+.omg .p1 .chip:last-child .text {
+  margin-left: 0;
 }
 
 .flagcountry, .flagstate {
@@ -513,6 +533,10 @@ body {
   border-radius: var(--border-radius);
   overflow: hidden;
 }
+.omg .tsh_character {
+  background-color: unset;
+  border-radius: unset;
+}
 
 .flags_container {
   display: flex;
@@ -533,6 +557,9 @@ body {
   aspect-ratio: auto;
 }
 
+.img {
+  object-fit: contain;
+}
 .character_container {
   display: flex;
   overflow: hidden;
@@ -540,7 +567,11 @@ body {
   flex-shrink: 0;
   width: auto;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+}
+.omg .character_container {
+  height: auto;
+  gap: 0;
 }
 
 .character_container > div {
@@ -548,9 +579,9 @@ body {
   height: 48px;
   width: 48px;
 }
-
-.fgc.thin .character_container > div > div {
-  height: 100%;
+.omg .character_container > div {
+  height: 22px; /* 34px -4border -4padding -4accountForSVGinaccuracyZoomedOut */
+  width: 22px;
 }
 
 .character_container > div > div {
@@ -559,12 +590,34 @@ body {
   display: flex;
   align-items: center;
 }
+.omg .character_container > div > div {
+  height: 22px;
+}
 
 .sponsor {
   margin-right: 6px;
 }
 .omg .sponsor {
   color: rgb(128,128,128);
+}
+/* .omg .sponsor:empty {
+  margin: 0;
+} */
+
+.doubles_divider {
+  margin-left: 6px;
+  margin-right: 6px;
+  color: rgb(64,64,64);
+}
+
+.twitter .sponsor {
+  margin-right: 2px;
+  color: rgb(150,150,150);
+}
+.twitter .doubles_divider {
+  margin-left: 2px;
+  margin-right: 2px;
+  color: rgb(96,96,96);
 }
 
 .losers {
@@ -579,5 +632,8 @@ body {
   margin: 0 6px;
 }
 .omg .losers {
-  background: rgb(96,96,96);
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  background: rgb(64,64,64);
 }

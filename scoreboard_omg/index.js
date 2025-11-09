@@ -169,10 +169,11 @@ LoadEverything().then(() => {
           if (player) {
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
+              // <span class="sponsor">
+              //   ${player.team ? player.team : ""}
+              // </span>
               `
-                <span class="sponsor">
-                  ${player.team ? player.team : ""}
-                </span>
+                ${player.team ? `<span class="sponsor">${player.team}</span>` : ""}
                 ${await Transcript(player.name)}
                 ${team.losers ? "<span class='losers'>L</span>" : ""}
               `
@@ -278,17 +279,35 @@ LoadEverything().then(() => {
         let teamName = team.teamName;
 
         let names = [];
+        let namesSponsored = [];
+        console.log(Object.values(team.player));
         for (const [p, player] of Object.values(team.player).entries()) {
           if (player && player.name) {
             names.push(await Transcript(player.name));
+            namesSponsored.push(`
+              ${player.team ? `<span class="sponsor">${player.team}</span>` : ""}
+              ${await Transcript(player.name)}
+            `);
           }
         }
         let playerNames = names.join(" / ");
-
-        if (!team.teamName || team.teamName == "") {
-          teamName = playerNames;
+        let playerNamesRev = names.reverse().join(" / ");
+        let playerNamesSponsored = namesSponsored.join(`
+          <span class="doubles_divider">/</span>
+        `);
+        
+        if (
+          !team.teamName
+          || team.teamName == ""
+          || team.teamName == playerNames
+          || team.teamName == playerNamesRev
+        ) {
+          teamName = playerNamesSponsored;
         }
 
+        // NOTE:  divs set to "" sometimes store " " instead, avoiding :empty
+        //        selectors.  this was one of the few exceptions found; others
+        //        have been changed to .hide() as a result
         SetInnerHtml(
           $(`.p${t + 1}.container .name`),
           `
@@ -297,9 +316,8 @@ LoadEverything().then(() => {
           `
         );
 
-        SetInnerHtml($(`.p${t + 1} .flagcountry`), "");
-
-        SetInnerHtml($(`.p${t + 1} .flagstate`), "");
+        $(`.p${t + 1} .flagcountry`).hide();
+        $(`.p${t + 1} .flagstate`).hide();
 
         await CharacterDisplay(
           $(`.p${t + 1}.container .character_container`),
@@ -314,19 +332,32 @@ LoadEverything().then(() => {
           event
         );
 
-        SetInnerHtml($(`.p${t + 1}.container .sponsor_icon`), "");
+        $(`.p${t + 1}.container .sponsor_icon`).hide();
+        $(`.p${t + 1}.container .avatar`).hide();
+        $(`.p${t + 1}.container .online_avatar`).hide();
 
-        SetInnerHtml($(`.p${t + 1}.container .avatar`), "");
+        // NOTE: repurposed inexplicitly
+        playerNamesSponsored != teamName
+        ? SetInnerHtml(
+            $(`.p${t + 1} .twitter`),
+            playerNamesSponsored
+          )
+        : $(`.p${t + 1} .twitter`).hide()
 
-        SetInnerHtml($(`.p${t + 1}.container .online_avatar`), "");
+        // NOTE: previously excluded
+        $(`.p${t + 1} .pronoun`).hide();
 
-        SetInnerHtml($(`.p${t + 1} .twitter`), 
-          playerNames != team.teamName ? playerNames : ""
-        );
+        team.player[1].seed
+        ? SetInnerHtml(
+            $(`.p${t + 1} .seed`),
+            `Seed ${team.player[1].seed}`
+          )
+        : $(`.p${t + 1} .seed`).hide()
 
-        SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
+        // SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
+        $(`.p${t + 1}.container .score`).hide();
 
-        SetInnerHtml($(`.p${t + 1}.container .sponsor-container`), "");
+        // SetInnerHtml($(`.p${t + 1}.container .sponsor_container`), "");
 
         if(team.color) {
           document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
@@ -334,7 +365,7 @@ LoadEverything().then(() => {
       }
     }
 
-    SetInnerHtml($(".tournament_name"), data.tournamentInfo.tournamentName);
+    // SetInnerHtml($(".tournament_name"), data.tournamentInfo.tournamentName);
 
     SetInnerHtml($(".match"), data.score[window.scoreboardNumber].match);
 
