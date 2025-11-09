@@ -30,13 +30,13 @@ body {
 
   background-image:
     /* url("./p+_mockup.png"), */
-    /* url("./p+_test_css.png"), */
+    url("./p+_test_c ss.png"),
     /* url("./p+_test_sss.png"), */
     url("./p+_test_match.png"),
     /* url("./p+_test_rss1.png"), */
     /* url("./p+_test_rss2.png"), */
     /* url("./p+_test_rss3.png"), */
-    url("./p+_test_rss4.png"),
+    /* url("./p+_test_rss4.png"), */
     /* url("./p+_test_rss5.png"), */
     url("./p+_background.png");
   background-repeat: no-repeat;
@@ -77,6 +77,56 @@ body {
   background: rgba(0,0,0,0.8);
 }
 
+.points {
+  display: flex;
+  position: absolute;
+  top: 4px;
+  right: calc(50% + 165px - 4px); /* (260px/2), (HACK: eyeballed skew shift) */
+  height: 41px;
+  align-content: center;
+  gap: 4px;
+  overflow: hidden;
+  transform: skew(20deg);
+}
+
+.p2.points {
+  flex-direction: row-reverse;
+  left: calc(50% + 165px - 4px);
+  right: unset;
+  justify-content: left;
+  transform: skew(-20deg);
+}
+
+.points > div {
+  width: 15px;
+  background: rgba(0,0,0,0.8);
+  border: 2px solid rgba(255,255,255,0.8);
+}
+
+.points > div::after {
+  content: "";
+  position: absolute;
+  width: calc(15px - 4px);
+  height: calc(100% - 4px);
+  transform: translate(+2px, +2px);
+  background: rgb(0,204,62);
+  clip-path: polygon(
+    33% 0,
+    100% 0,
+    100% 80%,
+    70% 78%
+  );
+}
+
+.p2.points > div::after {
+  clip-path: polygon(
+    0 0,
+    67% 0,
+    30% 78%,
+    0% 80%
+  );
+}
+
 .player.container {
   width: 500px;
   height: 64px;
@@ -84,11 +134,11 @@ body {
   padding: 0px 6px;
 }
 .omg .player.container {
-  top: 71px;
+  top: 4px;
   width: 350px;
-  height: 38px;
-  transform: skewX(30deg);
-  padding: 0 calc(9.815px - 2.25px);  /* (34tan(30deg) / 2) */   /* HACK: eyeballed the ~2px distance from border-radius rounded edge */
+  height: 34px;
+  transform: skewX(20deg);
+  padding: 0 calc(5.460px - 0.460px);  /* (30tan(20deg) / 2) */   /* HACK: eyeballed the ~2px distance from border-radius rounded edge */
   border: 2px solid rgba(255,255,255,0.8);
 }
 
@@ -99,12 +149,18 @@ body {
   margin-right: 4px;
 } */
 
+/* .omg .player.container .text:not(.text_empty) { */
+.omg .player.container > div:not(.score) {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
 .omg .p1.player.container > div:not(.score) {
-  transform: skewX(-30deg);
+  transform: skewX(-20deg);
 }
 
 .omg .p2.player.container > div:not(.score) {
-  transform: skewX(30deg);
+  transform: skewX(20deg);
 }
 
 .p1.container {
@@ -113,7 +169,7 @@ body {
   flex-direction: row;
 }
 .omg .p1.container {
-  left: 457px;
+  left: 379px;
 }
 
 .p2.container {
@@ -122,8 +178,8 @@ body {
   flex-direction: row-reverse;
 }
 .omg .p2.container {
-  transform: skew(-30deg);
-  right: 457px;
+  transform: skew(-20deg);
+  right: 379px;
 }
 
 .name,
@@ -141,7 +197,7 @@ body {
 }
 .omg .name,
 .omg .name_twitter {  /* not .twitter? */
-  font-size: 24px;
+  font-size: 20px;
   /* font-variant: small-caps; */
   letter-spacing: 0;
 }
@@ -157,7 +213,8 @@ body {
   overflow: hidden;
 }
 .omg.pplus .chips {
-  top: 113px;
+  top: 42px;
+  width: 354px;
 }
 
 .chip {
@@ -169,7 +226,10 @@ body {
   left: 380px;
 }
 .omg.pplus .p1.chips {
-  left: 320px;
+  flex-direction: row-reverse;
+  justify-content: left;
+  left: 385px;
+  right: unset;
 }
 
 .p2.chips {
@@ -178,8 +238,10 @@ body {
   justify-content: left;
 }
 .omg.pplus .p2.chips {
+  flex-direction: row;
+  justify-content: right;
   left: unset;
-  right: 320px;
+  right: 385px;
 }
 
 .chip .text:not(.text_empty) {
@@ -207,33 +269,26 @@ body {
 }
 
 .flagcountry, .flagstate {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 
 .flagstate .text,
 .flagcountry .text {
-  display: flex;
-  gap: 4px;
+  /* display: flex;
+  gap: 4px; */
   overflow: hidden;
 }
 
-.omg .p1 .flagstate .text,
+/* .omg .p1 .flagstate .text,
 .omg .p1 .flagcountry .text {
-  flex-direction: row-reverse;
-  padding-right: 0 !important;
-}
-.omg .p2 .flagstate .text,
-.omg .p2 .flagcountry .text {
   flex-direction: row;
   padding-left: 0 !important;
 }
-
-/* .omg .p1 .score > .text {
-  transform: skewX(-30deg);
-}
-.omg .p2 .score > .text {
-  transform: skewX(30deg);
+.omg .p2 .flagstate .text,
+.omg .p2 .flagcountry .text {
+  flex-direction: row-reverse;
+  padding-right: 0 !important;
 } */
 
 .name_twitter {
@@ -246,10 +301,6 @@ body {
   width: 40%;
   font-size: 18px;
   overflow: hidden;
-}
-
-.p2 .extra {
-  flex-direction: row-reverse;
 }
 
 .name_twitter .twitter {
@@ -358,17 +409,17 @@ body {
 }
 .omg .info.container.bottom {
   position: relative;
-  top: 137px;
+  top: 4px;
   left: 50%;
   transform: translateX(-50%);
-  width: 260px;
+  width: 330px;
   height: 48px;
   padding: 0;
   clip-path: polygon(
     0% 0%,
     100% 0%,
-    calc(100% - 27.713px) 100%, /* 48tan(30deg) */
-    27.713px 100%
+    calc(100% - 17.471px) 100%, /* 48tan(20deg) */
+    17.471px 100%
   );
   z-index: -1;
 }
@@ -410,6 +461,7 @@ body {
 .omg .match {
   font-size: 20px;
   letter-spacing: 0px;
+  line-height: initial;
 }
 
 .phase {
@@ -423,8 +475,7 @@ body {
   color: rgb(128,128,128);
 }
 
-/* TODO: .icon */
-.icon {
+/* .icon {
   display: flex;
   justify-content: center;
 }
@@ -436,26 +487,26 @@ body {
   background-size: contain;
 }
 
-.thin .icon {
-  border-radius: 8px;
-}
-
 .icon div:not(.text) {
   width: 48px;
   height: 48px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #3f3f46;
-  /* border-radius: var(--border-radius); */
+  background-color: rgb(64,64,64);
+  / border-radius: var(--border-radius); /
   border-radius: calc(var(--border-radius) * 2 / 3);
 }
 .omg .icon div:not(.text) {
-  width: 30px;
-  height: 30px;
-  /* background-size: cover; */
+  aspect-ratio: 1 / 1;
+  background-size: cover;
   border-radius: calc(var(--border-radius) * 1 / 2);
 }
+
+.omg .icon div:not(.text_empty) {
+  height: 26px;
+  aspect-ratio: 1 / 1;
+} */
 
 .tsh_character {
   background-color: #3f3f46;
@@ -477,8 +528,9 @@ body {
   height: 24px;
 }
 .omg .flag {
-  width: 24px;
-  height: 18px;
+  height: 22px;
+  border-radius: calc(var(--border-radius) * 1 / 4);
+  aspect-ratio: auto;
 }
 
 .character_container {
@@ -506,11 +558,6 @@ body {
   height: 48px;
   display: flex;
   align-items: center;
-}
-
-/* TODO: .score */
-.score {
-
 }
 
 .sponsor {

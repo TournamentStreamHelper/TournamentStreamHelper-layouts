@@ -2,6 +2,8 @@ LoadEverything().then(() => {
   
   gsap.config({ nullTargetWarn: false, trialWarn: false });
 
+  // 1. Set, Run animations
+
   let startingAnimation = gsap
     .timeline({ paused: true })
     .from(
@@ -151,6 +153,7 @@ LoadEverything().then(() => {
     startingAnimation.restart();
   };
 
+  // 2. Set data
   Update = async (event) => {
     let data = event.data;
     let oldData = event.oldData;
@@ -180,7 +183,7 @@ LoadEverything().then(() => {
               player.country.asset
                 ? `
                   <div class='flag' style='background-image: url(../../${player.country.asset.toLowerCase()})'></div>
-                  <div>${player.country.code}</div>
+                  <!-- <div>${player.country.code}</div> -->
                 `
                 : ""
             );
@@ -190,7 +193,7 @@ LoadEverything().then(() => {
               player.state.asset
                 ? `
                   <div class='flag' style='background-image: url(../../${player.state.asset})'></div>
-                  <div>${player.state.code}</div>
+                  <!-- <div>${player.state.code}</div> -->
                 `
                 : ""
             );
@@ -252,15 +255,15 @@ LoadEverything().then(() => {
               `<div class='sponsor-logo' style="background-image: url('../../${player.sponsor_logo}')"></div>`
             );
 
-            if ($(".sf6.online").length > 0) {
-              console.log(player.twitter);
-              console.log(player.pronoun);
-              if (!player.twitter && !player.pronoun) {
-                gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 0 });
-              } else {
-                gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 1 });
-              }
-            }
+            // if ($(".sf6.online").length > 0) {
+            //   console.log(player.twitter);
+            //   console.log(player.pronoun);
+            //   if (!player.twitter && !player.pronoun) {
+            //     gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 0 });
+            //   } else {
+            //     gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 1 });
+            //   }
+            // }
           }
         }
         if(team.color && !tsh_settings["forceDefaultScoreColors"]) {
