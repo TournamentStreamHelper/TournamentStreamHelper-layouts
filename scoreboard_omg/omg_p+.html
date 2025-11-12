@@ -6,102 +6,147 @@
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body class="omg pplus">
+
+
+    <main class="game_overlay _outer fade">
+      <div class="game_overlay _inner">
+        
+        <footer class="event_orgs">
+          <div class="logo fade_up"></div>
+        </footer>
+  
+        <header class="scoreboard">
+          
+          <div class="p1 player container fade_left">
+            <!-- <div class="icon avatar"></div> -->
+            <!-- <div class="icon online_avatar"></div> -->
+            <div class="flagcountry"></div>
+            <div class="flagstate"></div>
+            <!-- <div class="sponsor_icon"></div> -->
+            <div class="name"></div>
+            <div class="character_container"></div>
+            <!-- <div class="score"></div> -->
+          </div>
     
-    <div class="overlay_game" style="position:absolute; justify-self:center; padding:4px; width:calc(71.25% - 4px); height:1080px;">
-      <div class="event_orgs" style="position:absolute; justify-self:center; bottom:5%; width:120px; height:120px; background:rgba(255,255,0,0.5);">
-        <!-- TODO: UWB Logo -->
-        UWB Logo
-      </div>
+          <div class="p1 score points">
+            <div class="dev3" style="position:absolute; height:100%; width:100%"></div>
+            <div class="p1 point bo3 fade_down_left_stagger"></div> <!-- TODO: .active-ate corresponding points upon point gains -->
+            <div class="p1 point bo3 fade_down_left_stagger"></div>
+            <div class="p1 point bo5 fade_down_left_stagger"></div> <!-- TODO: Hide based on Best-of information -->
+            <!--
+              <div class="p1 point crew fade_down_left_stagger"></div>
+              <div class="p1 point crew fade_down_left_stagger"></div>
+              <div class="p1 point crew fade_down_left_stagger"></div>
+              <div class="p1 point crew fade_down_left_stagger"></div>
+              <div class="p1 point crew fade_down_left_stagger"></div>
+              <div class="p1 point crew fade_down_left_stagger"></div>
+              <div class="p1 point crew fade_down_left_stagger"></div>
+            -->
+          </div>
+    
+          <div class="current_set container fade_down">
+            <!-- clip-path masks -> corner shifts calculated manually -->
+            <svg class="trapezoid_border_nofill" width="350" height="48">
+              <polygon points="0,0 350,0 332.529,48 17.471,48"></polygon>
+            </svg>
+            <div class="match"></div>
+            <div class="phase"></div>
+          </div>
+    
+          <div class="p2 score points">
+            <div class="p2 point bo3 fade_down_right_stagger"></div>
+            <div class="p2 point bo3 fade_down_right_stagger"></div>
+            <div class="p2 point bo5 fade_down_right_stagger"></div>
+            <!--
+              <div class="p2 point crew fade_down_left_stagger"></div>
+              <div class="p2 point crew fade_down_left_stagger"></div>
+              <div class="p2 point crew fade_down_left_stagger"></div>
+              <div class="p2 point crew fade_down_left_stagger"></div>
+              <div class="p2 point crew fade_down_left_stagger"></div>
+              <div class="p2 point crew fade_down_left_stagger"></div>
+              <div class="p2 point crew fade_down_left_stagger"></div>
+            -->
+          </div>
+  
+          <div class="p2 player container fade_right">
+            <!-- <div class="icon avatar"></div> -->
+            <!-- <div class="icon online_avatar"></div> -->
+            <div class="flagcountry"></div>
+            <div class="flagstate"></div>
+            <!-- <div class="sponsor_icon"></div> -->
+            <div class="name"></div>
+            <div class="character_container"></div>
+            <!-- <div class="score"></div> -->
+          </div>
 
-      <div class="scoreboard" style="display:flex; position:absolute; justify-self:center; width:100%; height:50%; align-items:flex-start; justify-content:center; gap:4px;">
-        <div class="p1 player container fade_left" style="position:initial; inset:unset; top:0">
-          <!-- <div class="icon avatar"></div> -->
-          <!-- <div class="icon online_avatar"></div> -->
-          <div class="flagcountry"></div>
-          <div class="flagstate"></div>
-          <!-- <div class="sponsor_icon"></div> -->
-          <div class="name"></div>
-          <div class="character_container"></div>
-          <!-- <div class="score"></div> -->
+        </header>  <!-- .scoreboard -->
+
+      </div>  <!-- .game_overlay._inner -->
+    </main>  <!-- .game_overlay._outer -->
+
+
+    <aside class="panel _left _outer fade dev">
+      <div class="panel _left _inner">
+
+        <div class="logo_omg dev1" style="height:300px;">
+          OMG Logo
+        </div>
+        
+        <!-- TODO -->
+        <div class="carousel dev3" style="height:242px;">
+          Carousel
+        </div>
+        
+        <!-- TODO -->
+        <div class="p1 player_cam _outer">
+          <div class="p1 player_cam _inner">
+            <div class="dev2">P1 Cam</div>
+          </div> 
+        </div>
+        
+        <div class="p1 chips dev1">
+          <div class="pronoun chip fade_down_left_stagger"></div>
+          <div class="twitter chip fade_down_left_stagger"></div>
+          <div class="seed chip fade_down_left_stagger"></div>
         </div>
   
-        <div class="p1 score points" style="position:initial; inset:unset; top:0; transform:translateX(40px) skew(20px);">
-          <div class="p1 point bo3 fade_down_left_stagger"></div> <!-- TODO: .active-ate corresponding points upon point gains -->
-          <div class="p1 point bo3 fade_down_left_stagger"></div>
-          <div class="p1 point bo5 fade_down_left_stagger"></div> <!-- TODO: Hide based on Best-of information -->
-          <!--
-            <div class="p1 point crew fade_down_left_stagger"></div>
-            <div class="p1 point crew fade_down_left_stagger"></div>
-            <div class="p1 point crew fade_down_left_stagger"></div>
-            <div class="p1 point crew fade_down_left_stagger"></div>
-            <div class="p1 point crew fade_down_left_stagger"></div>
-            <div class="p1 point crew fade_down_left_stagger"></div>
-            <div class="p1 point crew fade_down_left_stagger"></div>
-          -->
-        </div>
-  
-        <div class="info bottom container fade_down" style="position:initial; justify-content:center; margin:0px -8px; inset:unset; top:0; transform:unset;">
-          <!-- clip-path masks -> corner shifts calculated manually -->
-          <svg class="transparent_border" width="350" height="48">
-            <polygon points="0,0 350,0 332.529,48 17.471,48"></polygon>
-          </svg>
-          <div class="match"></div>
-          <div class="phase"></div>
-        </div>
-  
-        <div class="p2 score points" style="position:initial; inset:unset; top:0; transform:translateX(40px) skew(20px);">
-          <div class="p2 point bo3 fade_down_left_stagger"></div>
-          <div class="p2 point bo3 fade_down_left_stagger"></div>
-          <div class="p2 point bo5 fade_down_left_stagger"></div>
-          <!--
-            <div class="p2 point crew fade_down_left_stagger"></div>
-            <div class="p2 point crew fade_down_left_stagger"></div>
-            <div class="p2 point crew fade_down_left_stagger"></div>
-            <div class="p2 point crew fade_down_left_stagger"></div>
-            <div class="p2 point crew fade_down_left_stagger"></div>
-            <div class="p2 point crew fade_down_left_stagger"></div>
-            <div class="p2 point crew fade_down_left_stagger"></div>
-          -->
-        </div>
-
-        <div class="p2 player container fade_right" style="position:initial; inset:unset; top:0;">
-          <!-- <div class="icon avatar"></div> -->
-          <!-- <div class="icon online_avatar"></div> -->
-          <div class="flagcountry"></div>
-          <div class="flagstate"></div>
-          <!-- <div class="sponsor_icon"></div> -->
-          <div class="name"></div>
-          <div class="character_container"></div>
-          <!-- <div class="score"></div> -->
-        </div>
       </div>
-    </div>
+    </aside>
 
-    <div class="panel_left" style="position:absolute; justify-self:left; top:0; left:0; width:14.375%; height:100%; padding:8px;">
-      <div style="width:100%; height:300px; margin:12px 0; background:rgba(0,0,255,0.5)">OMG Logo</div>
-      <!-- TODO: Cycling Info -->
-      <div style="width:100%; height:241px; background:rgba(255,255,0,0.5);">Cycling Info</div>
-      <div style="width:calc(100% - 16px); height:calc(455px); position:absolute; bottom:38px; background:rgba(192,192,192,0.5)">P1 Cam</div>
-      <div class="p1 chips" style="position:absolute; bottom:0;">
-        <div class="pronoun chip fade_down_left_stagger"></div>
-        <div class="twitter chip fade_down_left_stagger"></div>
-        <div class="seed chip fade_down_left_stagger"></div>
-      </div>
-    </div>
 
-    <div class="panel_right" style="position:absolute; justify-self:right; top:0; right:0; width:14.375%; height:100%; padding:8px;">
-      <div style="width:100%; height:60px; margin-top:13px; background:rgba(0,255,255,0.5)">PM Logo + version</div>
-      <!-- TODO: Commentators -->
-      <div style="width:100%; height:120px; margin:12px 0px; background:rgba(0,255,0,0.5);">Commentators</div>
-      <!-- TODO: Stream Chat -->
-      <div style="width:100%; height:285px; margin-top:28px; background:rgba(255,0,255,0.25);">Stream Chat</div>
-      <div style="width:calc(100% - 16px); height:calc(455px); position:absolute; bottom:38px; background:rgba(192,192,192,0.5)">P2 Cam</div>
-      <div class="p2 chips" style="position:absolute; bottom: 0;">
-        <div class="pronoun chip fade_down_right_stagger"></div>
-        <div class="twitter chip fade_down_right_stagger"></div>
-        <div class="seed chip fade_down_right_stagger"></div>
+    <aside class="panel _right _outer fade dev">
+      <div class="panel _right _inner">
+    
+        <div class="logo_game dev0" style="height:61px;">
+          PM Logo + version
+        </div>
+        
+        <div class="commentary dev3">
+          <div class="icon_mic dev1">Mic</div>
+          <div class="commentators">
+            <div class="commentator1 dev1">Commentator1</div>
+            <div class="commentator2 dev1">Commentator2</div>
+          </div>
+        </div>
+        
+        <div class="stream_chat dev2">
+          Stream Chat
+        </div>
+        
+        <div class="p2 player_cam _outer">
+          <div class="p2 player_cam _inner">
+            <div class="dev2">P2 Cam</div>
+          </div> 
+        </div>
+        
+        <div class="p2 chips dev1">
+          <div class="pronoun chip fade_down_right_stagger"></div>
+          <div class="twitter chip fade_down_right_stagger"></div>
+          <div class="seed chip fade_down_right_stagger"></div>
+        </div>
+    
       </div>
-    </div>
+    </aside>
 
     <script src="index.js"></script>
   </body>

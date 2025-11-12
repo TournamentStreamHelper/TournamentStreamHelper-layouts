@@ -1,3 +1,7 @@
+// https://www.start.gg/tournament/testing-for-one-more-game/event/hdr
+// https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles
+// https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles-2
+
 LoadEverything().then(() => {
   
   gsap.config({ nullTargetWarn: false, trialWarn: false });
@@ -9,7 +13,8 @@ LoadEverything().then(() => {
     .from(
       [".fade"],
       {
-        duration: 0.2,
+        // duration: 0.2,
+        duration: 1.2,
         autoAlpha: 0,
         ease: "power2.out",
       },
@@ -111,7 +116,8 @@ LoadEverything().then(() => {
     .from(
       [".fade_down"],
       {
-        duration: 0.2,
+        // duration: 0.2,
+        // duration: 0.4,
         y: "-20px",
         ease: "power2.out",
         autoAlpha: 0,
@@ -121,8 +127,10 @@ LoadEverything().then(() => {
     .from(
       [".fade_right"],
       {
-        duration: 0.2,
-        x: "-20px",
+        // duration: 0.2,
+        // x: "-20px",
+        duration: 0.6,
+        x: "-60px",
         ease: "power2.out",
         autoAlpha: 0,
       },
@@ -131,8 +139,10 @@ LoadEverything().then(() => {
     .from(
       [".fade_left"],
       {
-        duration: 0.2,
-        x: "+20px",
+        // duration: 0.2,
+        // x: "+20px",
+        duration: 0.6,
+        x: "+60px",
         ease: "power2.out",
         autoAlpha: 0,
       },
@@ -141,7 +151,8 @@ LoadEverything().then(() => {
     .from(
       [".fade_up"],
       {
-        duration: 0.2,
+        // duration: 0.2,
+        duration: 0.8,
         y: "+20px",
         ease: "power2.out",
         autoAlpha: 0,
