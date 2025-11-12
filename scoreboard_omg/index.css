@@ -234,13 +234,13 @@ body.omg.pplus {
   display: flex;
   position: static;
   height: 41px;
-  /* flex-direction: row; */
+  flex-direction: row-reverse;
   align-content: center;
   gap: 4px;
   transform: skew(20deg);
 }
 .p2.points {
-  flex-direction: row-reverse;
+  flex-direction: row;
   transform: skew(-20deg);
 }
 
@@ -249,26 +249,54 @@ body.omg.pplus {
   background: rgba(0,0,0,0.8);
   border: 2px solid rgba(255,255,255,0.8);
 }
-.points > div.active::after {
+.points > div::after {
   content: "";
+  display: block;
+  position: static;
   width: calc(15px - 4px);
   height: calc(100% - 4px);
-  transform: translate(+2px, +2px);
-  background: rgb(0,204,62);
+  transform: translate(-1px, -40%) scaleY(0.2);
+  background-color: white;
   clip-path: polygon(
     33% 0,
     100% 0,
     100% 80%,
     70% 78%
-  );
+    );
+  opacity: 0;
+  transition: transform 0.2s ease, background-color 0.4s ease, opacity 0.2s ease;
 }
-.p2.points > div.active::after {
+.p2.points > div::after {
+  transform: translate(+2px, -40%) scaleY(0.2);
   clip-path: polygon(
     0 0,
     67% 0,
     30% 78%,
     0% 80%
   );
+}
+.points > div.active::after {
+  transform: translate(-1px, +2px) scaleY(1);
+  background-color: rgb(0,204,62);
+  opacity: 1;
+}
+.p2.points > div.active::after {
+  transform: translate(+2px, +2px) scaleY(1);
+}
+@keyframes incrementFlash {
+  0% {
+    background: white;
+    box-shadow: 0 0 4px white;
+    opacity: 1;
+  }
+  100% {
+    background: rgb(0,204,62);
+    box-shadow: none;
+    opacity: 1;
+  }
+}
+@keyframes decrementFade {
+
 }
 
 .player.container {

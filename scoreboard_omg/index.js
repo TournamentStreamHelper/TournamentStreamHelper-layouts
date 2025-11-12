@@ -2,6 +2,10 @@
 // https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles
 // https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles-2
 
+function updatePointsGraphic() {
+  console.log();
+}
+
 LoadEverything().then(() => {
   
   gsap.config({ nullTargetWarn: false, trialWarn: false });
@@ -171,6 +175,10 @@ LoadEverything().then(() => {
 
     let isTeams = Object.keys(data.score[window.scoreboardNumber].team["1"].player).length > 1;
 
+    const points = [];
+    points.push(document.querySelector(".p1.points"));
+    points.push(document.querySelector(".p2.points"));
+    
     if (!isTeams) {
       for (const [t, team] of [
         data.score[window.scoreboardNumber].team["1"],
@@ -259,10 +267,23 @@ LoadEverything().then(() => {
               $(`.p${t + 1} .seed`),
               player.seed ? `Seed ${player.seed}` : ""
             );
+            
+            // console.log("team.score: " + team.score?.["1"]?.first_to);
+            // for (let i = 0; i < 10; i++) {
+            //   i < team.score[0].first_to
+            //   ? points[t].children[i].style.display = "block"
+            //   : points[t].children[i].style.display = "none";
+            // }
 
-            SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
-
+            for (let i = 0; i < team.score[0].first_to; i++) {
+              i < team.score
+              ? points[t].children[i].classList.add("active")
+              : points[t].children[i].classList.remove("active");
+            }
+            // SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
+            
             SetInnerHtml(
+
               $(`.p${t + 1}.container .sponsor-container`),
               `<div class='sponsor-logo' style="background-image: url('../../${player.sponsor_logo}')"></div>`
             );
