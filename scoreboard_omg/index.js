@@ -268,19 +268,22 @@ LoadEverything().then(() => {
               player.seed ? `Seed ${player.seed}` : ""
             );
             
-            // console.log("team.score: " + team.score?.["1"]?.first_to);
-            // for (let i = 0; i < 10; i++) {
-            //   i < team.score[0].first_to
-            //   ? points[t].children[i].style.display = "block"
-            //   : points[t].children[i].style.display = "none";
-            // }
+            // data.score[window.scoreboardNumber].best_of_text
+            
+            // console.log(t + "-" + p + "-" + window.scoreboardNumber);
+            if (data.score[window.scoreboardNumber].first_to) {
+              for (let i = 0; i < points[t].children.length; i++) {
+                i < data.score[window.scoreboardNumber].first_to
+                ? points[t].children[i].style.display = "block"
+                : points[t].children[i].style.display = "none";
+              }
+            }
 
-            for (let i = 0; i < team.score[0].first_to; i++) {
+            for (let i = 0; i < data.score[window.scoreboardNumber].first_to; i++) {
               i < team.score
               ? points[t].children[i].classList.add("active")
               : points[t].children[i].classList.remove("active");
             }
-            // SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
             
             SetInnerHtml(
 
