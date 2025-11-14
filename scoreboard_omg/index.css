@@ -53,7 +53,7 @@ body {
     drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
     drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
     drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
-  letter-spacing: 1;
+  /* letter-spacing: 1; */
   /* background-size: cover; */
   background-repeat: no-repeat;
 }
@@ -71,6 +71,12 @@ body.omg.pplus {
     url("./p+_test_playercams.png");
 }
 
+.omg .text {
+  letter-spacing: 0;
+}
+.omg *.text_empty {
+  display: none;
+}
 
 /* High-level: Structural Containers */
 
@@ -82,9 +88,9 @@ body.omg.pplus {
   width: calc(1368px - 4px);  /* 2px borders */
 }
 .pplus .game_overlay._inner {
-  padding: 4px;
-  width: calc(100% - 8px);
-  height: calc(100% - 8px);
+  padding: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
 }
 
 .panel._outer {
@@ -129,7 +135,7 @@ body.omg.pplus {
 .omg .container {
   position: static;
   border-radius: unset;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.6);
   /* color: white; */
 }
 
@@ -221,12 +227,10 @@ body.omg.pplus {
 }
 .omg .match {
   font-size: 20px;
-  letter-spacing: 0px;
   line-height: initial;
 }
 .omg .phase {
   font-size: 12px;
-  letter-spacing: 0px;
   color: rgb(128,128,128);
 }
 
@@ -246,7 +250,7 @@ body.omg.pplus {
 
 .points > div {
   width: 15px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.6);
   border: 2px solid rgba(255,255,255,0.8);
 }
 .points > div::after {
@@ -283,36 +287,21 @@ body.omg.pplus {
 .p2.points > div.active::after {
   transform: translate(+2px, +2px) scaleY(1);
 }
-@keyframes incrementFlash {
-  0% {
-    background: white;
-    box-shadow: 0 0 4px white;
-    opacity: 1;
-  }
-  100% {
-    background: rgb(0,204,62);
-    box-shadow: none;
-    opacity: 1;
-  }
-}
-@keyframes decrementFade {
 
-}
-
-.player.container {
-  /* width: 500px; */
-  /* height: 64px; */
-  /* top: 42px; */
-  /* padding: 0px 6px; */
-}
+/* .player.container {
+  width: 500px;
+  height: 64px;
+  top: 42px;
+  padding: 0px 6px;
+} */
 .omg .player.container {
   border: 2px solid rgba(255,255,255,0.8);
-  width: 350px;
+  width: 300px;
   height: 34px;
   padding: 0 calc(5.460px - 0.460px);  /* (30tan(20deg) / 2) */   /* HACK: eyeballed the ~2px distance from border-radius rounded edge */
 }
 /* .omg .player.container > div:not(.score) { */
-.omg .player.container .text:not(.text_empty) {
+.omg .player.container .text {
   margin-left: 2px;
   margin-right: 2px;
 }
@@ -393,9 +382,6 @@ body.omg.pplus {
 .omg .sponsor {
   color: rgb(128,128,128);
 }
-/* .omg .sponsor:empty {
-  margin: 0;
-} */
 
 .name {
   display: flex;
@@ -410,20 +396,20 @@ body.omg.pplus {
   /* font-size: 30px; */
 }
 .omg .name {
+  overflow: ellipse;
   font-size: 20px;
-  letter-spacing: 0;
 }
 
 .flagcountry, .flagstate {
-  /* display: flex; */
+  display: flex;
   justify-content: center;
 }
-.flagstate .text,
+/* .flagstate .text,
 .flagcountry .text {
-  /* display: flex; */
-  /* gap: 4px; */
+  display: flex;
+  gap: 4px;
   overflow: hidden;
-}
+} */
 
 .flag {
   display: inline-block;
@@ -484,7 +470,7 @@ body.omg.pplus {
   margin-top: 12px;
 }
 
-.logo_omg {
+.logo_event {
   height: 300px;
 }
 
@@ -521,7 +507,7 @@ body.omg.pplus {
 
 .player_cam._outer {
   align-self: end;
-  margin-bottom: 7px;
+  margin-bottom: 6px;
   height: 456px;
 }
 .player_cam._inner {
@@ -536,70 +522,85 @@ body.omg.pplus {
 
 .chips {
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   /* top: 112px; */
-  width: 500px;
-  /* height: 24px; */
-  justify-content: right;
+  /* width: 500px; */
+  height: 24px;
+  /* justify-content: right; */
   align-content: center;
   overflow: hidden;
 }
-.omg .chips {
-  /* top: 1049px; */
-  position: static;
-  inset: auto;
-  bottom: 0 !important;
-  width: 260px;
-  /* letter-spacing: 0; */
-  gap: 12px;
-  justify-content: center;
-  height:auto;
-}
-
-.p1.chips {
+/* .p1.chips {
   left: 380px;
+} */
+/* .p2.chips {
+  flex-direction: row-reverse;
+  left: 1040px;
+  justify-content: left;
+} */
+
+.omg .chips {
+  position: static;
+  left: unset;
+  justify-self: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0 5px;
+  justify-content: center;
+  gap: 4px;
+}
+.p1.chips {
+  flex-direction: row-reverse;
 }
 .p2.chips {
-  flex-direction: row-reverse;
-  /* left: 1040px; */
-  justify-content: left;
-}
-.omg .p1.chips {
   flex-direction: row;
-  /* left: 8px; */
-}
-.omg .p2.chips {
-  flex-direction: row-reverse;
-  justify-content: center;
-  left: unset;
-  /* right: 8px; */
 }
 
 .chip {
   overflow: hidden;
   /* border-radius: calc(var(--border-radius) / 2); */
 }
+.omg .chip {
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: unset;
+  /* height: 24px; */
+  background: rgba(0,0,0,0.6);
+  flex: 0 0 auto;
+}
+.omg .chip.twitter {
+  flex-shrink: 1;
+}
+
+.omg .p1 .chip {
+  transform: skew(20deg);
+}
+.omg .p1 .chip .text {
+  transform: skew(-20deg) !important;
+}
+.omg .p2 .chip {
+  transform: skew(-20deg);
+}
+.omg .p2 .chip .text {
+  transform: skew(20deg) !important;
+}
 
 .chip .text:not(.text_empty) {
-  margin-left: 4px;
-  margin-right: 4px;
-  height: 24px;
-  font-size: 18px;
-  /* padding-left: 12px;
-  padding-right: 12px; */
-  background: var(--bg-color);
+  /* margin-left: 4px; */
+  /* margin-right: 4px; */
+  /* height: 24px; */
+  /* font-size: 18px; */
+  /* padding-left: 12px; */
+  /* padding-right: 12px; */
+  /* background: var(--bg-color); */
   color: var(--text-color);
   border-radius: calc(var(--border-radius) / 4);
   min-width: unset;
-  padding-left: 8px;
-  padding-right: 8px;
+  /* padding-left: 8px; */
+  /* padding-right: 8px; */
 }
-.omg .chip .text:not(.text_empty) {
-  margin: 0;
-  height: auto;
-  font-size: 16px;
-  padding: 2px 6px;
-  background: rgba(0,0,0,0.8);
+.omg .chip .text {
+  padding: 0 6px;
+  font-size: 12px;
 }
 
 .twitter_logo {
@@ -608,10 +609,19 @@ body.omg.pplus {
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   background: var(--text-color);
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
+  /* width: 18px; */
+  /* height: 18px; */
+  /* margin-right: 8px; */
 }
+.omg .twitter_logo {
+  margin-right: 4px;
+  width: 12px;
+  height: 12px;
+}
+
 .chips .twitter_logo {
-  margin-left: -4px;
+  /* margin-left: -4px; */
+}
+.omg .chips .twitter_logo {
+  margin-left: unset;
 }

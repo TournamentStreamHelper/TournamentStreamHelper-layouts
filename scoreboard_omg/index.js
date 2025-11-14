@@ -2,10 +2,6 @@
 // https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles
 // https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles-2
 
-function updatePointsGraphic() {
-  console.log();
-}
-
 LoadEverything().then(() => {
   
   gsap.config({ nullTargetWarn: false, trialWarn: false });
@@ -188,9 +184,6 @@ LoadEverything().then(() => {
           if (player) {
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
-              // <span class="sponsor">
-              //   ${player.team ? player.team : ""}
-              // </span>
               `
                 ${player.team ? `<span class="sponsor">${player.team}</span>` : ""}
                 ${await Transcript(player.name)}
@@ -231,13 +224,6 @@ LoadEverything().then(() => {
             );
 
             SetInnerHtml(
-              $(`.p${t + 1}.container .sponsor_icon`),
-              player.sponsor_logo
-                ? `<div style="background-image: url('../../${player.sponsor_logo}')"></div>`
-                : ""
-            );
-
-            SetInnerHtml(
               $(`.p${t + 1}.container .avatar`),
               player.avatar
                 ? `<div style="background-image: url('../../${player.avatar}')"></div>`
@@ -268,9 +254,6 @@ LoadEverything().then(() => {
               player.seed ? `Seed ${player.seed}` : ""
             );
             
-            // data.score[window.scoreboardNumber].best_of_text
-            
-            // console.log(t + "-" + p + "-" + window.scoreboardNumber);
             if (data.score[window.scoreboardNumber].first_to) {
               for (let i = 0; i < points[t].children.length; i++) {
                 i < data.score[window.scoreboardNumber].first_to
@@ -284,22 +267,6 @@ LoadEverything().then(() => {
               ? points[t].children[i].classList.add("active")
               : points[t].children[i].classList.remove("active");
             }
-            
-            SetInnerHtml(
-
-              $(`.p${t + 1}.container .sponsor-container`),
-              `<div class='sponsor-logo' style="background-image: url('../../${player.sponsor_logo}')"></div>`
-            );
-
-            // if ($(".sf6.online").length > 0) {
-            //   console.log(player.twitter);
-            //   console.log(player.pronoun);
-            //   if (!player.twitter && !player.pronoun) {
-            //     gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 0 });
-            //   } else {
-            //     gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 1 });
-            //   }
-            // }
           }
         }
         if(team.color && !tsh_settings["forceDefaultScoreColors"]) {
@@ -340,9 +307,6 @@ LoadEverything().then(() => {
           teamName = playerNamesSponsored;
         }
 
-        // NOTE:  divs set to "" sometimes store " " instead, avoiding :empty
-        //        selectors.  this was one of the few exceptions found; others
-        //        have been changed to .hide() as a result
         SetInnerHtml(
           $(`.p${t + 1}.container .name`),
           `
@@ -350,9 +314,6 @@ LoadEverything().then(() => {
             ${team.losers ? "<span class='losers'>L</span>" : ""}
           `
         );
-
-        $(`.p${t + 1} .flagcountry`).hide();
-        $(`.p${t + 1} .flagstate`).hide();
 
         await CharacterDisplay(
           $(`.p${t + 1}.container .character_container`),
@@ -367,32 +328,14 @@ LoadEverything().then(() => {
           event
         );
 
-        $(`.p${t + 1}.container .sponsor_icon`).hide();
-        $(`.p${t + 1}.container .avatar`).hide();
-        $(`.p${t + 1}.container .online_avatar`).hide();
-
         // NOTE: repurposed inexplicitly
-        playerNamesSponsored != teamName
-        ? SetInnerHtml(
-            $(`.p${t + 1} .twitter`),
-            playerNamesSponsored
-          )
-        : $(`.p${t + 1} .twitter`).hide()
+        SetInnerHtml($(`.p${t + 1} .twitter`), 
+          playerNames != teamName ? playerNamesSponsored : ""
+        );
 
-        // NOTE: previously excluded
-        $(`.p${t + 1} .pronoun`).hide();
-
-        team.player[1].seed
-        ? SetInnerHtml(
-            $(`.p${t + 1} .seed`),
-            `Seed ${team.player[1].seed}`
-          )
-        : $(`.p${t + 1} .seed`).hide()
-
-        // SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
-        $(`.p${t + 1}.container .score`).hide();
-
-        // SetInnerHtml($(`.p${t + 1}.container .sponsor_container`), "");
+        SetInnerHtml($(`.p${t + 1} .seed`), 
+          player.seed ? `Seed ${player[1].seed}` : ""
+        );
 
         if(team.color) {
           document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
@@ -400,13 +343,11 @@ LoadEverything().then(() => {
       }
     }
 
-    // SetInnerHtml($(".tournament_name"), data.tournamentInfo.tournamentName);
-
     SetInnerHtml($(".match"), data.score[window.scoreboardNumber].match);
 
     let phaseTexts = [];
     if (data.score[window.scoreboardNumber].phase) phaseTexts.push(data.score[window.scoreboardNumber].phase);
-    if (data.score[window.scoreboardNumber].best_of_text) phaseTexts.push(data.score[window.scoreboardNumber].best_of_text);
+    // if (data.score[window.scoreboardNumber].best_of_text) phaseTexts.push(data.score[window.scoreboardNumber].best_of_text);
 
     SetInnerHtml($(".phase"), phaseTexts.join(" - "));
   };
