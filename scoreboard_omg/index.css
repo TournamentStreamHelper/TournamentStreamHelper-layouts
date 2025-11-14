@@ -60,15 +60,15 @@ body {
 body.omg.pplus {
   background-image:
     url("./p+_background.png"),
-    /* url("./p+_test_css.png"), */
-    /* url("./p+_test_sss.png"), */
-    url("./p+_test_match.png"),
-    url("./p+_test_rss1.png"),
-    url("./p+_test_rss2.png"),
-    url("./p+_test_rss3.png"),
-    url("./p+_test_rss4.png"),
-    url("./p+_test_rss5.png"),
-    url("./p+_test_playercams.png");
+    /* url("./test_imgs/p+_css.png"), */
+    /* url("./test_imgs/p+_sss.png"), */
+    url("./test_imgs/p+_match.png"),
+    url("./test_imgs/p+_rss1.png"),
+    url("./test_imgs/p+_rss2.png"),
+    url("./test_imgs/p+_rss3.png"),
+    url("./test_imgs/p+_rss4.png"),
+    url("./test_imgs/p+_rss5.png"),
+    url("./test_imgs/p+_playercams.png");
 }
 
 .omg .text {
@@ -490,9 +490,6 @@ body.omg.pplus {
   margin-block-start: 0;
   margin-block-end: 0.33em;
   font-size: 28px;
-}
-.carousel text {
-  /* font-size: 16px !important; */
 }
 
 /* .carousel table {
