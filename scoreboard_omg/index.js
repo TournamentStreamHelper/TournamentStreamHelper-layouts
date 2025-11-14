@@ -2,24 +2,51 @@
 // https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles
 // https://www.start.gg/tournament/testing-for-one-more-game/event/pm-doubles-2
 
+
 LoadEverything().then(() => {
+  
+  // 1. globals
+
+  const dataEvents = [
+    { day:"sat", time:"11", name:"P+ Doubles:",     stream:"twitch" },
+    { day:"sat", time:"11", name:"HDR Doubles:",    stream:"twitch" },
+    { day:"sat", time:"13", name:"P+ Wave A:",      stream:"twitch" },
+    { day:"sat", time:"13", name:"HDR Wave A:",     stream:"twitch" },
+    { day:"sat", time:"15", name:"P+ Wave B:",      stream:"twitch" },
+    { day:"sat", time:"15", name:"HDR Wave B:",     stream:"twitch" },
+
+    { day:"sat", time:"17", name:"P+ Bronze:",      stream:"twitch" },
+    { day:"sat", time:"17", name:"HDR Bronze:",     stream:"twitch" },
+    { day:"sat", time:"17", name:"P+ Silver:",      stream:"twitch" },
+    { day:"sat", time:"17", name:"HDR Silver:",     stream:"twitch" },
+    { day:"sat", time:"17", name:"P+ Gold:",        stream:"twitch" },
+    { day:"sat", time:"17", name:"HDR Gold:",       stream:"twitch" },
+    
+    { day:"sat", time:"20", name:"Special Event:",  stream:"twitch" },
+    
+    { day:"sun", time:"11", name:"Melee:",          stream:"twitch" },
+    { day:"sun", time:"11", name:"Rivals 2:",       stream:"twitch" },
+    { day:"sun", time:"11", name:"Ultimate:",       stream:"twitch" },
+    { day:"sun", time:"14", name:"P+ Top 8:",       stream:"twitch" },
+    { day:"sun", time:"17", name:"HDR Top 8:",      stream:"twitch" },
+  ];
+
+
+  // 2. Set, Run animations
   
   gsap.config({ nullTargetWarn: false, trialWarn: false });
 
-  // 1. Set, Run animations
+  let carouselAnimation = gsap.timeline({ repeat: -1 });
+  let features = document.querySelectorAll(".carousel > div");
+  gsap.set(features, { autoAlpha: 0 });
+  for (let i = 0; i < features.length; i++) {
+    carouselAnimation
+      .to(features[i], { autoAlpha:1, duration:0.5          })
+      .to(features[i], { autoAlpha:0, duration:0.5, delay:7 });
+  }
 
   let startingAnimation = gsap
     .timeline({ paused: true })
-    .from(
-      [".fade"],
-      {
-        // duration: 0.2,
-        duration: 1.2,
-        autoAlpha: 0,
-        ease: "power2.out",
-      },
-      0
-    )
     .from(
       [".fade_down_left_stagger:not(.text_empty)"],
       {
@@ -43,71 +70,6 @@ LoadEverything().then(() => {
           from: 'end',
           opacity: 0,
           y: "-20px",
-        },
-        duration: 0.2,
-      },
-      0
-    )
-    .from(
-      [".p1 .fade_stagger:not(.text_empty)"],
-      {
-        autoAlpha: 0,
-        stagger: {
-          each: 0.05,
-          from: 'end',
-          opacity: 0,
-        },
-        duration: 0.2,
-      },
-      0
-    )
-    .from(
-      [".p2 .fade_stagger:not(.text_empty)"],
-      {
-        autoAlpha: 0,
-        stagger: {
-          each: 0.05,
-          from: 'end',
-          opacity: 0,
-        },
-        duration: 0.2,
-      },
-      0
-    )
-    .from(
-      [".p1 .fade_stagger_reverse:not(.text_empty)"],
-      {
-        autoAlpha: 0,
-        stagger: {
-          each: 0.05,
-          from: 'start',
-          opacity: 0,
-        },
-        duration: 0.2,
-      },
-      0
-    )
-    .from(
-      [".p2 .fade_stagger_reverse:not(.text_empty)"],
-      {
-        autoAlpha: 0,
-        stagger: {
-          each: 0.05,
-          from: 'start',
-          opacity: 0,
-        },
-        duration: 0.2,
-      },
-      0
-    )
-    .from(
-      [".fade_right_stagger:not(.text_empty)"],
-      {
-        autoAlpha: 0,
-        stagger: {
-          each: 0.05,
-          from: 'end',
-          opacity: 0,
         },
         duration: 0.2,
       },
@@ -162,9 +124,11 @@ LoadEverything().then(() => {
 
   Start = async () => {
     startingAnimation.restart();
+    carouselAnimation.restart();
   };
 
-  // 2. Set data
+
+  // 3. Set data
   Update = async (event) => {
     let data = event.data;
     let oldData = event.oldData;
