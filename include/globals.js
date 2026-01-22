@@ -229,6 +229,19 @@ async function InitAll() {
   
     document.addEventListener("tsh_update", UpdateWrapper);
     gsap.globalTimeline.timeScale(0);
+
+    // Set up listener to regrab data and rerun intro animations on OBS scene switch
+    initOnBrowserActive(
+      () => {
+        // hide function - nothing right now
+        console.log("Hidden");
+      },
+      () => {
+        UpdateData().then(() => {
+          Start();
+        });
+      }
+    );
   })
 }
 
@@ -885,4 +898,56 @@ function applyDeltas(data, deltas) {
   }
 
   return data;
+}
+
+// taken from https://github.com/Readek/RoA-Stream-Tool/blob/master/Stream%20Tool/Resources/Scripts/Utils/On%20Transition%20Event.mjs
+
+/**
+ * Starts an event listener fired every time browser becomes "active"
+ * @param {() => {void}} hide - hideElements() function
+ * @param {() => {void}} show - showElements() function
+ */
+function initOnBrowserActive(hide, show) {
+
+    // if browser is on OBS
+    if (window.obsstudio) {
+        
+        // every time the browser source becomes active
+        window.addEventListener('obsSourceActiveChanged', (event) => {
+
+            if (event.detail.active) { // when its show time
+                show();
+            } else { // when browser goes to the backstage
+                hide();
+            }
+        
+        })
+
+    } else {
+        
+        // this is here for regular browsers for better developer experiece
+        // this will trigger every time the browser goes out of view (or back to view)
+        document.addEventListener("visibilitychange", () => {
+
+            if (document.hidden) { // if lights go out
+                hide();
+            } else { // when the user comes back
+                show();
+            }
+
+        });
+
+    }
+
+}
+
+/** Determines if the browser view is currently active/visible */
+function isBrowserActive() {
+	
+	if (window.obsstudio) {
+		return true; // theres no way to get active state without the event listener :(
+	} else {
+		return document.visibilityState;
+	}
+
 }
