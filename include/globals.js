@@ -627,6 +627,22 @@ async function CenterImageDo(element) {
             }
 
             if (!customElement) customElement = element;
+            
+            customZoom = 1.25;
+            customCenter = [0.5, 0.5]
+
+            let containerWidth = 0;
+            let containerHeight = 0;
+
+            if (!customElement) {
+              // customElement = $(element).get(0);
+              let referenceElement = element.parent();
+              containerWidth = $(referenceElement).innerWidth();
+              containerHeight = $(referenceElement).innerHeight();
+            } else {
+              containerWidth = $(customElement).innerWidth();
+              containerHeight = $(customElement).innerHeight();
+            }
 
             let proportional_zoom = 1;
             if (assetData.average_size) {
@@ -699,7 +715,7 @@ async function CenterImageDo(element) {
 
             zoom = Math.max(minZoom, customZoom * minZoom);
 
-            // Cetering
+            // Centering
             let xx = 0;
             let yy = 0;
 
@@ -714,9 +730,13 @@ async function CenterImageDo(element) {
 
             if (!uncropped_edge || !uncropped_edge.includes("l")) {
               if (xx > 0) xx = 0;
+            } else {
+              if (xx > containerWidth * 0.1) xx = containerWidth * 0.1;
             }
             if (!uncropped_edge || !uncropped_edge.includes("r")) {
               if (xx < maxMoveX) xx = maxMoveX;
+            } else {
+              if (xx < maxMoveX - containerWidth * 0.1) xx = maxMoveX - containerWidth * 0.1;
             }
 
             if (!customCenter) {
@@ -730,9 +750,13 @@ async function CenterImageDo(element) {
 
             if (!uncropped_edge || !uncropped_edge.includes("u")) {
               if (yy > 0) yy = 0;
+            } else {
+              if (yy > containerHeight * 0.1) yy = containerHeight * 0.1;
             }
             if (!uncropped_edge || !uncropped_edge.includes("d")) {
               if (yy < maxMoveY) yy = maxMoveY;
+            } else {
+              if (yy < maxMoveY - containerHeight * 0.1) yy = maxMoveY - containerHeight * 0.1;
             }
 
             if (data.use_dividers === false) {
