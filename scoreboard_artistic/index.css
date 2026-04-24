@@ -407,7 +407,7 @@ body {
   top: 0px;
   height: 100%;
   width: 100%;
-  background: linear-gradient(-90deg, transparent 50%, var(--bg-color));
+  /* background: linear-gradient(-90deg, transparent 50%, var(--bg-color)); */
   pointer-events: none;
 }
 
