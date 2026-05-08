@@ -2,28 +2,77 @@
   "top_1": {
     "default": {
       "use_dividers": false,
-      "custom_center": [0.5, 0.4]
+      "custom_center": [
+        0.5,
+        0.4
+      ]
+    },
+    "riotpl": {
+      "use_dividers": true
+    },
+    "roa2": {
+      "use_dividers": true,
+      "custom_center": [
+        0.6,
+        0.4
+      ]
     }
   },
   "top_4": {
     "default": {
       "use_dividers": false,
-      "custom_center": [0.5, 0.4],
-      "custom_zoom": 1
+      "custom_center": [
+        0.5,
+        0.4
+      ]
+    },
+    "riotpl": {
+      "use_dividers": true
+    },
+    "roa2": {
+      "use_dividers": true,
+      "custom_center": [
+        0.6,
+        0.4
+      ]
     }
   },
   "top_8": {
     "default": {
       "use_dividers": false,
-      "custom_center": [0.5, 0.4],
-      "custom_zoom": 1
+      "custom_center": [
+        0.5,
+        0.4
+      ]
+    },
+    "riotpl": {
+      "use_dividers": true
+    },
+    "roa2": {
+      "use_dividers": true,
+      "custom_center": [
+        0.6,
+        0.4
+      ]
     }
   },
   "same_size": {
     "default": {
       "use_dividers": false,
-      "custom_center": [0.5, 0.4],
-      "custom_zoom": 1
+      "custom_center": [
+        0.5,
+        0.4
+      ]
+    },
+    "riotpl": {
+      "use_dividers": true
+    },
+    "roa2": {
+      "use_dividers": true,
+      "custom_center": [
+        0.6,
+        0.4
+      ]
     }
   }
 }
