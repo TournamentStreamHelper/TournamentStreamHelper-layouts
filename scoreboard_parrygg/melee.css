@@ -1,0 +1,324 @@
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+:root {
+  --parry-accent: #38ffb7;
+  --parry-accent-bg: #31494199;
+  --parry-text-sec: #89908c;
+  --parry-container-bg: #232323;
+  --parry-container-border: 1px solid #3d3d3d;
+  --parry-container-radius: 12px;
+}
+
+body {
+  background-size: cover;
+  color: var(--text-color);
+  filter: drop-shadow(0 2px 2px #0000001f) drop-shadow(0 3px 1px #00000024)
+    drop-shadow(0 1px 5px #0000001f) drop-shadow(0 -1px 2px #0000001a);
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  height: 1080px;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+  width: 1920px;
+}
+
+.bottom_right_square {
+  align-items: center;
+  background: #161616;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding-top: 5px;
+  position: absolute;
+  right: 0;
+  gap: 16px;
+  width: 640px;
+  z-index: -50;
+}
+
+.container {
+  align-items: center;
+  box-sizing: border-box;
+  color: var(--text-color);
+  display: flex;
+  overflow: hidden;
+}
+
+.player.container {
+  background: var(--parry-container-bg);
+  border: var(--parry-container-border);
+  border-radius: var(--parry-container-radius);
+  height: 120px;
+  width: 600px;
+}
+
+.score {
+  align-items: center;
+  background: var(--parry-accent-bg);
+  border-radius: 8px;
+  color: var(--parry-accent);
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 65px;
+  font-weight: 800;
+  height: 100px;
+  justify-content: center;
+  margin-left: 10px;
+  width: 100px;
+}
+
+.top-row {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  gap: 3px;
+  justify-content: center;
+  margin-right: 6px;
+  text-transform: uppercase;
+}
+
+.top-row > :not(.text_empty) {
+  align-items: center;
+  color: var(--parry-accent);
+  background: var(--parry-accent-bg);
+  border-radius: calc(var(--parry-container-radius) / 2);
+  display: flex;
+  height: fit-content;
+  line-height: 1;
+  margin-top: 4px;
+  padding: 4px 6px;
+}
+
+.name {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  font-weight: 700;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: auto;
+  max-width: 340px;
+  overflow: hidden;
+  padding: 0 8px;
+}
+
+.slash {
+  color: var(--parry-accent) !important;
+  margin: 0 5px;
+}
+
+.sponsor {
+  color: var(--parry-text-sec);
+  font-size: 18px;
+  font-weight: 800;
+  margin-right: 4px;
+  text-transform: uppercase;
+}
+
+.seed.text_empty,
+.twitter.text_empty,
+.pronoun.text_empty {
+  display: none;
+}
+
+.doubles .character_bg,
+.doubles .top-row {
+  display: none;
+}
+
+.doubles .bottom-row {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.character_bg {
+  filter: grayscale(1);
+  height: 100%;
+  opacity: 0.18;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  width: 55%;
+  z-index: 0;
+  mask-image: linear-gradient(to left, black 40%, transparent 100%);
+}
+
+.character_bg > div {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+.character_bg > div > div {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+.info_container {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  height: 105px;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+.info_container .info {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 2px;
+  margin: 0 8px;
+}
+
+.tournament_name {
+  color: var(--parry-text-sec);
+  font-size: 15px;
+}
+
+.divider {
+  align-self: center;
+  border-bottom: var(--parry-container-border);
+  margin: 3px 0;
+  width: 95%;
+}
+
+.match_container {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+}
+
+.match {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.best_of {
+  background: var(--parry-accent-bg);
+  border-radius: calc(var(--parry-container-radius) / 2);
+  color: var(--parry-accent);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 7px;
+  text-transform: uppercase;
+}
+
+.best_of:not(:has(:not(:empty))) {
+  display: none;
+}
+
+.parrygg_logo {
+  background-image: url(./parry_logo.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  flex-shrink: 0;
+  height: 44px;
+  margin-left: 8px;
+  width: 44px;
+}
+
+.twitter_logo {
+  -webkit-mask-image: url(../icons/twitter.svg);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  background: var(--parry-accent);
+  height: 13px;
+  margin-right: 3px;
+  width: 13px;
+}
+
+.seed_logo {
+  -webkit-mask-image: url(../icons/seed_leaf.svg);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  background: var(--parry-accent);
+  height: 13px;
+  margin-right: 3px;
+  width: 13px;
+}
+
+.pronoun_logo {
+  -webkit-mask-image: url(../icons/user.svg);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  background: var(--parry-accent);
+  height: 13px;
+  margin-right: 3px;
+  width: 13px;
+}
+
+.gameview {
+  border: 2px solid var(--parry-text-sec);
+  height: 1076px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 1279px;
+}
+
+.playercam {
+  border: 2px solid var(--parry-text-sec);
+  height: 357px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 635px;
+}
+
+.tsh_character {
+  overflow: hidden;
+}
+
+.losers {
+  align-items: center;
+  background: #fff;
+  border-radius: calc(var(--parry-container-radius) / 2);
+  color: #000;
+  display: inline-flex;
+  font-size: 18px;
+  font-weight: 800;
+  height: 20px;
+  justify-content: center;
+  margin: 0 5px;
+  text-align: center;
+  width: 20px;
+}
+
+.logo {
+  background-image: url("../logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 150px;
+  width: 150px;
+  margin-top: 80px;
+  border-radius: var(--parry-container-radius);
+}
