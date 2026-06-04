@@ -35,7 +35,7 @@ async function UpdateWrapper(event) {
     window.requestAnimationFrame(() => {
       $(document).waitForImages(() => {
         $("body").fadeTo(1, 1, () => {
-          console.log("Start()")
+          console.log("Start()");
           Start();
         });
       });
@@ -51,8 +51,8 @@ async function UpdateData() {
     oldData = data;
     data = await getData();
 
-    if(data.timestamp <= oldData.timestamp){
-      return
+    if (data.timestamp <= oldData.timestamp) {
+      return;
     }
 
     let event = new CustomEvent("tsh_update");
@@ -76,30 +76,33 @@ async function UpdateData_SocketIO() {
     // Connect to Socket.io. Valid: websocket, webtransport, polling
     // Python threading with Qt is weird so put in polling method if
     // really absolutely necessary.
-    const socket = io(window.location.protocol + '//' + window.location.host + '/', {
-      transports: ['websocket', 'webtransport'],
-      timeout: 500,
-      reconnectionDelay: 500,
-      reconnectionDelayMax: 1500
+    const socket = io(
+      window.location.protocol + "//" + window.location.host + "/",
+      {
+        transports: ["websocket", "webtransport"],
+        timeout: 500,
+        reconnectionDelay: 500,
+        reconnectionDelayMax: 1500,
+      },
+    );
+
+    socket.on("connect", () => {
+      console.log("socket.io connected");
     });
 
-    socket.on('connect', () => {
-      console.log('socket.io connected');
-    });
-
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
       // call program_state.json initially in case it's a
       // websocket issue and not with web server being gone
       // e.g. TSH being closed
-      console.log('socket.io disconnected');
+      console.log("socket.io disconnected");
       UpdateData();
     });
 
-    socket.io.on('reconnect', () => {
-      console.log('socket.io reconnected');
+    socket.io.on("reconnect", () => {
+      console.log("socket.io reconnected");
     });
 
-    socket.io.on('reconnect_attempt', (attempt_number) => {
+    socket.io.on("reconnect_attempt", (attempt_number) => {
       // every 1-2 seconds, it will attempt to reconnect to
       // the websocket. before that happens, call UpdateData
       // in case it's an issue with the websocket and not
@@ -107,7 +110,7 @@ async function UpdateData_SocketIO() {
       UpdateData();
     });
 
-    socket.io.on('reconnect_failed', () => {
+    socket.io.on("reconnect_failed", () => {
       // reconnect_failed, if max retries are reached,
       // will fall back to file loading program_state.json
       setInterval(async () => {
@@ -115,17 +118,17 @@ async function UpdateData_SocketIO() {
       }, 64);
     });
 
-    socket.on('error', (err) => {
+    socket.on("error", (err) => {
       console.log(err);
     });
 
-    socket.on('program_state', (message) => {
+    socket.on("program_state", (message) => {
       oldData = data;
-      data = message['state'];
+      data = message["state"];
 
       // Fine to reset the max applied index here, since we know that we've
       // received a complete valid state for a point in time.
-      maxAppliedDeltaIdx = message['delta_index'];
+      maxAppliedDeltaIdx = message["delta_index"];
 
       let event = new CustomEvent("tsh_update");
       event.data = data;
@@ -135,7 +138,7 @@ async function UpdateData_SocketIO() {
       document.dispatchEvent(event);
     });
 
-    socket.on('program_state_update', (message) => {
+    socket.on("program_state_update", (message) => {
       try {
         console.log("Handling state delta: ", message);
         HandleTSHStateUpdateMessage(message);
@@ -144,7 +147,7 @@ async function UpdateData_SocketIO() {
         socket.emit("program_state", {});
       }
     });
-  } catch(e) {
+  } catch (e) {
     console.log(e);
   }
 }
@@ -168,13 +171,13 @@ async function LoadEverything() {
 
   let urlParams = new URLSearchParams(window.location.search);
   window.scoreboardNumber = 1;
-  
+
   /*
     Read URL params (<url>?var=val&var2=val2...)
     Options:
       scoreboardNumber
   */
-  for(let [k, v] of urlParams.entries()){
+  for (let [k, v] of urlParams.entries()) {
     window[k] = v;
   }
 
@@ -211,7 +214,10 @@ async function InitAll() {
 
   await LoadKuroshiro();
 
-  if(window.location.protocol === 'file:' || window.location.host === 'absolute') {
+  if (
+    window.location.protocol === "file:" ||
+    window.location.host === "absolute"
+  ) {
     setInterval(async () => {
       await UpdateData();
     }, 64);
@@ -223,10 +229,10 @@ async function InitAll() {
 
   // await UpdateData();
 
-  $(document).ready(()=>{
+  $(document).ready(() => {
     console.log("== Init complete ==");
     document.dispatchEvent(new CustomEvent("tsh_init"));
-  
+
     document.addEventListener("tsh_update", UpdateWrapper);
     gsap.globalTimeline.timeScale(0);
 
@@ -240,9 +246,9 @@ async function InitAll() {
         UpdateData().then(() => {
           Start();
         });
-      }
+      },
     );
-  })
+  });
 }
 
 // Read program_state.json
@@ -281,7 +287,11 @@ async function LoadSettings() {
     console.log(e);
   }
 
-  tsh_settings = _.defaultsDeep(window.settings, file_settings, global_settings);
+  tsh_settings = _.defaultsDeep(
+    window.settings,
+    file_settings,
+    global_settings,
+  );
 }
 
 // Registers element for content fitting inside div if the div is resized
@@ -324,7 +334,7 @@ async function LoadKuroshiro() {
   await window.kuroshiro.init(
     new KuromojiAnalyzer({
       dictPath: "../include/kuromoji",
-    })
+    }),
   );
 }
 
@@ -370,8 +380,19 @@ async function SetInnerHtml(element, html, settings = {}) {
   if (force === false) return;
 
   // Fade out/in animations
-  let anim_in = { autoAlpha: 1, duration: fadeTime, stagger: 0.1, ...settings.anim_in };
-  let anim_out = { autoAlpha: 0, duration: fadeTime, stagger: 0.1, overwrite: true, ...settings.anim_out };
+  let anim_in = {
+    autoAlpha: 1,
+    duration: fadeTime,
+    stagger: 0.1,
+    ...settings.anim_in,
+  };
+  let anim_out = {
+    autoAlpha: 0,
+    duration: fadeTime,
+    stagger: 0.1,
+    overwrite: true,
+    ...settings.anim_out,
+  };
 
   if (html == null || html === undefined) html = "";
 
@@ -390,7 +411,9 @@ async function SetInnerHtml(element, html, settings = {}) {
   await document.fonts.ready;
 
   // Decode the HTML content to compare
-  const currentText = he.decode(String(element.find(".text").html()).replace(/'/g, '"'));
+  const currentText = he.decode(
+    String(element.find(".text").html()).replace(/'/g, '"'),
+  );
   const newText = he.decode(String(html).replace(/'/g, '"'));
 
   if (force === true || currentText !== newText) {
@@ -420,15 +443,14 @@ async function SetInnerHtml(element, html, settings = {}) {
     };
 
     if (!firstRun) {
-      anim_out.onComplete = ()=>updateElement(element, html, firstRun)
+      anim_out.onComplete = () => updateElement(element, html, firstRun);
       await gsap.to(element.find(".text"), anim_out);
     } else {
-      anim_out.onComplete = ()=>updateElement(element, html, firstRun)
+      anim_out.onComplete = () => updateElement(element, html, firstRun);
       await gsap.set(element.find(".text"), anim_out);
     }
   }
 }
-
 
 const degrees_to_radians = (deg) => (deg * Math.PI) / 180.0;
 
@@ -437,7 +459,7 @@ const degrees_to_radians = (deg) => (deg * Math.PI) / 180.0;
 function GenerateMulticharacterPositions(
   character_number,
   center = [0.5, 0.5],
-  radius = 0.3
+  radius = 0.3,
 ) {
   let positions = [];
 
@@ -627,9 +649,6 @@ async function CenterImageDo(element) {
             }
 
             if (!customElement) customElement = element;
-            
-            customZoom = 1.25;
-            customCenter = [0.5, 0.5]
 
             let containerWidth = 0;
             let containerHeight = 0;
@@ -649,12 +668,13 @@ async function CenterImageDo(element) {
               proportional_zoom = 0;
               proportional_zoom = Math.max(
                 proportional_zoom,
-                ($(customElement).innerWidth() / assetData.average_size.x) * 1.2
+                ($(customElement).innerWidth() / assetData.average_size.x) *
+                  1.2,
               );
               proportional_zoom = Math.max(
                 proportional_zoom,
                 ($(customElement).innerHeight() / assetData.average_size.y) *
-                  1.2
+                  1.2,
               );
             }
 
@@ -736,7 +756,8 @@ async function CenterImageDo(element) {
             if (!uncropped_edge || !uncropped_edge.includes("r")) {
               if (xx < maxMoveX) xx = maxMoveX;
             } else {
-              if (xx < maxMoveX - containerWidth * 0.1) xx = maxMoveX - containerWidth * 0.1;
+              if (xx < maxMoveX - containerWidth * 0.1)
+                xx = maxMoveX - containerWidth * 0.1;
             }
 
             if (!customCenter) {
@@ -756,7 +777,8 @@ async function CenterImageDo(element) {
             if (!uncropped_edge || !uncropped_edge.includes("d")) {
               if (yy < maxMoveY) yy = maxMoveY;
             } else {
-              if (yy < maxMoveY - containerHeight * 0.1) yy = maxMoveY - containerHeight * 0.1;
+              if (yy < maxMoveY - containerHeight * 0.1)
+                yy = maxMoveY - containerHeight * 0.1;
             }
 
             if (data.use_dividers === false) {
@@ -772,24 +794,22 @@ async function CenterImageDo(element) {
             $(element)
               .css({
                 "background-position": `
-              ${xx}px
-              ${yy}px
-            `,
+                  ${xx}px
+                  ${yy}px
+                `,
                 "background-size": `
-              ${img.naturalWidth * zoom}px
-              ${img.naturalHeight * zoom}px
-            `,
+                  ${img.naturalWidth * zoom}px
+                  ${img.naturalHeight * zoom}px
+                `,
                 "background-repeat": "no-repeat",
                 "background-image":
-                  "url(" +
-                  resizeInCanvas(
-                    img,
-                    img.naturalWidth * zoom,
-                    img.naturalHeight * zoom
-                  ) +
-                  ")",
-              })
-              .promise();
+                  `url(${
+                    resizeInCanvas(
+                      img,
+                      img.naturalWidth * zoom,
+                      img.naturalHeight * zoom,
+                  )})`
+              }).promise();
 
             //element.css("background-position", "initial");
             //element.css("position", "fixed");
@@ -842,31 +862,33 @@ function nextPow2(v) {
  * Stores content to be added to the DOM with SetInnerHtml later
  */
 class ContentResolver {
-  constructor () {
-      this.list = [];
+  constructor() {
+    this.list = [];
   }
 
-  add(selector, value){
-      this.list.push({s: selector, v: value});
-      return ""
+  add(selector, value) {
+    this.list.push({ s: selector, v: value });
+    return "";
   }
 
-  resolve(){
-      for (let element of this.list){
-          SetInnerHtml($(element.s), element.v);
-      }
+  resolve() {
+    for (let element of this.list) {
+      SetInnerHtml($(element.s), element.v);
+    }
   }
 }
 
 function HandleTSHStateUpdateMessage(message) {
-  const deltaIdx = message['delta_index'];
-  const deltas = message['delta'];
+  const deltaIdx = message["delta_index"];
+  const deltas = message["delta"];
 
   if (deltaIdx < maxAppliedDeltaIdx) {
-    throw Error(`Received out of order delta ${deltaIdx} (applied: ${maxAppliedDeltaIdx}`);
+    throw Error(
+      `Received out of order delta ${deltaIdx} (applied: ${maxAppliedDeltaIdx}`,
+    );
   }
 
-  let event = new CustomEvent("tsh_update")
+  let event = new CustomEvent("tsh_update");
   // Ancient jutsu to deep-clone an object. We will be modifying
   event.oldData = JSON.parse(JSON.stringify(data));
 
@@ -890,10 +912,10 @@ function applyDelta(data, delta) {
   const pathPieces = delta.path;
   /** @type {DeltaOpType} */ const deltaOp = delta.action;
   const newValue = delta.value;
-  const lastPiece = pathPieces[pathPieces.length-1];
+  const lastPiece = pathPieces[pathPieces.length - 1];
 
   let currentData = data;
-  for (let i = 0; i < pathPieces.length-1; i += 1) {
+  for (let i = 0; i < pathPieces.length - 1; i += 1) {
     if (!currentData.hasOwnProperty(pathPieces[i])) {
       currentData[pathPieces[i]] = {};
     }
@@ -901,7 +923,7 @@ function applyDelta(data, delta) {
     currentData = currentData[pathPieces[i]];
   }
 
-  if (deltaOp === 'dictionary_item_removed') {
+  if (deltaOp === "dictionary_item_removed") {
     if (currentData.hasOwnProperty(lastPiece)) {
       delete currentData[lastPiece];
     } else {
@@ -932,46 +954,38 @@ function applyDeltas(data, deltas) {
  * @param {() => {void}} show - showElements() function
  */
 function initOnBrowserActive(hide, show) {
-
-    // if browser is on OBS
-    if (window.obsstudio) {
-        
-        // every time the browser source becomes active
-        window.addEventListener('obsSourceActiveChanged', (event) => {
-
-            if (event.detail.active) { // when its show time
-                show();
-            } else { // when browser goes to the backstage
-                hide();
-            }
-        
-        })
-
-    } else {
-        
-        // this is here for regular browsers for better developer experiece
-        // this will trigger every time the browser goes out of view (or back to view)
-        document.addEventListener("visibilitychange", () => {
-
-            if (document.hidden) { // if lights go out
-                hide();
-            } else { // when the user comes back
-                show();
-            }
-
-        });
-
-    }
-
+  // if browser is on OBS
+  if (window.obsstudio) {
+    // every time the browser source becomes active
+    window.addEventListener("obsSourceActiveChanged", (event) => {
+      if (event.detail.active) {
+        // when its show time
+        show();
+      } else {
+        // when browser goes to the backstage
+        hide();
+      }
+    });
+  } else {
+    // this is here for regular browsers for better developer experiece
+    // this will trigger every time the browser goes out of view (or back to view)
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        // if lights go out
+        hide();
+      } else {
+        // when the user comes back
+        show();
+      }
+    });
+  }
 }
 
 /** Determines if the browser view is currently active/visible */
 function isBrowserActive() {
-	
-	if (window.obsstudio) {
-		return true; // theres no way to get active state without the event listener :(
-	} else {
-		return document.visibilityState;
-	}
-
+  if (window.obsstudio) {
+    return true; // theres no way to get active state without the event listener :(
+  } else {
+    return document.visibilityState;
+  }
 }

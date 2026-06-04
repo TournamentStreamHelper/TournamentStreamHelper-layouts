@@ -12,7 +12,7 @@
     "enabled": true,
     "to": "romaji",
     "mode": "normal",
-    "romajiSystem": "nippon"
+    "romajiSystem": "hepburn"
   },
   "automatic_theme": false
 }
