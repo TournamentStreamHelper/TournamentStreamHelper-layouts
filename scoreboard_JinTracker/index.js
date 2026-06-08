@@ -156,23 +156,21 @@ LoadEverything().then(() => {
                 : ""
             );
 
+            // Get player name presentation using player_presentation strategy
+            let playerPresentation = `<span class="sponsor">${player && player.team ? player.team : ""}</span>${player ? await Transcript(player.name) : ""}`;
+
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
               `
-            <span>
-              <span class="sponsor">
-                ${player.team ? player.team : ""}
-              </span>
-              ${player.name ? await Transcript(player.name) : ""}
+              ${playerPresentation}
               ${team.losers ? "(L)" : ""}
-            </span>
             `
             );
 
             SetInnerHtml(
               $(`.p${t + 1} .flagcountry`),
               player.country.asset
-                ? `<div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>`
+                ? `<img class='flag' src='../../${player.country.asset.toLowerCase()}' />`
                 : ""
             );
 
@@ -205,6 +203,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1}.character_container`),
               {
                 source: `score.${window.scoreboardNumber}.team.${t + 1}`,
+                flip_x: t === 1,
                 anim_out: {
                   autoAlpha: 0,
                   x: -20 * teamMultiplyier + "px",
@@ -251,22 +250,25 @@ LoadEverything().then(() => {
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
-        let teamName = "";
-        let names = [];
-        for (const [p, player] of Object.values(team.player).entries()) {
-          if (player && player.name) {
-            names.push(await Transcript(player.name));
+        // Get team name presentation using player_presentation strategy
+        let teamName = team.teamName;
+        if (!teamName || teamName == "") {
+          let names = [];
+          for (const [p, player] of Object.values(team.player).entries()) {
+            if (player && player.name) {
+              names.push(await Transcript(player.name));
+            }
           }
+          teamName = names.join(" / ");
         }
-        teamName = names.join(" / ");
+        let teamPresentation = teamName;
+
         SetInnerHtml(
           $(`.p${t + 1}.container .name`),
           `
-        <span>
-          ${teamName}
-          ${team.losers ? "(L)" : ""}
-        </span>
-        `
+            ${teamPresentation}
+            ${team.losers ? "(L)" : ""}
+          `
         );
         for (const [p, player] of [team.player["1"]].entries()) {
           document

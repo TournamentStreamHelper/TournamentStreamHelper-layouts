@@ -61,7 +61,7 @@ LoadEverything().then(() => {
         );
         SetInnerHtml(
           $(`.commentator${index} .twitter`),
-          commentator.twitter ? "@" + commentator.twitter : ""
+          commentator.twitter ? `<span class="twitter_logo"></span>${commentator.twitter}` : ""
         );
       } else {
         $(`.commentator${index}`).css("display", "none");

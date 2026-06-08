@@ -121,13 +121,11 @@ body {
 
 .flag {
     display: inline-block;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    object-fit: cover;
     width: 36px;
     height: 24px;
     border-radius: 4px;
-  }
+}
 
 .flag_small {
     width: 24px;
@@ -217,8 +215,7 @@ body {
 .avatar {
     width: 50px;
     height: 50px;
-    background-repeat: no-repeat;
-    background-size: cover;
+    object-fit: cover;
     border-radius: 10px;
 }
 

@@ -10,13 +10,14 @@
 
 body {
   font-family: var(--font);
-  letter-spacing: 1.2px;
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   opacity: 0;
   overflow: hidden;
   margin: 0;
   width: 1920px;
   height: 1080px;
+  background-size: cover;
 }
 
 .stage {
@@ -67,11 +68,10 @@ body {
   );
 }
 
-.player_avatar div {
+.player_avatar img {
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
 }
 
 .container {
@@ -83,10 +83,15 @@ body {
   background-color: var(--bg-color);
   align-items: center;
   padding: 20px 40px;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.p1.container {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 15%, var(--bg-color) 85%);
+}
+
+.p2.container {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 15%, var(--bg-color) 85%);
 }
 
 .player_col {
@@ -99,8 +104,12 @@ body {
 .name_row {
   display: flex;
   gap: 16px;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-end;
+}
+
+.p2 .name_row {
+  justify-content: flex-end;
 }
 
 .info_grid {
@@ -122,12 +131,21 @@ body {
   display: none;
 }
 
-.info_grid > div {
+.info_grid > div:not(.flagcountry):not(.flagstate) {
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: calc(var(--border-radius) / 2);
   overflow: hidden;
-  padding: 2px 8px;
-  border: 2px solid var(--text-color);
+  padding: 6px 16px;
+  border: none;
+  font-size: 24px;
+}
+
+.p1 .info_grid > div {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.p2 .info_grid > div {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 35%, var(--bg-color) 65%);
 }
 
 .player.container {
@@ -207,8 +225,15 @@ body {
 }
 
 .container .name {
-  font-size: 56px;
+  font-size: 72px;
   overflow: hidden;
+  -webkit-text-stroke: 3px var(--bg-color);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.p2.container .name {
+  justify-content: flex-start;
 }
 
 .container .name .text > span {
@@ -222,15 +247,23 @@ body {
 
 .real_name {
   align-self: flex-start;
-  font-size: 24px;
+  font-size: 52px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.real_name .slash {
+  opacity: 0.6;
 }
 
 .p2 .real_name {
   align-self: flex-end;
+  justify-content: flex-end;
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -240,8 +273,32 @@ body {
   margin-right: 6px;
 }
 
-.twitter, .seed, .real_name, .pronoun {
-  font-size: 26px;
+.seed_logo {
+  -webkit-mask-image: url(../icons/seed_leaf.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.pronoun_logo {
+  -webkit-mask-image: url(../icons/user.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.twitter, .seed, .pronoun {
+  font-size: 32px;
 }
 
 /*
@@ -268,26 +325,11 @@ body {
   color: var(--p2-sponsor-color);
 }
 
-.losers_badge {
-  position: absolute;
-  font-size: 24px;
-  padding: 2px 12px;
-  bottom: 16px;
-  opacity: 0;
-  border-radius: calc(var(--border-radius)/2);
-  font-weight: 900;
-  color: var(--bg-color);
+.player.container .sponsor {
+  font-size: 52px;
+  margin-right: 12px;
 }
 
-.p1 .losers_badge {
-  background-color: var(--p1-sponsor-color);
-  right: 24px;
-}
-
-.p2 .losers_badge {
-  background-color: var(--p2-sponsor-color);
-  left: 24px;
-}
 
 /*
 .info {
@@ -345,64 +387,60 @@ body {
 }
   */
 
-.flagscontainer {
-  display: flex;
+.flagcountry,
+.flagstate {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
+  padding: 0 12px 0 0;
+  border-radius: calc(var(--border-radius) / 2);
+  overflow: hidden;
+  overflow-clip-margin: unset;
+  height: 36px;
+}
+
+.p1 .flagcountry,
+.p1 .flagstate {
+  background-color: color-mix(in srgb, var(--p1-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.p2 .flagcountry,
+.p2 .flagstate {
+  background-color: color-mix(in srgb, var(--p2-score-bg-color) 35%, var(--bg-color) 65%);
 }
 
 .flag {
-  position: relative;
-  display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 56px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  border: 2px solid white;
-  margin-bottom: 16px;
-  border-radius: 8px;
+  display: block;
+  width: 50px;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sponsor_icon {
+  object-fit: contain;
 }
 
 .flagname {
-  position: absolute;
-  text-align: center;
-  font-size: 16px;
-  padding: 1px 8px;
-  border-radius: 2px;
-  background-color: #000000ff;
-  top: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 2px white solid;
-  border-radius: 10px;
-  color: white;
+  font-size: 18px;
 }
 
-.score {
-  top: 0;
-  width: 60px;
-  right: 0;
-  height: 100%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  font-size: 120px;
-  margin: 0 16px;
-  font-family: var(--fontBlack);
-  font-weight: normal;
+.flagname {
+  position: static;
+  text-align: left;
+  font-size: 24px;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--text-color);
+  border: none;
+  white-space: nowrap;
+  transform: none;
+  top: auto;
+  left: auto;
+  display: inline;
 }
 
-.p1 .score {
-  margin-left: 48px;
-}
-
-.p2 .score {
-  right: unset;
-  left: 0;
-  margin-right: 48px;
-}
 
 .p1.character {
   position: absolute;
@@ -438,9 +476,6 @@ body {
   );
 }
 
-.p2.character .tsh_character div {
-  transform: scaleX(-1);
-}
 
 .character .video {
   top: 0;
@@ -527,22 +562,26 @@ body {
 }
 
 .sponsor_logo {
-  overflow: visible;
-  position: fixed;
-  width: 160px;
-  height: 160px;
-  top: -170px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.p1 .sponsor_logo {
-  left: 5px;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .p2 .sponsor_logo {
-  right: 5px;
+  right: unset;
+  left: 12px;
+}
+
+.sponsor_icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.6;
+  z-index: -99;
 }
 
 .character_name {
@@ -605,7 +644,15 @@ body {
   width: 100%;
   color: var(--text-color);
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
+}
+
+.p1 .tournament_container {
+  border: 1px solid color-mix(in srgb, var(--p1-score-bg-color) 30%, transparent 70%);
+}
+
+.p2 .tournament_container {
+  border: 1px solid color-mix(in srgb, var(--p2-score-bg-color) 30%, transparent 70%);
 }
 
 .tournament_container_inner {
@@ -614,7 +661,7 @@ body {
   height: 100px;
   flex-direction: row;
   background-color: var(--bg-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   justify-content: flex-start;
   box-sizing: border-box;
 }
@@ -742,10 +789,17 @@ body {
   height: 50px;
   color: var(--text-color);
   overflow: hidden;
-  border-radius: 10px;
-
+  border-radius: var(--border-radius);
   display: flex;
   flex-direction: row;
+}
+
+.p1 .set_container {
+  border: 1px solid color-mix(in srgb, var(--p1-score-bg-color) 30%, transparent 70%);
+}
+
+.p2 .set_container {
+  border: 1px solid color-mix(in srgb, var(--p2-score-bg-color) 30%, transparent 70%);
 }
 
 .set_container_inner {
@@ -754,7 +808,7 @@ body {
   height: 100%;
   flex-direction: row;
   background-color: var(--bg-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
@@ -810,7 +864,7 @@ body {
 
 .set_score {
   height: 100%;
-  background-color: #595959;
+  background: color-mix(in srgb, var(--text-color) 25%, var(--bg-color) 75%);
   padding-left: 16px;
   padding-right: 16px;
   border-radius: 50px;
@@ -820,6 +874,7 @@ body {
   padding-right: 16px;
   padding-left: 16px;
   flex-grow: 1;
+  max-width: 260px;
 }
 
 .sets .sponsor {

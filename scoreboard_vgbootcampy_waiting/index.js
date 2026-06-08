@@ -96,10 +96,8 @@ LoadEverything().then(() => {
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
               `
-              <span>
                 ${teamName.toUpperCase()}
                 ${team.losers ? "(L)" : ""}
-              </span>
               `
             );
           }

@@ -1,28 +1,70 @@
 LoadEverything().then(() => {
   
+  let isOneSide = document.body.classList.contains("one-side-layout");
+
   let startingAnimation = gsap
-    .timeline({ paused: true })
-    .from(
-      [".left .container:not(.cameras)"],
-      { duration: 1, x: "-100%", ease: "power2.inOut" },
-      0
-    )
-    .from(
-      [".right .container:not(.cameras)"],
-      { duration: 1, x: "+100%", ease: "power2.inOut" },
-      0
-    )
-    .from([".score"], { duration: 1, autoAlpha: "0", ease: "power2.inOut" }, 0)
-    .from(
-      [".left .character_container:not(.cameras)"],
-      { duration: 1, x: "+50%", ease: "power2.inOut" },
-      0
-    )
-    .from(
-      [".right .character_container:not(.cameras)"],
-      { duration: 1, x: "-50%", ease: "power2.inOut" },
-      0
-    )
+    .timeline({ paused: true });
+
+  if (isOneSide) {
+    // One-side layout: both containers animate from right
+    startingAnimation
+      .from(
+        [".left .container:not(.cameras)"],
+        { duration: 1, x: "+100%", ease: "power2.inOut" },
+        0
+      )
+      .from(
+        [".right .container:not(.cameras)"],
+        { duration: 1, x: "+100%", ease: "power2.inOut" },
+        0
+      );
+  } else {
+    // Default layout: left from left, right from right
+    startingAnimation
+      .from(
+        [".left .container:not(.cameras)"],
+        { duration: 1, x: "-100%", ease: "power2.inOut" },
+        0
+      )
+      .from(
+        [".right .container:not(.cameras)"],
+        { duration: 1, x: "+100%", ease: "power2.inOut" },
+        0
+      );
+  }
+
+  startingAnimation
+    .from([".score"], { duration: 1, autoAlpha: "0", ease: "power2.inOut" }, 0);
+
+  if (isOneSide) {
+    // One-side layout: character containers animate inward from right
+    startingAnimation
+      .from(
+        [".left .character_container:not(.cameras)"],
+        { duration: 1, x: "+50%", ease: "power2.inOut" },
+        0
+      )
+      .from(
+        [".right .character_container:not(.cameras)"],
+        { duration: 1, x: "+50%", ease: "power2.inOut" },
+        0
+      );
+  } else {
+    // Default layout: character containers animate inward
+    startingAnimation
+      .from(
+        [".left .character_container:not(.cameras)"],
+        { duration: 1, x: "+50%", ease: "power2.inOut" },
+        0
+      )
+      .from(
+        [".right .character_container:not(.cameras)"],
+        { duration: 1, x: "-50%", ease: "power2.inOut" },
+        0
+      );
+  }
+
+  startingAnimation
     .from(
       [".container.top"],
       { duration: 1, y: "-100%", ease: "power2.inOut" },
@@ -48,7 +90,7 @@ LoadEverything().then(() => {
     ].entries()) {
       console.log(team);
 
-      let team_id = ["left", "right"][t];
+      let team_id = ["t1", "t2"][t];
 
       SetInnerHtml($(`.${team_id} .score`), String(team.score));
 
@@ -75,12 +117,13 @@ LoadEverything().then(() => {
 
       for (const [p, player] of Object.values(team.player).entries()) {
         if (player) {
+          // Get player name presentation using player_presentation strategy
+          let playerPresentation = `<span class="sponsor">${player && player.team ? player.team : ""}</span>${player ? await Transcript(player.name) : ""}`;
+
           SetInnerHtml(
             $(`.${team_id} .p${p + 1} .name`),
             `
-              <span class="sponsor">${
-                player.team ? player.team + "&nbsp;" : ""
-              }</span>${await Transcript(player.name)}
+              ${playerPresentation}
             `
           );
 
@@ -98,7 +141,7 @@ LoadEverything().then(() => {
             $(`.${team_id} .p${p + 1} .flagcountry`),
             player.country.asset
               ? `
-              <div class='flag' style="background-image: url('../../${String(player.country.asset).toLowerCase()}')"></div>
+              <img class='flag' src='../../${String(player.country.asset).toLowerCase()}' />
               <div class='flagname'>${player.country.code}</div>
             `
               : ""
@@ -108,7 +151,7 @@ LoadEverything().then(() => {
             $(`.${team_id} .p${p + 1} .flagstate`),
             player.state.asset
               ? `
-              <div class='flag' style="background-image: url('../../${player.state.asset}')"></div>
+              <img class='flag' src='../../${player.state.asset}' />
               <div class='flagname'>${player.state.code}</div>
             `
               : ""
@@ -119,6 +162,7 @@ LoadEverything().then(() => {
               $(`.${team_id} .p${p + 1}.container .character_container`),
               {
                 source: `score.${window.scoreboardNumber}.team.${t + 1}.player.${p + 1}`,
+                flip_x: team_id === "t2",
               },
               event
             );

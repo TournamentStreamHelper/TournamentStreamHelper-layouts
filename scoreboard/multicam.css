@@ -6,10 +6,6 @@ body {
 	margin: 0;
 	width: 1920px;
 	height: 1080px;
-	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
-		drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
-		drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
-		drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
 	letter-spacing: 1;
 	background-size: cover;
 }
@@ -148,15 +144,6 @@ iframe {
 	width: 180px;
 }
 
-.character_container > div {
-	width: 100%;
-	height: 100%;
-}
-
-.character_container > div > div {
-	height: 100%;
-}
-
 .p1 .name {
 	margin-right: 80px;
 }
@@ -211,7 +198,7 @@ iframe {
 
 .chip .text:not(.text_empty) {
 	height: 46px;
-	font-size: 42px;
+	font-size: 32px;
 }
 
 .flag {
@@ -247,4 +234,69 @@ iframe {
 .tsh_character {
 	background-color: unset;
 	border-radius: 0;
+}
+
+/* Hide info header in multicam context */
+.info_header {
+	display: none;
+}
+
+/* Info bottom container matches player element positioning */
+.ssbu .info.container.bottom {
+	top: 16px;
+	border-radius: 12px;
+	overflow: visible;
+}
+
+/* Chips positioned below player containers with spacing */
+.ssbu .chips {
+	top: auto;
+	position: absolute;
+	margin-top: 86px;
+}
+
+/* Only match inside the info container */
+.ssbu .info.container.bottom .match {
+	padding: 0;
+	background: transparent;
+	border-radius: 0;
+	font-size: 42px;
+}
+
+/* Phase styled as chip below the container */
+.ssbu .info.container.bottom .phase {
+	position: absolute;
+	top: 70px;
+	background: var(--bg-color);
+	padding: 6px 12px;
+	border-radius: 5px;
+	font-size: 32px;
+	font-weight: 700;
+	width: auto;
+	height: 46px;
+	max-width: 100%;
+	display: inline-block;
+	color: var(--text-color);
+	z-index: 10;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	box-sizing: border-box;
+	opacity: 1;
+}
+
+/* Hide phase if empty */
+.ssbu .info.container.bottom .phase:has(.text_empty),
+.ssbu .info.container.bottom .phase:empty {
+	display: none;
+}
+
+/* Tournament name outside/below the container */
+.ssbu .info.container.bottom .tournament_name {
+	position: absolute;
+	top: 72px;
+	font-size: 12px;
+	width: auto;
+	display: inline-block;
+	color: var(--text-color);
+	z-index: 10;
 }

@@ -39,35 +39,19 @@ LoadEverything().then(() => {
       ].entries()) {
         for (const [p, player] of [team.player["1"]].entries()) {
           if (player) {
+            let sponsorName = player.team ? player.team : "";
+            let playerName = await Transcript(player.name);
+            let pronounHtml = `<div class="pronoun">${player.pronoun ? player.pronoun : ""}</div>`;
+            let nameContent = `<span class="sponsor">${sponsorName}</span><div class="name">${playerName}</div>`;
+
             SetInnerHtml(
-              $(`.p${t + 1}.container .name`),
-              // For p2, place pronoun before name
-              // For p1, place pronoun after name
-              `
-                ${
-                  t == 1
-                    ? `
-                    <span class="pronoun">
-                      ${player.pronoun ? player.pronoun : ""}
-                    </span>
-                  `
-                    : ""
-                }
-                <span class="sponsor">
-                  ${player.team ? player.team : ""}
-                </span>
-                ${await Transcript(player.name)}
-                ${
-                  t == 0
-                    ? `
-                    <span class="pronoun">
-                      ${player.pronoun ? player.pronoun : ""}
-                    </span>
-                  `
-                    : ""
-                }
-                ${team.losers ? "<span class='losers'>L</span>" : ""}
-              `
+              $(`.p${t + 1}.container .name_twitter`),
+              t === 0 ? `${nameContent}${pronounHtml}` : `${pronounHtml}${nameContent}`
+            );
+
+            SetInnerHtml(
+              $(`.p${t + 1}.container .losers`),
+              team.losers ? "losers" : ""
             );
 
             let teamMultiplyier = t == 0 ? 1 : -1;
@@ -76,6 +60,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1}.character_container`),
               {
                 source: `score.${window.scoreboardNumber}.team.${t + 1}`,
+                flip_x: t === 1,
                 anim_out: {
                   autoAlpha: 0,
                   x: -20 * teamMultiplyier + "px",
@@ -97,7 +82,7 @@ LoadEverything().then(() => {
               player.country.asset
                 ? `
                   <div class='flag_container'>
-                    <div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>
+                    <img class='flag' src='../../${player.country.asset.toLowerCase()}' />
                     <div class='flagname'>${player.country.code}</div>
                   </div>
                 `
@@ -109,7 +94,7 @@ LoadEverything().then(() => {
               player.state.asset
                 ? `
                   <div class='flag_container'>
-                    <div class='flag' style="background-image: url('../../${player.state.asset}')"></div>
+                    <img class='flag' src='../../${player.state.asset}' />
                     <div class='flagname'>${player.state.code}</div>
                   </div>
                 `
@@ -156,15 +141,16 @@ LoadEverything().then(() => {
         }
         if(team.color && !tsh_settings["forceDefaultScoreColors"]) {
           document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-sponsor-color`, team.color);
         }
       }
     } else {
+      // Doubles
       for (const [t, team] of [
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
-        let teamName = team.teamName;
-
+        // Get team name presentation using player_presentation strategy
         let names = [];
         for (const [p, player] of Object.values(team.player).entries()) {
           if (player && player.name) {
@@ -173,9 +159,8 @@ LoadEverything().then(() => {
         }
         let playerNames = names.join(" / ");
 
-        if (!team.teamName || team.teamName == "") {
-          teamName = playerNames;
-        }
+        let teamName = team.teamName || playerNames;
+        let teamPresentation = teamName;
 
         let teamMultiplyier = t == 0 ? 1 : -1;
 
@@ -183,6 +168,7 @@ LoadEverything().then(() => {
           $(`.p${t + 1}.character_container`),
           {
             source: `score.${window.scoreboardNumber}.team.${t + 1}`,
+            flip_x: t === 1,
             anim_out: {
               autoAlpha: 0,
               x: -20 * teamMultiplyier + "px",
@@ -199,17 +185,17 @@ LoadEverything().then(() => {
           event
         );
 
-        let nameElements = [];
-        nameElements.push(teamName);
-        if(playerNames != teamName) nameElements.push(`<span class='team_names'>${playerNames}</span>`)
-        if(team.losers) nameElements.push("<span class='losers'>L</span>")
-        if(t==1) nameElements.reverse();
+        SetInnerHtml(
+          $(`.p${t + 1}.container .name_twitter`),
+          `
+            <div class="name">${teamPresentation}</div>
+            ${team.teamName ? `<div class="team-members">${playerNames}</div>` : ""}
+          `
+        );
 
         SetInnerHtml(
-          $(`.p${t + 1}.container .name`),
-          `
-            ${nameElements.join("")}
-          `
+          $(`.p${t + 1}.container .losers`),
+          team.losers ? "losers" : ""
         );
 
         let player = team.player["1"];
@@ -257,6 +243,7 @@ LoadEverything().then(() => {
         
         if(team.color && !tsh_settings["forceDefaultScoreColors"]) {
           document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-sponsor-color`, team.color);
         }
       }
     }

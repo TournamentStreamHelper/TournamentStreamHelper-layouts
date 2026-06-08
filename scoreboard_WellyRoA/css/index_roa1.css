@@ -305,9 +305,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: 34px;
   height: 22px;
   border: 2px solid white;

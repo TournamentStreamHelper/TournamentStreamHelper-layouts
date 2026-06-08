@@ -234,7 +234,7 @@ body {
 .p2 .character_bg {
   right: 0;
   mask-image: linear-gradient(to left, black 30%, transparent 90%);
-  transform: translateY(-50%) scaleX(-1);
+  transform: translateY(-50%);
 }
 
 .info_container {

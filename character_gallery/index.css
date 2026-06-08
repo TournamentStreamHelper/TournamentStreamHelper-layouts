@@ -13,6 +13,7 @@ body {
 
 .tsh_character {
   position: absolute;
+  opacity: 0;
 }
 
 .container {
@@ -38,21 +39,8 @@ body {
   z-index: 999;
   color: white;
   font-size: 100px;
-  text-shadow: 12px 12px 2px black;
+  font-family: var(--font);
+  font-weight: 700;
+  -webkit-text-stroke: 8px black;
 }
 
-.variant_display {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
-
-.variant {
-  position: absolute;
-
-  width: 5vw;
-  height: 5vw;
-
-  background-size: contain;
-  background-repeat: no-repeat;
-}

@@ -1,7 +1,7 @@
 {
   "top_1": {
     "default": {
-      "use_dividers": false,
+      "use_dividers": true,
       "custom_center": [
         0.5,
         0.4
@@ -20,7 +20,7 @@
   },
   "top_4": {
     "default": {
-      "use_dividers": false,
+      "use_dividers": true,
       "custom_center": [
         0.5,
         0.4
@@ -39,7 +39,7 @@
   },
   "top_8": {
     "default": {
-      "use_dividers": false,
+      "use_dividers": true,
       "custom_center": [
         0.5,
         0.4
@@ -58,7 +58,7 @@
   },
   "same_size": {
     "default": {
-      "use_dividers": false,
+      "use_dividers": true,
       "custom_center": [
         0.5,
         0.4

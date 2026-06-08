@@ -13,6 +13,17 @@ LoadEverything().then(() => {
       },
       0
     )
+    /* Logo snaps from slightly oversized to final — draws the eye to the center */
+    .from(
+      [".logo.fade"],
+      {
+        scale: 1.28,
+        duration: 0.22,
+        ease: "power3.out",
+        transformOrigin: "center center",
+      },
+      0
+    )
     .from(
       [".fade_down_left_stagger:not(.text_empty)"],
       {
@@ -36,6 +47,34 @@ LoadEverything().then(() => {
           from: 'end',
           opacity: 0,
           y: "-20px",
+        },
+        duration: 0.2,
+      },
+      0
+    )
+    .from(
+      [".fade_up_left_stagger:not(.text_empty)"],
+      {
+        autoAlpha: 0,
+        stagger: {
+          each: 0.05,
+          from: 'end',
+          opacity: 0,
+          y: "20px",
+        },
+        duration: 0.2,
+      },
+      0
+    )
+    .from(
+      [".fade_up_right_stagger:not(.text_empty)"],
+      {
+        autoAlpha: 0,
+        stagger: {
+          each: 0.05,
+          from: 'end',
+          opacity: 0,
+          y: "20px",
         },
         duration: 0.2,
       },
@@ -107,6 +146,19 @@ LoadEverything().then(() => {
       0
     )
     .from(
+      [".fade_right_stagger2:not(.text_empty)"],
+      {
+        autoAlpha: 0,
+        stagger: {
+          each: 0.05,
+          from: 'end',
+          opacity: 0,
+        },
+        duration: 0.2,
+      },
+      0
+    )
+    .from(
       [".fade_down"],
       {
         duration: 0.2,
@@ -165,7 +217,7 @@ LoadEverything().then(() => {
         for (const [p, player] of [team.player["1"]].entries()) {
           if (player) {
             SetInnerHtml(
-              $(`.p${t + 1}.container .name`),
+              $(`.p${t + 1} .name`),
               `
                 <span class="sponsor">
                   ${player.team ? player.team : ""}
@@ -179,7 +231,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1} .flagcountry`),
               player.country.asset
                 ? `
-                  <div class='flag' style='background-image: url(../../${player.country.asset.toLowerCase()})'></div>
+                  <img class='flag' src='../../${player.country.asset.toLowerCase()}' />
                   <div>${player.country.code}</div>
                 `
                 : ""
@@ -189,14 +241,14 @@ LoadEverything().then(() => {
               $(`.p${t + 1} .flagstate`),
               player.state.asset
                 ? `
-                  <div class='flag' style='background-image: url(../../${player.state.asset})'></div>
+                  <img class='flag' src='../../${player.state.asset}' />
                   <div>${player.state.code}</div>
                 `
                 : ""
             );
 
             await CharacterDisplay(
-              $(`.p${t + 1}.container .character_container`),
+              $(`.p${t + 1} .character_container`),
               {
                 asset_key: "base_files/icon",
                 source: `score.${window.scoreboardNumber}.team.${t + 1}`,
@@ -208,23 +260,23 @@ LoadEverything().then(() => {
             );
 
             SetInnerHtml(
-              $(`.p${t + 1}.container .sponsor_icon`),
+              $(`.p${t + 1} .sponsor_icon`),
               player.sponsor_logo
-                ? `<div style="background-image: url('../../${player.sponsor_logo}')"></div>`
+                ? `<img src="../../${player.sponsor_logo}" />`
                 : ""
             );
 
             SetInnerHtml(
-              $(`.p${t + 1}.container .avatar`),
+              $(`.p${t + 1} .avatar`),
               player.avatar
-                ? `<div style="background-image: url('../../${player.avatar}')"></div>`
+                ? `<img src="../../${player.avatar}" />`
                 : ""
             );
 
             SetInnerHtml(
-              $(`.p${t + 1}.container .online_avatar`),
+              $(`.p${t + 1} .online_avatar`),
               player.online_avatar
-                ? `<div style="background-image: url('${player.online_avatar}')"></div>`
+                ? `<img src="${player.online_avatar}" />`
                 : ""
             );
 
@@ -237,18 +289,18 @@ LoadEverything().then(() => {
 
             SetInnerHtml(
               $(`.p${t + 1} .pronoun`),
-              player.pronoun ? player.pronoun : ""
+              player.pronoun ? `<span class="pronoun_logo"></span>${player.pronoun}` : ""
             );
 
             SetInnerHtml(
               $(`.p${t + 1} .seed`),
-              player.seed ? `Seed ${player.seed}` : ""
+              player.seed ? `<span class="seed_logo"></span>Seed ${player.seed}` : ""
             );
 
-            SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
+            SetInnerHtml($(`.p${t + 1} .score`), String(team.score));
 
             SetInnerHtml(
-              $(`.p${t + 1}.container .sponsor-container`),
+              $(`.p${t + 1} .sponsor-container`),
               `<div class='sponsor-logo' style="background-image: url('../../${player.sponsor_logo}')"></div>`
             );
 
@@ -265,9 +317,11 @@ LoadEverything().then(() => {
         }
         if(team.color && !tsh_settings["forceDefaultScoreColors"]) {
           document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-sponsor-color`, team.color);
         }
       }
     } else {
+      // Doubles
       for (const [t, team] of [
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
@@ -287,7 +341,7 @@ LoadEverything().then(() => {
         }
 
         SetInnerHtml(
-          $(`.p${t + 1}.container .name`),
+          $(`.p${t + 1} .name`),
           `
             ${teamName}
             ${team.losers ? "<span class='losers'>L</span>" : ""}
@@ -299,7 +353,7 @@ LoadEverything().then(() => {
         SetInnerHtml($(`.p${t + 1} .flagstate`), "");
 
         await CharacterDisplay(
-          $(`.p${t + 1}.container .character_container`),
+          $(`.p${t + 1} .character_container`),
           {
             asset_key: "base_files/icon",
             source: `score.${window.scoreboardNumber}.team.${t + 1}`,
@@ -311,27 +365,28 @@ LoadEverything().then(() => {
           event
         );
 
-        SetInnerHtml($(`.p${t + 1}.container .sponsor_icon`), "");
-
-        SetInnerHtml($(`.p${t + 1}.container .avatar`), "");
-
-        SetInnerHtml($(`.p${t + 1}.container .online_avatar`), "");
+        SetInnerHtml($(`.p${t + 1} .sponsor_icon`), "");
+        SetInnerHtml($(`.p${t + 1} .avatar`), "");
+        SetInnerHtml($(`.p${t + 1} .online_avatar`), "");
+        SetInnerHtml($(`.p${t + 1} .pronoun`), "");
 
         SetInnerHtml($(`.p${t + 1} .twitter`), 
-          playerNames != team.teamName ? playerNames : ""
+          team.teamName ? playerNames : ""
         );
 
-        SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
+        SetInnerHtml($(`.p${t + 1} .score`), String(team.score));
 
-        SetInnerHtml($(`.p${t + 1}.container .sponsor-container`), "");
+        SetInnerHtml($(`.p${t + 1} .sponsor-container`), "");
 
-        if(team.color) {
+        if(team.color && !tsh_settings["forceDefaultScoreColors"]) {
           document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-sponsor-color`, team.color);
         }
       }
     }
 
     SetInnerHtml($(".tournament_name"), data.tournamentInfo.tournamentName);
+    SetInnerHtml($(".event_name"), data.tournamentInfo.eventName);
 
     SetInnerHtml($(".match"), data.score[window.scoreboardNumber].match);
 

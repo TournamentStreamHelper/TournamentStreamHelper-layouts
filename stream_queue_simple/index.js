@@ -77,8 +77,8 @@ LoadEverything().then(() => {
 
     function online_avatar_html(player, t){
         return `
-            <div class = "p${t}_avatar avatar_container"> 
-                <span class="avatar" style="background-image: url('${player.online_avatar}')"></span>
+            <div class = "p${t}_avatar avatar_container">
+                <img class="avatar" src='${player.online_avatar}' />
             </div>
         `
     }
@@ -110,9 +110,9 @@ LoadEverything().then(() => {
             <div class = "p${t} team">
                 ${isTeams && !config.display.avatar ? "" : online_avatar_html(player, t)}
                 <div class = "flags">
-                    ${ isTeams ? "" : 
-                        (player.country.asset && config.display.country_flag ? `<div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>` : "") + 
-                        (player.state.asset && config.display.state_flag? `<div class='flag' style="background-image: url('../../${player.state.asset.toLowerCase()}')"></div>` : "")
+                    ${ isTeams ? "" :
+                        (player.country.asset && config.display.country_flag ? `<img class='flag' src='../../${player.country.asset.toLowerCase()}' />` : "") +
+                        (player.state.asset && config.display.state_flag? `<img class='flag' src='../../${player.state.asset.toLowerCase()}' />` : "")
                     }
                 </div>
                 <div class = "name">

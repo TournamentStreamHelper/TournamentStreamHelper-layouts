@@ -253,9 +253,14 @@ async function updateCharacterContainer(e, event) {
             let character = player[j];
             if (!_.get(character, "codename")) continue;
             let _div = $(
-              "<div class='tsh_character' style='opacity: 0;'><div></div></div>"
+              "<div class='tsh_character' style='opacity: 0;'><div class='tsh_character_img'></div><div class='tsh_variant_icon'></div></div>"
             );
             e.appendChild($(_div).get(0));
+
+            // Store variant data to apply after images load
+            if (character.variant && character.variant.icon_path) {
+              $(_div).data('variant-icon-path', `url('../../${character.variant.icon_path}')`);
+            }
 
             let settingsClone = Object.assign({}, settings);
 
@@ -284,7 +289,7 @@ async function updateCharacterContainer(e, event) {
               );
             } else {
               loads.push(
-                CenterImage($(_div).children(0), asset, settingsClone)
+                CenterImage($(_div).children('.tsh_character_img'), asset, settingsClone)
               );
             }
 
@@ -294,6 +299,22 @@ async function updateCharacterContainer(e, event) {
       }
 
       await Promise.allSettled(loads);
+
+      // Apply variant icons and character flipping after images are loaded
+      $(e).find(".tsh_character").each((i, charEl) => {
+        const variantPath = $(charEl).data('variant-icon-path');
+        const $variantIcon = $(charEl).find('.tsh_variant_icon');
+        if (variantPath) {
+          $variantIcon.css('background-image', variantPath).css('display', 'block');
+        } else {
+          $variantIcon.css('display', 'none');
+        }
+
+        // Apply character flip if specified
+        if (settings.flip_x) {
+          $(charEl).find('.tsh_character_img').css('transform', 'scaleX(-1)');
+        }
+      });
 
       if($(e) && $(e).children(".tsh_character").length > 0){
         anim_out.onComplete = null;

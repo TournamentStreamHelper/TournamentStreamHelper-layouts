@@ -181,6 +181,7 @@ LoadEverything().then(() => {
             $(`.p${t + 1} .character_bg`),
             {
               source: `score.${window.scoreboardNumber}.team.${t + 1}`,
+                flip_x: t === 1,
             },
             event,
           );
@@ -239,6 +240,7 @@ LoadEverything().then(() => {
           $(`.p${t + 1} .character_bg`),
           {
             source: `score.${window.scoreboardNumber}.team.${t + 1}`,
+                flip_x: t === 1,
             slice_character: [0, 1],
           },
           event,

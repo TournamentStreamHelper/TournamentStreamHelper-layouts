@@ -144,10 +144,13 @@ LoadEverything().then(() => {
             playerLosers.classList.remove("unhidden");
           }
 
+          // Get player name presentation using player_presentation strategy
+          let playerPresentation = `<span class="sponsor">${player && player.team ? player.team : ""}</span>${player ? await Transcript(player.name) : ""}`;
+
           SetInnerHtml(
             $(`.p${t + 1}.container .name`),
             `
-              ${player.name ? await Transcript(player.name.toUpperCase()) : ""}
+              ${playerPresentation.toUpperCase ? playerPresentation.toUpperCase() : playerPresentation}
             `
           );
 
@@ -187,21 +190,21 @@ LoadEverything().then(() => {
           } else if (player.country.asset && player.sponsor_logo) {
             SetInnerHtml(
               $(`.p${t + 1}.container .flagcountry`),
-              `<div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>`
+              `<img class='flag' src='../../${player.country.asset.toLowerCase()}' />`
             );
             SetInnerHtml(
               $(`.p${t + 1}.container .flagcountry`),
-              `<div class='flag' style="background-image: url('../../${player.sponsor_logo}')"></div>`
+              `<img class='flag' src='../../${player.sponsor_logo}' />`
             );
           } else if (player.country.asset && !player.sponsor_logo) {
             SetInnerHtml(
               $(`.p${t + 1}.container .flagcountry`),
-              `<div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>`
+              `<img class='flag' src='../../${player.country.asset.toLowerCase()}' />`
             );
           } else if (!player.country.asset && player.sponsor_logo) {
             SetInnerHtml(
               $(`.p${t + 1}.container .flagcountry`),
-              `<div class='flag' style="background-image: url('../../${player.sponsor_logo}')"></div>`
+              `<img class='flag' src='../../${player.sponsor_logo}' />`
             );
           }
         }

@@ -132,17 +132,14 @@ LoadEverything().then(() => {
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
         for (const [p, player] of [team.player["1"]].entries()) {
-          if (player) {
+          if (player && player.name) {
+            let teamName = await Transcript(player.name);
+
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
               `
-            <span>
-              <span class="sponsor">
-                ${player.team ? player.team : ""}
-              </span>
-              ${player.name ? await Transcript(player.name) : ""}
+              ${teamName}
               ${team.losers ? "(L)" : ""}
-            </span>
             `
             );
 
@@ -156,7 +153,7 @@ LoadEverything().then(() => {
             SetInnerHtml(
               $(`.p${t + 1} .flagcountry`),
               player.country.asset
-                ? `<div class='flag' style='background-image: url(../../${player.country.asset.toLowerCase()})'></div>`
+                ? `<img class='flag' src='../../${player.country.asset.toLowerCase()}' />`
                 : ""
             );
 
@@ -208,22 +205,22 @@ LoadEverything().then(() => {
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
-        let teamName = "";
-        let names = [];
-        for (const [p, player] of Object.values(team.player).entries()) {
-          if (player && player.name) {
-            names.push(await Transcript(player.name));
+        let teamName = team.teamName ? team.teamName : "";
+        if (!teamName) {
+          let names = [];
+          for (const [p, player] of Object.values(team.player).entries()) {
+            if (player && player.name) {
+              names.push(await Transcript(player.name));
+            }
           }
+          teamName = names.join(" / ");
         }
-        teamName = names.join(" / ");
         SetInnerHtml(
           $(`.p${t + 1}.container .name`),
           `
-        <span>
-          ${teamName}
-          ${team.losers ? "(L)" : ""}
-        </span>
-        `
+            ${teamName}
+            ${team.losers ? "(L)" : ""}
+          `
         );
         for (const [p, player] of [team.player["1"]].entries()) {
           document.querySelector(`.p${t + 1}.bg`).classList.remove("unhidden");

@@ -29,6 +29,7 @@ LoadEverything().then(() => {
                 // TODO: Standings formula
                 Array(1, 2, 3, 4, 5, 5, 7, 7, 17, 17, 17, 17, 21, 21, 21, 21)[i]
               }</div>
+              <div class="record-chip"></div>
               <div class="footer">
                 <!-- <div class="icon avatar"></div> -->
                 <!-- <div class="icon online_avatar"></div> -->
@@ -83,12 +84,10 @@ LoadEverything().then(() => {
               SetInnerHtml(
                 $(`.slot${parseInt(t)} .p${parseInt(p)}.container .name`),
                 `
-              <span>
                 <span class="sponsor">
                   ${player.team ? player.team : ""}
                 </span>
                 ${await Transcript(player.name)}
-              </span>
               `,
                 undefined,
                 0
@@ -137,8 +136,71 @@ LoadEverything().then(() => {
                   load_settings_path: load_settings_path,
                 },
                 event
-              );
-  
+              ).then(() => {
+                // Extract dominant color from character background images
+                let characterElements = $(`.slot${parseInt(t)} .p${parseInt(p)}.container .character_container .tsh_character`);
+
+                if (characterElements.length > 1) {
+                  // Multiple characters with dividers - color each one individually
+                  characterElements.each(function(idx) {
+                    let bgImage = $(this).find('.tsh-center-image').css("background-image");
+                    if (bgImage && bgImage !== "none") {
+                      let imgUrl = bgImage.match(/url\("?([^"]*)"?\)/)?.[1];
+                      if (imgUrl) {
+                        const img = new Image();
+                        img.crossOrigin = "anonymous";
+                        img.src = imgUrl;
+                        img.onload = () => {
+                          try {
+                            const colorThief = new ColorThief();
+                            let palette = colorThief.getPalette(img, 5);
+
+                            if (palette && palette.length > 0) {
+                              let color1 = palette[0];
+                              let color2 = palette[1] || palette[0];
+                              $(characterElements[idx]).css({
+                                "background": `linear-gradient(135deg, rgba(${color1.join(",")}, 0.85) 0%, rgba(${color2.join(",")}, 0.6) 100%)`
+                              });
+                            }
+                          } catch (err) {
+                            console.log("Could not extract color from character image:", err);
+                          }
+                        };
+                      }
+                    }
+                  });
+                } else {
+                  // Single character - color the entire container
+                  $(`.slot${parseInt(t)} .p${parseInt(p)}.container .character_container .tsh-center-image`).each(function() {
+                    let bgImage = $(this).css("background-image");
+                    if (bgImage && bgImage !== "none") {
+                      let imgUrl = bgImage.match(/url\("?([^"]*)"?\)/)?.[1];
+                      if (imgUrl) {
+                        const img = new Image();
+                        img.crossOrigin = "anonymous";
+                        img.src = imgUrl;
+                        img.onload = () => {
+                          try {
+                            const colorThief = new ColorThief();
+                            let palette = colorThief.getPalette(img, 5);
+
+                            if (palette && palette.length > 0) {
+                              let color1 = palette[0];
+                              let color2 = palette[1] || palette[0];
+                              $(`.slot${parseInt(t)} .p${parseInt(p)}.container .character_container`).css({
+                                "background": `linear-gradient(135deg, rgba(${color1.join(",")}, 0.85) 0%, rgba(${color2.join(",")}, 0.6) 100%)`
+                              });
+                            }
+                          } catch (err) {
+                            console.log("Could not extract color from character image:", err);
+                          }
+                        };
+                      }
+                    }
+                  });
+                }
+              });
+
               SetInnerHtml(
                 $(`.slot${parseInt(t)} .p${parseInt(p)}.container .sponsor_icon`),
                 player.sponsor_logo
@@ -147,7 +209,7 @@ LoadEverything().then(() => {
                 undefined,
                 0
               );
-  
+
               SetInnerHtml(
                 $(`.slot${parseInt(t)} .p${parseInt(p)}.container .avatar`),
                 player.avatar
@@ -156,7 +218,7 @@ LoadEverything().then(() => {
                 undefined,
                 0
               );
-  
+
               SetInnerHtml(
                 $(
                   `.slot${parseInt(t)} .p${parseInt(p)}.container .online_avatar`
@@ -167,7 +229,7 @@ LoadEverything().then(() => {
                 undefined,
                 0
               );
-  
+
               SetInnerHtml(
                 $(`.slot${parseInt(t)} .p${parseInt(p)}.container .twitter`),
                 player.twitter
@@ -176,7 +238,7 @@ LoadEverything().then(() => {
                 undefined,
                 0
               );
-  
+
               SetInnerHtml(
                 $(
                   `.slot${parseInt(t)} .p${parseInt(
@@ -184,6 +246,15 @@ LoadEverything().then(() => {
                   )}.container .sponsor-container`
                 ),
                 `<div class='sponsor-logo' style="background-image: url('../../${player.sponsor_logo}')"></div>`,
+                undefined,
+                0
+              );
+
+              SetInnerHtml(
+                $(`.slot${parseInt(t)} .p${parseInt(p)}.container .record-chip`),
+                player.wins != null && player.losses != null
+                  ? `${player.wins}W - ${player.losses}L`
+                  : "",
                 undefined,
                 0
               );
@@ -243,7 +314,70 @@ LoadEverything().then(() => {
               slice_character: [0, 1],
             },
             event
-          );
+          ).then(() => {
+            // Extract dominant color from team's character background images
+            let characterElements = $(`.slot${parseInt(t)} .p1.container .character_container .tsh_character`);
+
+            if (characterElements.length > 1) {
+              // Multiple characters with dividers - color each one individually
+              characterElements.each(function(idx) {
+                let bgImage = $(this).find('.tsh-center-image').css("background-image");
+                if (bgImage && bgImage !== "none") {
+                  let imgUrl = bgImage.match(/url\("?([^"]*)"?\)/)?.[1];
+                  if (imgUrl) {
+                    const img = new Image();
+                    img.crossOrigin = "anonymous";
+                    img.src = imgUrl;
+                    img.onload = () => {
+                      try {
+                        const colorThief = new ColorThief();
+                        let palette = colorThief.getPalette(img, 4);
+
+                        if (palette && palette.length > 2) {
+                          let color1 = palette[2] || palette[1] || palette[0];
+                          let color2 = palette[3] || palette[2] || palette[1] || palette[0];
+                          $(characterElements[idx]).css({
+                            "background": `linear-gradient(135deg, rgba(${color1.join(",")}, 0.6) 0%, rgba(${color2.join(",")}, 0.3) 100%)`
+                          });
+                        }
+                      } catch (err) {
+                        console.log("Could not extract color from character image:", err);
+                      }
+                    };
+                  }
+                }
+              });
+            } else {
+              // Single character - color the entire container
+              $(`.slot${parseInt(t)} .p1.container .character_container .tsh-center-image`).each(function() {
+                let bgImage = $(this).css("background-image");
+                if (bgImage && bgImage !== "none") {
+                  let imgUrl = bgImage.match(/url\("?([^"]*)"?\)/)?.[1];
+                  if (imgUrl) {
+                    const img = new Image();
+                    img.crossOrigin = "anonymous";
+                    img.src = imgUrl;
+                    img.onload = () => {
+                      try {
+                        const colorThief = new ColorThief();
+                        let palette = colorThief.getPalette(img, 4);
+
+                        if (palette && palette.length > 2) {
+                          let color1 = palette[2] || palette[1] || palette[0];
+                          let color2 = palette[3] || palette[2] || palette[1] || palette[0];
+                          $(`.slot${parseInt(t)} .p1.container .character_container`).css({
+                            "background": `linear-gradient(135deg, rgba(${color1.join(",")}, 0.6) 0%, rgba(${color2.join(",")}, 0.3) 100%)`
+                          });
+                        }
+                      } catch (err) {
+                        console.log("Could not extract color from character image:", err);
+                      }
+                    };
+                  }
+                }
+              });
+            }
+          });
         }
       }
     }

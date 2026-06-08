@@ -154,7 +154,7 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -177,11 +177,11 @@ body {
 }
 
 .t1 .sponsor {
-  color: var(--p1-sponsor-color);
+  color: var(--p1-score-bg-color);
 }
 
 .t2 .sponsor {
-  color: var(--p2-sponsor-color);
+  color: var(--p2-score-bg-color);
 }
 
 .flagscontainer {
@@ -204,9 +204,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: 34px;
   height: 22px;
   border: 2px solid white;
@@ -445,7 +443,7 @@ body {
   display: inline-block;
   width: 30px;
   height: 30px;
-  -webkit-mask-image: url(./icon_mic.svg);
+  -webkit-mask-image: url(../icons/mic.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -454,6 +452,7 @@ body {
 
 .name {
   font-size: 26px;
+  gap: 8px;
 }
 
 .team {
@@ -519,7 +518,6 @@ body {
   display: inline-flex;
   width: 30px;
   height: 30px;
-  position: absolute;
   font-size: 25px;
   border-radius: 100%;
   text-align: center;

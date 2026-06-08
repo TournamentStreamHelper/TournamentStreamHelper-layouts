@@ -117,8 +117,8 @@ LoadEverything().then(() => {
 
     if (
       !oldData.bracket || !oldData ||
-      JSON.stringify(data.bracket.bracket) !=
-        JSON.stringify(oldData.bracket.bracket)
+      JSON.stringify(data.bracket) !=
+        JSON.stringify(oldData.bracket)
     ) {
       let bracket = data.bracket.bracket.rounds;
       let players = data.bracket.players.slot;
@@ -600,14 +600,14 @@ LoadEverything().then(() => {
               SetInnerHtml(
                 $(element).find(`.flagcountry`),
                 player && player.country.asset
-                  ? `<div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>`
+                  ? `<img class='flag' src='../../${player.country.asset.toLowerCase()}' />`
                   : ""
               );
 
               SetInnerHtml(
                 $(element).find(`.flagstate`),
                 player && player.state.asset
-                  ? `<div class='flag' style="background-image: url('../../${player.state.asset}')"></div>`
+                  ? `<img class='flag' src='../../${player.state.asset}' />`
                   : ""
               );
 
@@ -622,22 +622,22 @@ LoadEverything().then(() => {
               SetInnerHtml(
                 $(element).find(`.sponsor_icon`),
                 player && player.sponsor_logo
-                  ? `<div style="background-image: url('../../${player.sponsor_logo}')"></div>`
+                  ? `<img class='sponsor_icon' src='../../${player.sponsor_logo}' />`
                   : ""
               );
 
               SetInnerHtml(
                 $(element).find(`.avatar`),
                 player && player.avatar
-                  ? `<div style="background-image: url('../../${player.avatar}')"></div>`
+                  ? `<img class='avatar' src='../../${player.avatar}' />`
                   : ""
               );
 
               SetInnerHtml(
                 $(element).find(`.online_avatar`),
                 player && player.online_avatar
-                  ? `<div style="background-image: url('${player.online_avatar}')"></div>`
-                  : '<div style="background: gray)"></div>'
+                  ? `<img class='online_avatar' src='${player.online_avatar}' />`
+                  : ""
               );
 
               SetInnerHtml(
@@ -651,7 +651,7 @@ LoadEverything().then(() => {
 
               SetInnerHtml(
                 $(element).find(`.sponsor-container`),
-                `<div class='sponsor-logo' style="background-image: url('../../${player ? player.sponsor_logo : ""}')"></div>`
+                player && player.sponsor_logo ? `<img class='sponsor-logo' src='../../${player.sponsor_logo}' />` : ""
               );
             } else {
               // Doubles/Teams
@@ -662,19 +662,17 @@ LoadEverything().then(() => {
                 for (const [p, player] of Object.values(
                   team.player
                 ).entries()) {
-                  if (player) {
+                  if (player && player.name) {
                     names.push(await Transcript(player.name));
                   }
                 }
-                teamName = names.join(" / ");
+                teamName = names.join("<div>/</div>");
               }
 
               SetInnerHtml(
                 $(element).find(`.name`),
                 `
-                  <span>
-                    ${teamName}
-                  </span>
+                  ${teamName}
                 `
               );
 

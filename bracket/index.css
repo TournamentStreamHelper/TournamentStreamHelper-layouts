@@ -205,7 +205,7 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -263,19 +263,21 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: var(--flag-height);
   height: calc(var(--flag-height) * 0.7px);
   border-radius: 3px;
 }
 
-.sponsor_icon > div > div {
+.avatar:not(.text_empty), .online_avatar:not(.text_empty) {
+  object-fit: cover;
+  width: 32px;
+  height: 32px;
+}
+
+.sponsor_icon {
   display: inline-block;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: contain;
   width: var(--flag-height);
   height: var(--flag-height);
   border-radius: var(--border-radius);
@@ -291,7 +293,6 @@ body {
   position: absolute;
   right: 0;
   z-index: -999;
-  opacity: 0.5;
   -webkit-mask-image: -webkit-linear-gradient(
     right,
     #ffffff 0%,
@@ -300,23 +301,13 @@ body {
   );
 }
 
-.character_container > div {
-  overflow: hidden;
-  gap: 2px;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-  overflow: hidden;
+.tsh_character_img {
+  opacity: 0.5;
 }
 
-.character_container > div > div {
-  overflow: hidden;
-  height: 100%;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  border-radius: 0;
+.tsh_variant_icon {
+  height: 90%;
+  left: 25%;
 }
 
 .score {

@@ -11,6 +11,7 @@ body {
     drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
     drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
   letter-spacing: 1;
+  -webkit-text-stroke: 0;
 }
 
 .anim_container_outer {
@@ -101,7 +102,7 @@ body {
   flex-direction: row;
   background: linear-gradient(
     4deg,
-    var(--p1-sponsor-color) 0%,
+    var(--p1-score-bg-color) 0%,
     var(--bg-color) 40%
   );
   padding-right: 12px;
@@ -111,7 +112,7 @@ body {
   flex-direction: row-reverse;
   background: linear-gradient(
     356deg,
-    var(--p2-sponsor-color) 0%,
+    var(--p2-score-bg-color) 0%,
     var(--bg-color) 40%
   );
   padding-left: 12px;
@@ -129,6 +130,7 @@ body {
   overflow: hidden;
   color: var(--text-color);
   word-spacing: 2px;
+  gap: 8px;
 }
 
 .p1 .name {
@@ -169,7 +171,7 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -239,9 +241,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: contain;
   width: 44px;
   height: 31px;
 }
@@ -286,7 +286,7 @@ body {
   /* For gradient color */
   background: linear-gradient(
     90deg,
-    var(--p1-sponsor-color) 0%,
+    var(--p1-score-bg-color) 0%,
     var(--text-color) 200%
   );
   -webkit-background-clip: text;
@@ -297,7 +297,7 @@ body {
   /* For gradient color */
   background: linear-gradient(
     90deg,
-    var(--p2-sponsor-color) 0%,
+    var(--p2-score-bg-color) 0%,
     var(--text-color) 200%
   );
   -webkit-background-clip: text;

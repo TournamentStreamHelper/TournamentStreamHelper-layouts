@@ -23,42 +23,37 @@ LoadEverything().then(() => {
       data.score[window.scoreboardNumber].team["2"],
     ].entries()) {
       for (const [p, player] of [team.player["1"]].entries()) {
-        if (player) {
+        if (player && player.name) {
           if (Object.keys(team.player).length == 1) {
+            // Singles: get player name presentation using player_presentation strategy
+            let playerPresentation = `<span class="sponsor">${player && player.team ? player.team : ""}</span>${player ? await Transcript(player.name) : ""}`;
+
             SetInnerHtml(
               $(`.t${t + 1}.container .name`),
               `
-            <span>
-              <span class="sponsor">
-                ${player.team ? player.team.toUpperCase() : ""}
-              </span>
-              ${player.name ? await Transcript(player.name.toUpperCase()) : ""}
-              ${team.losers ? "<span class='losers'>L</span>" : ""}
-            </span>
-            `
+                ${playerPresentation.toUpperCase ? playerPresentation.toUpperCase() : playerPresentation}
+                ${team.losers ? "<span class='losers'>L</span>" : ""}
+              `
             );
           } else {
-            let teamName = "";
-
-            if (!team.teamName || team.teamName == "") {
-              let names = [];
-              for (const [p, player] of Object.values(team.player).entries()) {
-                if (player && player.name) {
-                  names.push(await Transcript(player.name));
-                }
-              }
-              teamName = names.join(" / ");
-            } else {
-              teamName = team.teamName;
+            // Doubles: get team name presentation using player_presentation strategy
+            let teamName = team.teamName;
+        if (!teamName || teamName == "") {
+          let names = [];
+          for (const [p, player] of Object.values(team.player).entries()) {
+            if (player && player.name) {
+              names.push(await Transcript(player.name));
             }
+          }
+          teamName = names.join(" / ");
+        }
+        let teamPresentation = teamName;
 
             SetInnerHtml(
               $(`.t${t + 1}.container .name`),
               `
-              <span>
-                ${teamName.toUpperCase()}
+                ${teamPresentation.toUpperCase ? teamPresentation.toUpperCase() : teamPresentation}
                 ${team.losers ? "<span class='losers'>L</span>" : ""}
-              </span>
               `
             );
           }
@@ -72,7 +67,7 @@ LoadEverything().then(() => {
             $(`.t${t + 1}.p${p + 1} .flagcountry`),
             player.country.asset && Object.keys(team.player).length == 1
               ? `
-                <div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>
+                <img class='flag' src='../../${player.country.asset.toLowerCase()}' />
               `
               : ""
           );
@@ -81,7 +76,7 @@ LoadEverything().then(() => {
             $(`.t${t + 1}.p${p + 1} .flagstate`),
             player.state.asset && Object.keys(team.player).length == 1
               ? `
-                <div class='flag' style="background-image: url('../../${player.state.asset}')"></div>
+                <img class='flag' src='../../${player.state.asset}' />
               `
               : ""
           );

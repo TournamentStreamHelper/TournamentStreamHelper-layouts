@@ -53,6 +53,7 @@ body {
 }
 
 .p1.player.container {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 15%, var(--bg-color) 85%);
   background-position: 100% 0;
   left: 0;
   flex-direction: row;
@@ -62,6 +63,7 @@ body {
 }
 
 .p2.player.container {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 15%, var(--bg-color) 85%);
   background-position: 0 0;
   right: 0;
   flex-direction: row-reverse;
@@ -124,6 +126,14 @@ body {
   padding-right: 8px;
 }
 
+.p1 .chip .text:not(.text_empty) {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.p2 .chip .text:not(.text_empty) {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
 .flagcountry, .flagstate {
   display: flex;
   justify-content: center;
@@ -158,7 +168,29 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.seed_logo {
+  -webkit-mask-image: url(../icons/seed_leaf.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.pronoun_logo {
+  -webkit-mask-image: url(../icons/user.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -340,9 +372,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: 32px;
   height: 26px;
 }
@@ -370,7 +400,6 @@ body {
 }
 
 .p2 .character_container {
-  transform: scaleX(-1);
 }
 
 .score {

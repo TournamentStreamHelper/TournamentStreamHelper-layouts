@@ -54,7 +54,6 @@ LoadEverything().then(() => {
                 <div class="flagcountry"></div>
                 ${player.state.asset ? `<div class="flagstate"></div>` : ""}
               </div>
-              <div class="filler"></div>
               <div class="character_container"></div>
             </div>
           `;
@@ -94,9 +93,9 @@ LoadEverything().then(() => {
               $(`.slot${t + 1} .p${p + 1}.container .flagcountry`),
               player.country.asset
                 ? `
-                  <div class='flag' style="background-image: url('../../${String(player.country.asset).toLowerCase()}')"></div>
+                  <img class='flag' src='../../${String(player.country.asset).toLowerCase()}' />
                   <div class='flagname'>${player.country.code}</div>
-                ` 
+                `
                 : "",
               undefined,
               0
@@ -106,7 +105,7 @@ LoadEverything().then(() => {
               $(`.slot${t + 1} .p${p + 1}.container .flagstate`),
               player.state.asset
                 ? `
-                  <div class='flag' style="background-image: url('../../${player.state.asset}')"></div>
+                  <img class='flag' src='../../${player.state.asset}' />
                   <div class='flagname'>${player.state.code}</div>
                 `
                 : "",
@@ -126,8 +125,8 @@ LoadEverything().then(() => {
             SetInnerHtml(
               $(`.slot${t + 1} .p${p + 1}.container .sponsor_icon`),
               player.sponsor_logo
-                ? `<div style="background-image: url('../../${player.sponsor_logo}')"></div>`
-                : "<div></div>",
+                ? `<img src='../../${player.sponsor_logo}' />`
+                : "",
               undefined,
               0
             );
@@ -135,7 +134,7 @@ LoadEverything().then(() => {
             SetInnerHtml(
               $(`.slot${t + 1} .p${p + 1}.container .avatar`),
               player.avatar
-                ? `<div style="background-image: url('../../${player.avatar}')"></div>`
+                ? `<img src='../../${player.avatar}' />`
                 : "",
               undefined,
               0
@@ -144,8 +143,8 @@ LoadEverything().then(() => {
             SetInnerHtml(
               $(`.slot${t + 1} .p${p + 1}.container .online_avatar`),
               player.online_avatar
-                ? `<div style="background-image: url('${player.online_avatar}')"></div>`
-                : '<div style="background: gray)"></div>',
+                ? `<img src='${player.online_avatar}' />`
+                : "<div></div>",
               undefined,
               0
             );

@@ -1,18 +1,91 @@
+/* ═══════════════════════════════════════════════════════════
+   FONTS
+   Primary: SairaCondensed — condensed, sporty, great for long
+   player tags. Falls back to NotoSans for extended Latin /
+   Cyrillic, then to system CJK fonts (JP, ZH-SC, ZH-TC, KR)
+   so tournament names and player handles in any script render
+   correctly without bundling multi-hundred-MB CJK font files.
+   ═══════════════════════════════════════════════════════════ */
+
 @font-face {
-  font-family: "NotoSans";
-  src: url("./include/NotoSans-Regular.ttf") format("truetype");
+  font-family: "SairaCondensed";
+  src: url("./fonts/Saira/Saira_Condensed-Bold.ttf") format("truetype");
+  font-weight: 700;
 }
 
+@font-face {
+  font-family: "SairaCondensed";
+  src: url("./fonts/Saira/Saira_Condensed-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "SairaCondensed";
+  src: url("./fonts/Saira/Saira_Condensed-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+/* Variable font — covers Latin, Cyrillic, Greek, and extended scripts */
+@font-face {
+  font-family: "NotoSans";
+  src: url("./fonts/NotoSans/NotoSans.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+/* CJK variable fonts — per-character fallback in the font stack below */
+@font-face {
+  font-family: "NotoSansJP";
+  src: url("./fonts/NotoSans/NotoSansJP.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "NotoSansSC";
+  src: url("./fonts/NotoSans/NotoSansSC.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "NotoSansTC";
+  src: url("./fonts/NotoSans/NotoSansTC.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "NotoSansKR";
+  src: url("./fonts/NotoSans/NotoSansKR.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+/* Legacy — kept so layouts that still reference these names render */
 @font-face {
   font-family: "RobotoCondensed";
   src: url("./include/RobotoCondensed.ttf") format("truetype");
 }
 
-/* Class used for transcriptions, example: Kana -> Romaji (Japanese to Roman alphabet) */
+@font-face {
+  font-family: "Roboto";
+  src: url("./include/Roboto-Regular.ttf") format("truetype");
+}
+
 .tsh_transcript {
-  font-size: 60%;
-  text-transform: uppercase;
-  align-self: end;
+  display: flex;
+  flex-direction: column;
+  .original {
+    font-size: 0.6em;
+  }
+  .transcript {
+    align-items: center;
+    justify-content: center;
+    font-size: 0.4em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }
 
 .tsh_character_container {
@@ -21,13 +94,62 @@
   height: 100%;
 }
 
-.tsh_character,
-.tsh_character > div {
+.tsh_character {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
+.tsh_character_img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tsh_variant_icon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 75%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  opacity: 0.75;
+  z-index: 99;
+  filter: drop-shadow(0 0 1px white) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+  display: none;
+}
+
+/* Global text stroke — contrasting outline computed from each element's own color,
+   paint-order ensures the stroke renders behind the fill so letterforms stay clean */
+body {
+  -webkit-text-stroke: 4px rgb(from currentColor calc(255 - r) calc(255 - g) calc(255 - b) / 0.15);
+  paint-order: stroke fill;
+}
+
+/* Override browser UA default (content-box) for all images */
+img {
+  overflow-clip-margin: border-box;
+}
+
+/* <img> elements inside icon/avatar slots — fill the container */
+.icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sponsor logos — contain keeps the full logo visible without cropping */
+.sponsor_icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Horizontally-scrolling single-line text block used inside containers */
 .text {
   white-space: nowrap;
   display: flex;
@@ -38,51 +160,65 @@
   height: 100%;
   gap: inherit;
   transform-origin: left;
+  line-height: 1;
 }
 
-/* Main theme -- Dark Gradient */
+
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS  (Material You–inspired dark theme)
+   ═══════════════════════════════════════════════════════════ */
+
 :root {
-  --font: "RobotoCondensed";
-  --border-radius: 16px;
-  --text-color: white;
-  --bg-color: #121212;
-  /* see DEFAULT_TEAM1_COLOR and DEFAULT_TEAM2_COLOR in src/TSHScoreboardWidget.py */
+  /* Font stack — per-character fallback:
+     SairaCondensed for Latin, NotoSans for extended Latin/Cyrillic/Greek,
+     then bundled CJK fonts for Japanese, Simplified/Traditional Chinese, Korean */
+  --font: "SairaCondensed", "NotoSans",
+    "NotoSansJP", "NotoSansSC", "NotoSansTC", "NotoSansKR",
+    sans-serif;
 
-  /* --p1-score-bg-color: linear-gradient(
-    135deg,
-    rgba(189, 63, 50, 1) 0%,
-    rgba(203, 53, 107, 1) 100%
-  );
-  --p2-score-bg-color: linear-gradient(
-    225deg,
-    rgba(47, 128, 237, 1) 0%,
-    rgba(60, 139, 166, 1) 100%
-  ); */
+  /* Shape */
+  --border-radius: 12px;
+  --border-radius-chip: 5px;
+  --border-radius-pill: 9999px;
 
+  /* Color */
+  --text-color: #ffffff;
+  /* Semi-transparent so the overlay sits slightly over the game feed */
+  --bg-color: rgb(18, 17, 28);
+
+  /* Player accent colors — defaults; overridden per-match via
+     DEFAULT_TEAM1_COLOR / DEFAULT_TEAM2_COLOR in TSHScoreboardWidget.py */
   --p1-sponsor-color: #ff7a6d;
-  --p2-sponsor-color: #29b6f6;
-  --p1-score-bg-color: rgb(254, 54, 54);
-  --p2-score-bg-color: rgb(46, 137, 255);
-  --p1-score-color: white;
-  --p2-score-color: white;
+  --p2-sponsor-color: #4fc3f7;
+  --p1-score-bg-color: #e53935;
+  --p2-score-bg-color: #1e88e5;
+  --p1-score-color: #ffffff;
+  --p2-score-color: #ffffff;
 }
 
-/* Uncomment for themes */
 
-/* Dark Solid Theme */
+/* ═══════════════════════════════════════════════════════════
+   ALTERNATE THEMES  (uncomment one block to activate)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Dark Solid — fully opaque, no transparency */
 /* :root {
-  --text-color: white;
-  --bg-color: #18181b;
-  --p1-score-bg-color: #ff3837ff;
-  --p2-score-bg-color: #1255a3ff;
-  --p1-score-color: white;
-  --p2-score-color: white;
+  --bg-color: #12111c;
+  --text-color: #ffffff;
+  --p1-score-bg-color: #e53935;
+  --p2-score-bg-color: #1e88e5;
+  --p1-score-color: #ffffff;
+  --p2-score-color: #ffffff;
 } */
 
-/* Light Gradient Theme */
+/* Light */
 /* :root {
-  --text-color: black;
-  --bg-color: #e2ebf0ff;
-  --p1-sponsor-color: #a31212;
-  --p2-sponsor-color: #1255a3ff;
+  --text-color: #111111;
+  --bg-color: rgba(230, 232, 240, 0.92);
+  --p1-sponsor-color: #b71c1c;
+  --p2-sponsor-color: #0d47a1;
+  --p1-score-bg-color: #e53935;
+  --p2-score-bg-color: #1e88e5;
+  --p1-score-color: #ffffff;
+  --p2-score-color: #ffffff;
 } */

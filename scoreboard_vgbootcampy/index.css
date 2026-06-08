@@ -156,7 +156,7 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -292,9 +292,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: contain;
   width: 44px;
   height: 31px;
 }
@@ -332,7 +330,7 @@ body {
 }
 
 .p1 .sponsor {
-  color: var(--p1-sponsor-color);
+  color: var(--p1-score-bg-color);
 
   /* For gradient color */
   /* background: INSERT LINEAR GRADIENT COLOR HERE; */
@@ -341,7 +339,7 @@ body {
 }
 
 .p2 .sponsor {
-  color: var(--p2-sponsor-color);
+  color: var(--p2-score-bg-color);
 
   /* For gradient color */
   /* background: INSERT LINEAR GRADIENT COLOR HERE; */

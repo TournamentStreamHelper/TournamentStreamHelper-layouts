@@ -85,20 +85,19 @@ LoadEverything().then(() => {
           if (Object.keys(team.player).length == 1) {
             DisplayName(t, team, player)
           } else {
-            let teamName = "";
-
-            if (!team.teamName || team.teamName == "") {
-              let names = [];
-              for (const [p, player] of Object.values(team.player).entries()) {
-                if (player && player.name) {
-                  names.push(await Transcript(player.name));
-                }
-              }
-              teamName = names.join(" / ");
-            } else {
-              teamName = team.teamName;
+            // Get team name presentation using player_presentation strategy
+            let teamName = team.teamName;
+        if (!teamName || teamName == "") {
+          let names = [];
+          for (const [p, player] of Object.values(team.player).entries()) {
+            if (player && player.name) {
+              names.push(await Transcript(player.name));
             }
-            DisplayTeamName(t, team, teamName);
+          }
+          teamName = names.join(" / ");
+        }
+        let teamPresentation = teamName;
+            DisplayTeamName(t, team, teamPresentation);
           }
 
           SetInnerHtml($(`.p${t + 1} .score`), String(team.score));
@@ -106,7 +105,7 @@ LoadEverything().then(() => {
           SetInnerHtml(
             $(`.p${t + 1}.container .flagcountry`),
             player.country.asset && Object.keys(team.player).length == 1
-              ? `<div class='flag' style="background-image: url('${player.country.asset.toLowerCase()}')"></div>`
+              ? `<img class='flag' src='${player.country.asset.toLowerCase()}' />`
               : ""
           );
 
@@ -464,7 +463,6 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p1.container .name`),
           `
-          <span>
             <span class="sponsor">
               ${player1.team ? player1.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
             </span>
@@ -472,7 +470,6 @@ LoadEverything().then(() => {
               player1.name ? await Transcript(player1.name) : ""
             }
             ${"(WL)"}
-          </span>
           `
         );
 
@@ -480,7 +477,6 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p2.container .name`),
           `
-          <span>
             <span class="sponsor">
               ${player2.team ? player2.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
             </span>
@@ -488,7 +484,6 @@ LoadEverything().then(() => {
               player2.name ? await Transcript(player2.name) : ""
             }
             ${"(L)"}
-          </span>
           `
         );
 
@@ -499,7 +494,6 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p1.container .name`),
           `
-          <span>
             <span class="sponsor">
               ${player1.team ? player1.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
             </span>
@@ -507,7 +501,6 @@ LoadEverything().then(() => {
               player1.name ? await Transcript(player1.name) : ""
             }
             ${"(L)"}
-          </span>
           `
         );
 
@@ -515,7 +508,6 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p2.container .name`),
           `
-          <span>
             <span class="sponsor">
               ${player2.team ? player2.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
             </span>
@@ -523,7 +515,6 @@ LoadEverything().then(() => {
               player2.name ? await Transcript(player2.name) : ""
             }
             ${"(WL)"}
-          </span>
           `
         );
 
@@ -534,7 +525,6 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p1.container .name`),
           `
-          <span>
             <span class="sponsor">
               ${player1.team ? player1.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
             </span>
@@ -542,7 +532,6 @@ LoadEverything().then(() => {
               player1.name ? await Transcript(player1.name) : ""
             }
             ${"(L)"}
-          </span>
           `
         );
 
@@ -550,7 +539,6 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p2.container .name`),
           `
-          <span>
             <span class="sponsor">
               ${player2.team ? player2.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
             </span>
@@ -558,7 +546,6 @@ LoadEverything().then(() => {
               player2.name ? await Transcript(player2.name) : ""
             }
             ${"(L)"}
-          </span>
           `
         );
       }
@@ -569,7 +556,6 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $('.p1.container .name'),
         `
-        <span>
           <span class="sponsor">
             ${player1.team ? player1.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
           </span>
@@ -577,7 +563,6 @@ LoadEverything().then(() => {
             player1.name ? await Transcript(player1.name) : ""
           }
           ${"(L)"}
-        </span>
         `
       );
       
@@ -585,7 +570,6 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $('.p2.container .name'),
         `
-        <span>
           <span class="sponsor">
             ${player2.team ? player2.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
           </span>
@@ -593,7 +577,6 @@ LoadEverything().then(() => {
             player2.name ? await Transcript(player2.name) : ""
           }
           ${"(W)"}
-        </span>
         `
       );
 
@@ -608,7 +591,6 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $('.p1.container .name'),
         `
-        <span>
           <span class="sponsor">
             ${player1.team ? player1.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
           </span>
@@ -616,7 +598,6 @@ LoadEverything().then(() => {
             player1.name ? await Transcript(player1.name) : ""
           }
           ${"(W)"}
-        </span>
         `
       );
       
@@ -624,7 +605,6 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $('.p2.container .name'),
         `
-        <span>
           <span class="sponsor">
             ${player2.team ? player2.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
           </span>
@@ -632,7 +612,6 @@ LoadEverything().then(() => {
             player2.name ? await Transcript(player2.name) : ""
           }
           ${"(L)"}
-        </span>
         `
       );
 
@@ -647,28 +626,24 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $('.p1.container .name'),
         `
-        <span>
           <span class="sponsor">
             ${player1.team ? player1.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
           </span>
           ${
             player1.name ? await Transcript(player1.name) : ""
           }
-        </span>
         `
       );
 
       SetInnerHtml(
         $('.p2.container .name'),
         `
-        <span>
           <span class="sponsor">
             ${player2.team ? player2.team.replace(/\s*[\|\/\\]\s*/g, ' '): ""}
           </span>
           ${
             player2.name ? await Transcript(player2.name) : ""
           }
-        </span>
         `
       );
 
@@ -699,10 +674,8 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p1.container .name`),
           `
-          <span>
             ${team1Name}
             ${"(WL)"}
-          </span>
           `
         );
 
@@ -710,10 +683,8 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p2.container .name`),
           `
-          <span>
             ${team2Name}
             ${"(L)"}
-          </span>
           `
         );
 
@@ -724,10 +695,8 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p1.container .name`),
           `
-          <span>
             ${team1Name}
             ${"(L)"}
-          </span>
           `
         );
 
@@ -735,10 +704,8 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p2.container .name`),
           `
-          <span>
             ${team2Name}
             ${"(WL)"}
-          </span>
           `
         );
 
@@ -749,10 +716,8 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p1.container .name`),
           `
-          <span>
             ${team1Name}
             ${"(L)"}
-          </span>
           `
         );
 
@@ -760,10 +725,8 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.p2.container .name`),
           `
-          <span>
             ${team2Name}
             ${"(L)"}
-          </span>
           `
         );
       }
@@ -774,10 +737,8 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $(`.p1.container .name`),
         `
-        <span>
           ${team1Name}
           ${"(L)"}
-        </span>
         `
       );
 
@@ -785,10 +746,8 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $(`.p2.container .name`),
         `
-        <span>
           ${team2Name}
           ${"(W)"}
-        </span>
         `
       );
 
@@ -802,10 +761,8 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $(`.p1.container .name`),
         `
-        <span>
           ${team1Name}
           ${"(W)"}
-        </span>
         `
       );
 
@@ -813,10 +770,8 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $(`.p2.container .name`),
         `
-        <span>
           ${team2Name}
           ${"(L)"}
-        </span>
         `
       );
 
@@ -830,18 +785,14 @@ LoadEverything().then(() => {
       SetInnerHtml(
         $(`.p1.container .name`),
         `
-        <span>
           ${team1Name}
-        </span>
         `
       );
 
       SetInnerHtml(
         $(`.p2.container .name`),
         `
-        <span>
           ${team2Name}
-        </span>
         `
       );
 

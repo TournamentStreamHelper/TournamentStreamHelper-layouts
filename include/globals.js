@@ -358,7 +358,16 @@ async function Transcript(text) {
           romajiSystem: settings.romajiSystem,
         })
         .then((res) => {
-          return `${text}<span class="tsh_transcript">&nbsp;${res}</span>`;
+          return `
+            <div class="tsh_transcript">
+              <span class="original">
+                ${text}
+              </span>
+              <span class="transcript">
+                ${res}
+              </span>
+            </div>
+          `.trim();
         });
     } else {
       return text;
@@ -410,11 +419,14 @@ async function SetInnerHtml(element, html, settings = {}) {
   // Wait for font to load before calculating sizes
   await document.fonts.ready;
 
-  // Decode the HTML content to compare
-  const currentText = he.decode(
-    String(element.find(".text").html()).replace(/'/g, '"'),
-  );
-  const newText = he.decode(String(html).replace(/'/g, '"'));
+  // Normalize HTML by parsing through DOM to ensure consistent formatting
+  const normalizeHtml = (str) => {
+    const temp = document.createElement('div');
+    temp.innerHTML = String(str);
+    return temp.innerHTML;
+  };
+  const currentText = normalizeHtml(element.find(".text").html());
+  const newText = normalizeHtml(html);
 
   if (force === true || currentText !== newText) {
     const updateElement = (element, html, firstRun) => {
@@ -981,6 +993,15 @@ function initOnBrowserActive(hide, show) {
   }
 }
 
+/**
+ * Generates HTML for player name presentation following the player_presentation strategy:
+ * - For singles: sponsor name + transcribed player name
+ * - For doubles: team name (and player names if they differ from team name)
+ * @param {Object} player - Player object (for singles)
+ * @param {Object} team - Team object (for singles or doubles)
+ * @param {Boolean} isTeams - Whether this is a doubles match
+ * @returns {Promise<String>} HTML string for the name presentation
+ */
 /** Determines if the browser view is currently active/visible */
 function isBrowserActive() {
   if (window.obsstudio) {

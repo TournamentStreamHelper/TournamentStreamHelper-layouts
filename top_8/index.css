@@ -6,10 +6,7 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
   letter-spacing: 1;
 }
 
@@ -55,7 +52,7 @@ body {
 
 .slot .title {
   width: 100%;
-  font-size: 34px;
+  font-size: 44px;
   margin: 0px 0;
   padding: 8px 8px;
   height: 70px;
@@ -106,22 +103,39 @@ body {
 }
 
 .name_twitter .name {
-  font-size: 32px;
+  font-size: 40px;
   max-width: 100%;
+  line-height: 1;
+  gap: 6px;
 }
 
 .name_twitter .team_members {
-  font-size: 24px;
+  font-size: 32px;
   max-width: 100%;
+  line-height: 1;
 }
 
 .name_twitter .twitter {
-  font-size: 24px;
+  font-size: 32px;
   max-width: 100%;
+  line-height: 1;
+}
+
+/* Smaller fonts for top4 and top8 */
+.top4_container .name_twitter .name,
+.top8_container .name_twitter .name {
+  font-size: 28px;
+}
+
+.top4_container .name_twitter .team_members,
+.top8_container .name_twitter .team_members,
+.top4_container .name_twitter .twitter,
+.top8_container .name_twitter .twitter {
+  font-size: 20px;
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -153,7 +167,6 @@ body {
   background-size: contain;
   border-radius: var(--border-radius);
   overflow: hidden;
-  #background-color: #3f3f46;
   height: 84px;
 }
 
@@ -163,7 +176,6 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  #background-color: #3f3f46;
 }
 
 .icon.stockicon {
@@ -181,18 +193,14 @@ body {
   height: 100%;
 }
 
-.flags {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 8px;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .flags > div {
   background-color: var(--bg-color);
-  border-radius: 6px;
-  padding-left: 6px;
+  border-radius: var(--border-radius-chip);
+  padding: 0px 8px;
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .flags_container > .text_empty {
@@ -204,16 +212,19 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  width: 36px;
-  height: 24px;
-  border-radius: 6px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  width: 48px;
+  height: 35px;
+  border-radius: 0;
+  border-top-right-radius: var(--border-radius-chip);
+  border-bottom-right-radius: var(--border-radius-chip);
+  flex-shrink: 0;
 }
 
 .flagname {
-  font-size: 18px;
+  font-size: 22px;
   padding-right: 6px;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .sponsor_icon {
@@ -240,7 +251,7 @@ body {
 
 .character_container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   overflow: hidden;
   position: absolute;
   left: 0;
@@ -260,35 +271,65 @@ body {
   gap: 8px;
 }
 
-.character_container > div > div {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  display: flex;
-  align-items: center;
-  border-radius: 0;
-  flex-shrink: 1;
-}
-
 .score {
   font-size: 60px;
   flex-grow: 0;
   flex-shrink: 0;
   overflow: hidden;
   margin-left: -8px;
-  color: white;
+  color: var(--text-color);
   margin-left: -8px;
   margin-right: 0;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  filter: drop-shadow(5px 5px 1px black);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.25));
 }
 
 .sponsor {
   color: var(--p1-sponsor-color);
+}
+
+.p2 .score {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--p2-score-bg-color) 80%, var(--bg-color)) 0%, color-mix(in srgb, var(--p2-score-bg-color) 60%, var(--bg-color)) 100%);
+  color: var(--p2-score-color);
+}
+
+.record-chip {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 0px 8px;
+  border-radius: var(--border-radius-chip);
+  font-size: 22px;
+  font-weight: 700;
+  min-width: 60px;
+  text-align: center;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-chip:empty {
+  display: none;
+}
+
+.variant-badge {
+  position: sticky !important;
+  bottom: 8px !important;
+  left: 8px !important;
+  width: 48px !important;
+  height: 48px !important;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: calc(var(--border-radius) / 2);
+  z-index: 10 !important;
 }
 
 .container_outer {
@@ -339,23 +380,36 @@ body {
   z-index: 999999;
   width: 120px;
   height: 120px;
-  font-size: 102px;
-  border-bottom-right-radius: 24px;
+  font-size: 115px;
+  border-bottom-right-radius: var(--border-radius);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--p1-score-bg-color) 80%, var(--bg-color)) 0%, color-mix(in srgb, var(--p1-score-bg-color) 60%, var(--bg-color)) 100%);
+  color: var(--p1-score-color);
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .top4_container .score {
-  font-size: 74px;
+  font-size: 85px;
   width: 96px;
   height: 96px;
 }
 
 .top8_container .score {
-  font-size: 64px;
+  font-size: 75px;
   width: 84px;
   height: 84px;
 }
 
 .flags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  flex-shrink: 0;
   position: absolute;
   margin-bottom: -8px;
   z-index: 1;

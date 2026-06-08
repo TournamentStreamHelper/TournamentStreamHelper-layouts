@@ -3,10 +3,7 @@ function playerPath(){
 }
 
 LoadEverything().then(() => {
-  Start = async () => {
-    $(".tsh_character > div").each((i, e) => $(e).css("opacity", "0"));
-    $(".variant_display > div").each((i, e) => $(e).css("opacity", "0"));
-  };
+  Start = async () => {};
 
   Update = async (event) => {
     let data = event.data;
@@ -20,58 +17,68 @@ LoadEverything().then(() => {
       src = `score.${window.scoreboardNumber}.team.${window.team}`;
     }
 
-    await CharacterDisplay(
+    CharacterDisplay(
       $(`.container`),
       {
         source: src,
+        anim_out: {
+          autoAlpha: 0,
+          duration: 0
+        },
+        anim_in: {
+          autoAlpha: 0,
+          duration: 0
+        }
       },
       event
-    );
+    ).then(() => {
+      imgs = $.makeArray($(".tsh_character"));
 
-    let variant_html = ""
-    let player = _.get(data, playerPath());
-    if (player && player.character){
-      for (let c of Object.values(player.character)){
-        if (c.variant && c.variant.icon_path){
-          variant_html += `<div class = "variant" style = 'background-image: url("../../${c.variant.icon_path}");'></div>` 
-        } else {
-          variant_html += "<div></div>"
-        }
+      // Set all imgs opacity to 0
+      for (let img of imgs) {
+        $(img).css("opacity", 0);
       }
-      $(".variant_display").html(variant_html);
-    }
 
-    imgs = $.makeArray($(".tsh_character > div"));
-    variant_imgs = $.makeArray($(".variant_display > div"))
+      // Show only the first character initially, using gsap to override animations
+      gsap.set(imgs, { autoAlpha: 0 });
+      gsap.set(imgs[0], { autoAlpha: 1 });
 
-    if (imgs.length < 2) {
-      gsap.to($(".index_display"), { autoAlpha: 0 });
-    } else {
-      gsap.to($(".index_display"), { autoAlpha: 1 });
-    }
+      if (imgs.length < 2) {
+        $(".index_display").css({ opacity: 0 });
+      } else {
+        gsap.set($(".index_display"), { autoAlpha: 1 });
+      }
+
+      crossfade(); // Start the crossfade immediately after loading the characters
+    });
   };
 
   let cycleIndex = 0;
   let imgs = [];
-  let variant_imgs = [];
+  let firstUpdate = true;
 
   function crossfade() {
     if (imgs.length > 1) {
       gsap.to(imgs[(cycleIndex + imgs.length - 1) % imgs.length], 1, {
         autoAlpha: 0,
+        duration: firstUpdate ? 0 : 1, // Skip fade out on the first update
       });
-      gsap.to(imgs[cycleIndex], 1, { autoAlpha: 1 });
-
-      gsap.to(variant_imgs[(cycleIndex + imgs.length - 1) % imgs.length], 1, {
-        autoAlpha: 0,
+      gsap.to(imgs[cycleIndex], 1, {
+        autoAlpha: 1,
+        duration: firstUpdate ? 0 : 1, // Skip fade in on the first update
       });
-      gsap.to(variant_imgs[cycleIndex], 1, { autoAlpha: 1 });
-
+      firstUpdate = false;
+      
       $(".index_display").html(`${cycleIndex + 1}/${imgs.length}`);
       cycleIndex = (cycleIndex + 1) % imgs.length;
     } else if (imgs.length == 1) {
-      gsap.to(imgs[0], 1, { autoAlpha: 1 });
-      gsap.to(variant_imgs[0], 1, { autoAlpha: 1 })
+      gsap.to(
+        imgs[0], 1, {
+          autoAlpha: 1,
+          duration: firstUpdate ? 0 : 1, // Skip fade in on the first update
+        });
+      firstUpdate = false;
+
       $(".index_display").html(`1/1`);
       cycleIndex = 0;
     }

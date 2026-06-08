@@ -68,39 +68,36 @@ LoadEverything().then(() => {
       data.score[window.scoreboardNumber].team["1"],
       data.score[window.scoreboardNumber].team["2"],
     ].entries()) {
-      let teamName = "";
-
-      if (!team.teamName || team.teamName == "") {
+      // Get team name presentation using player_presentation strategy
+      let teamName = team.teamName;
+      if (!teamName || teamName == "") {
         let names = [];
         for (const [p, player] of Object.values(team.player).entries()) {
-          if (player) {
+          if (player && player.name) {
             names.push(await Transcript(player.name));
           }
         }
         teamName = names.join(" / ");
-      } else {
-        teamName = team.teamName;
       }
+      let teamNamePresentation = teamName;
 
       SetInnerHtml(
         $(`.info.doubles.t${t + 1} .team_name`),
         `
-          ${teamName}${team.losers ? " [L]" : ""}
+          ${teamNamePresentation}${team.losers ? " [L]" : ""}
         `
       );
 
       for (const [p, player] of Object.values(team.player).entries()) {
         if (player) {
+          // Get player name presentation using player_presentation strategy
+          let playerPresentation = `<span class="sponsor">${player && player.team ? player.team : ""}</span>${player ? await Transcript(player.name) : ""}`;
+
           SetInnerHtml(
             $(`.t${t + 1}.p${p + 1} .name`),
             `
-                <span>
-                    <span class='sponsor'>
-                        ${player.team ? player.team + "" : ""}
-                    </span>
-                    ${await Transcript(player.name)}
-										${team.losers && !isTeams ? " [L]" : ""}
-                </span>
+              ${playerPresentation}
+              ${team.losers && !isTeams ? " [L]" : ""}
             `
           );
 
@@ -111,7 +108,7 @@ LoadEverything().then(() => {
             player.country.asset
               ? `
                 <div class='flagname'>${player.country.code}</div>
-                <div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>
+                <img class='flag' src='../../${player.country.asset.toLowerCase()}' />
               `
               : ""
           );
@@ -121,7 +118,7 @@ LoadEverything().then(() => {
             player.state.asset
               ? `
                 <div class='flagname'>${player.state.code}</div>
-                <div class='flag' style="background-image: url('../../${player.state.asset}')"></div>
+                <img class='flag' src='../../${player.state.asset}' />
               `
               : ""
           );

@@ -164,13 +164,13 @@ LoadEverything().then(() => {
       ].entries()) {
         for (const [p, player] of [team.player["1"]].entries()) {
           if (player) {
+            // Get player name presentation using player_presentation strategy
+            let playerPresentation = `<span class="sponsor">${player && player.team ? player.team : ""}</span>${player ? await Transcript(player.name) : ""}`;
+
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
               `
-                <span class="sponsor">
-                  ${player.team ? player.team : ""}
-                </span>
-                ${await Transcript(player.name)}
+                ${playerPresentation}
                 ${team.losers ? "<span class='losers'>L</span>" : ""}
               `
             );
@@ -179,7 +179,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1} .flagcountry`),
               player.country.asset
                 ? `
-                  <div class='flag' style='background-image: url(../../${player.country.asset.toLowerCase()})'></div>
+                  <img class='flag' src='../../${player.country.asset.toLowerCase()}' />
                   <div>${player.country.code}</div>
                 `
                 : ""
@@ -189,7 +189,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1} .flagstate`),
               player.state.asset
                 ? `
-                  <div class='flag' style='background-image: url(../../${player.state.asset})'></div>
+                  <img class='flag' src='../../${player.state.asset}' />
                   <div>${player.state.code}</div>
                 `
                 : ""
@@ -272,24 +272,23 @@ LoadEverything().then(() => {
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
+        // Get team name presentation using player_presentation strategy
         let teamName = team.teamName;
-
-        let names = [];
-        for (const [p, player] of Object.values(team.player).entries()) {
-          if (player && player.name) {
-            names.push(await Transcript(player.name));
+        if (!teamName || teamName == "") {
+          let names = [];
+          for (const [p, player] of Object.values(team.player).entries()) {
+            if (player && player.name) {
+              names.push(await Transcript(player.name));
+            }
           }
+          teamName = names.join(" / ");
         }
-        let playerNames = names.join(" / ");
-
-        if (!team.teamName || team.teamName == "") {
-          teamName = playerNames;
-        }
+        let teamPresentation = teamName;
 
         SetInnerHtml(
           $(`.p${t + 1}.container .name`),
           `
-            ${teamName}
+            ${teamPresentation}
             ${team.losers ? "<span class='losers'>L</span>" : ""}
           `
         );

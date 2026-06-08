@@ -193,17 +193,7 @@ LoadEverything().then(() => {
         for (const [p, player] of players.entries()) {
           SetInnerHtml(
             $(`.p${t + 1} .name`),
-            `
-              <span>
-                  <div>
-                    <span class='sponsor'>
-                        ${player.team ? player.team : ""}
-                    </span>
-                    ${await Transcript(player.name)}
-                  </div>
-                  ${team.losers ? "<span class='losers'>L</span>" : ""}
-              </span>
-            `
+            `${player.team ? `<span class="sponsor">${player.team}</span>` : ""}${await Transcript(player.name)}${team.losers ? "<span class='losers'>L</span>" : ""}`
           );
 
           SetInnerHtml($(`.p${t + 1} .pronoun`), player.pronoun);
@@ -211,9 +201,7 @@ LoadEverything().then(() => {
           SetInnerHtml(
             $(`.p${t + 1}.sponsor_logo`),
             player.sponsor_logo
-              ? `
-                <div class='sponsor-logo' style="background-image: url('../../${player.sponsor_logo}')"></div>
-                `
+              ? `<img class='sponsor-logo' src='../../${player.sponsor_logo}' />`
               : ""
           );
 
@@ -245,7 +233,7 @@ LoadEverything().then(() => {
             player.country.asset
               ? `
                 <div class="unskew">
-                  <div class='flagimage' style="background-image: url('../../${player.country.asset}');"></div>
+                  <img class='flagimage' src='../../${player.country.asset}' />
                   <div class="flagname">${player.country.name}</div>
                 </div>
               `
@@ -257,7 +245,7 @@ LoadEverything().then(() => {
             player.state.asset
               ? `
                 <div class="unskew">
-                  <div class='flagimage' style="background-image: url('../../${player.state.asset}');"></div>
+                  <img class='flagimage' src='../../${player.state.asset}' />
                   <div class="flagname">${player.state.name}</div>
                 </div>
               `
@@ -298,7 +286,7 @@ LoadEverything().then(() => {
           }
 
           SetInnerHtml(
-            $(`.p${t + 1} .character_name`),
+            $(`.p${t + 1}.character_name`),
             `
                 ${characterNames.filter(elt=>!!elt).join(" / ") + (single_variant ? makeVariantHTML(single_variant) : "")}
             `
@@ -336,10 +324,9 @@ LoadEverything().then(() => {
               $(`.p${t + 1}.character > div`),
               `
                 <div class="player_avatar">
-                  <div style="background-image: url('${
+                  <img src='${
                     player.online_avatar ? player.online_avatar : "./person.svg"
-                  }');">
-                  </div>
+                  }' />
                 </div>
               `,
               {
@@ -361,10 +348,9 @@ LoadEverything().then(() => {
               $(`.p${t + 1}.character > div`),
               `
                 <div class="player_avatar">
-                  <div style="background-image: url('${
+                  <img src='${
                     player.avatar ? '../../'+player.avatar : "./person.svg"
-                  }');">
-                  </div>
+                  }' />
                 </div>
               `,
               {
@@ -382,6 +368,10 @@ LoadEverything().then(() => {
               }
             );
           }
+        }
+
+        if (team.color && !tsh_settings["forceDefaultScoreColors"]) {
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
         }
       }
     } else {
@@ -401,16 +391,7 @@ LoadEverything().then(() => {
           teamName = playerNames;
         }
 
-        SetInnerHtml(
-          $(`.p${t + 1} .name`),
-          `
-            <span>
-                <div>
-                  ${teamName}
-                </div>
-            </span>
-          `
-        );
+        SetInnerHtml($(`.p${t + 1} .name`), teamName);
         if(teamName != playerNames){
           SetInnerHtml($(`.p${t + 1} .real_name`), playerNames);
         } else {
@@ -501,9 +482,9 @@ LoadEverything().then(() => {
           let avatars_html = "";
           for (const [p, player] of Object.values(team.player).entries()) {
             if (player)
-              avatars_html += `<div style="background-image: url('${
+              avatars_html += `<img src='${
                 player.online_avatar ? player.online_avatar : "./person.svg"
-              }');"></div>`;
+              }' />`;
           }
           SetInnerHtml(
             $(`.p${t + 1}.character > div`),
@@ -530,9 +511,9 @@ LoadEverything().then(() => {
           let avatars_html = "";
           for (const [p, player] of Object.values(team.player).entries()) {
             if (player)
-              avatars_html += `<div style="background-image: url('${
+              avatars_html += `<img src='${
                 player.avatar ? '../../'+player.avatar : "./person.svg"
-              }');"></div>`;
+              }' />`;
           }
           SetInnerHtml(
             $(`.p${t + 1}.character > div`),
@@ -555,6 +536,10 @@ LoadEverything().then(() => {
               },
             }
           );
+        }
+
+        if (team.color && !tsh_settings["forceDefaultScoreColors"]) {
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
         }
       }
     }

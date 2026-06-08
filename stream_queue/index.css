@@ -131,13 +131,11 @@ body {
 
 .flag {
     display: inline-block;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    object-fit: cover;
     width: 36px;
     height: 24px;
     border-radius: 4px;
-  }
+}
 
 .name {
     display: flex;
@@ -221,8 +219,7 @@ body {
 .avatar {
     width: 100px;
     height: 100px;
-    background-repeat: no-repeat;
-    background-size: cover;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -244,7 +241,7 @@ body {
 }
 
 .twitter_logo {
-    -webkit-mask-image: url(./twitter.svg);
+    -webkit-mask-image: url(../icons/twitter.svg);
     -webkit-mask-size: contain;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;

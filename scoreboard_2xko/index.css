@@ -1,32 +1,15 @@
-@font-face {
-  font-family: "NotoSans";
-  src: url("../include/NotoSans-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../include/RobotoCondensed.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../include/Roboto-Regular.ttf") format("truetype");
-}
-
 body {
   font-family: var(--font);
-  font-weight: bold;
+  font-weight: 700;
   opacity: 0;
   overflow: hidden;
   margin: 0;
   width: 1920px;
   height: 1080px;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
-  letter-spacing: 1;
   background-size: cover;
+  filter:
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.40));
 }
 
 .anim_container_outer {
@@ -216,13 +199,13 @@ body {
   position: relative;
 }
 
-.twoxko .chip .text:not(.text_empty)::before {
+.twoxko .p1 .chip .text:not(.text_empty)::before {
   position: absolute;
   top: 0;
   left: 0;
   width: calc(100% + 4px);
   height: 100%;
-  background: var(--bg-color);
+  background: color-mix(in srgb, var(--p1-score-bg-color) 35%, var(--bg-color) 65%);
   border-radius: calc(var(--border-radius) / 4);
   transform: skewX(12deg);
   content: " ";
@@ -230,7 +213,16 @@ body {
 }
 
 .twoxko .p2 .chip .text:not(.text_empty)::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% + 4px);
+  height: 100%;
+  background: color-mix(in srgb, var(--p2-score-bg-color) 35%, var(--bg-color) 65%);
+  border-radius: calc(var(--border-radius) / 4);
   transform: skewX(-12deg);
+  content: " ";
+  z-index: -999;
 }
 
 .flagcountry, .flagstate {
@@ -352,7 +344,29 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.seed_logo {
+  -webkit-mask-image: url(../icons/seed_leaf.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.pronoun_logo {
+  -webkit-mask-image: url(../icons/user.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -565,6 +579,15 @@ body {
   border-radius: var(--border-radius);
 }
 
+.icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  object-position: center;
+  background-color: #3f3f46;
+  border-radius: var(--border-radius);
+}
+
 .tsh_character {
   background-color: #3f3f46;
   border-radius: var(--border-radius);
@@ -575,7 +598,16 @@ body {
   border-radius: calc(var(--border-radius) * 2 / 3);
 }
 
+.icon img {
+  border-radius: calc(var(--border-radius) * 2 / 3);
+}
+
 .twoxko .icon div:not(.text) {
+  height: 34px;
+  width: 34px;
+}
+
+.twoxko .icon img {
   height: 34px;
   width: 34px;
 }
@@ -587,9 +619,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: 32px;
   height: 24px;
 }
@@ -621,9 +651,10 @@ body {
   left: 200px;
 }
 
-.fgc .sponsor_icon > div > div {
+.fgc .sponsor_icon {
   width: 80px;
   height: 80px;
+  object-fit: contain;
 }
 
 .twoxko .sponsor_icon {
@@ -638,9 +669,10 @@ body {
   left: 90px;
 }
 
-.twoxko .sponsor_icon > div > div {
+.twoxko .sponsor_icon {
   width: 100px;
   height: 100px;
+  object-fit: contain;
 }
 
 .character_container {
@@ -680,6 +712,14 @@ body {
   font-size: 34px;
 }
 
+.p1.player.container {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 15%, var(--bg-color) 85%);
+}
+
+.p2.player.container {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 15%, var(--bg-color) 85%);
+}
+
 .p1 .score {
   color: var(--p1-score-color);
   background: var(--p1-score-bg-color);
@@ -698,6 +738,10 @@ body {
 
 .p1 .sponsor {
   color: var(--p1-sponsor-color);
+}
+
+.p2 .sponsor {
+  color: var(--p2-sponsor-color);
 }
 
 .p2 .score {
@@ -729,11 +773,13 @@ body {
 }
 
 .p1 .losers {
-  background: #ff3837ff;
+  background: var(--p1-score-bg-color);
+  color: var(--p1-score-color);
 }
 
 .p2 .losers {
-  background: #308affff;
+  background: var(--p2-score-bg-color);
+  color: var(--p2-score-color);
 }
 
 .top_bg_1, .top_bg_2, .bottom_bg_1, .bottom_bg_2 {

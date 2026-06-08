@@ -43,10 +43,7 @@ body {
   display: flex;
   box-sizing: border-box;
   gap: 8px;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
   border-radius: var(--border-radius);
   background-color: var(--bg-color);
 }
@@ -102,7 +99,7 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -206,9 +203,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: 38px;
   height: 24px;
   border-radius: 8px;
@@ -237,7 +232,6 @@ body {
 
 .right .character_container {
   background: var(--p2-score-bg-color);
-  transform: scaleX(-1);
 }
 
 .character_container.cameras {
@@ -279,10 +273,7 @@ body {
   color: white;
   flex-grow: 0;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .left .score {

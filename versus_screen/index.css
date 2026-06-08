@@ -97,11 +97,10 @@ body {
   background: var(--p2-score-bg-color);
 }
 
-.player_avatar div {
+.player_avatar img {
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
 }
 
 .container {
@@ -133,31 +132,57 @@ body {
   align-items: flex-end;
 }
 
+.p2 .name_row {
+  justify-content: flex-end;
+}
+
 .info_grid {
-  display: flex;
-  justify-items: center;
+  display: block;
   gap: 8px;
   flex-wrap: no-wrap;
   justify-content: flex-start;
   margin-top: 8px;
-}
-
-.p2 .info_grid {
-  flex-direction: row-reverse;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .info_grid > .text_empty {
-  padding: 0;
-  width: 0;
   display: none;
 }
 
-.info_grid > div {
-  position: relative;
-  border-radius: var(--border-radius);
+.info_grid > .text {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.p2 .info_grid > .text {
+  flex-direction: row-reverse;
+}
+
+.info_grid > .text > div {
+  border-radius: calc(var(--border-radius) / 2);
   overflow: hidden;
-  padding: 2px 8px;
-  border: 2px solid var(--text-color);
+  padding: 4px 10px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.p1 .info_grid > .text > div {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.p2 .info_grid > .text > div {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.info_grid > .text > .flagcountry,
+.info_grid > .text > .flagstate {
+  padding: 0 12px 0 0;
+  height: 36px;
+  gap: 8px;
 }
 
 .player.container {
@@ -205,6 +230,7 @@ body {
 }
 
 .p1.container {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 15%, var(--bg-color) 85%);
   background-position: 100% 0;
   left: 0px;
   border-top-left-radius: 0;
@@ -213,6 +239,7 @@ body {
 }
 
 .p2.container {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 15%, var(--bg-color) 85%);
   background-position: 0 0;
   right: 0px;
   border-top-right-radius: 0;
@@ -238,8 +265,32 @@ body {
   font-size: 24px;
 }
 
+.controller {
+  margin-top: 6px;
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: calc(var(--border-radius) / 2);
+  overflow: hidden;
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.controller.text_empty {
+  display: none;
+}
+
+.p1 .controller {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.p2 .controller {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -249,7 +300,50 @@ body {
   margin-right: 6px;
 }
 
-.twitter, .seed, .real_name, .pronoun {
+.seed_logo {
+  -webkit-mask-image: url(../icons/seed_leaf.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.pronoun_logo {
+  -webkit-mask-image: url(../icons/user.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  background: var(--text-color);
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.twitter, .seed, .pronoun {
+  position: relative;
+  border-radius: calc(var(--border-radius) / 2);
+  overflow: hidden;
+  padding: 6px 16px;
+  border: none;
+  font-size: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.p1 .twitter, .p1 .seed, .p1 .pronoun {
+  background: color-mix(in srgb, var(--p1-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.p2 .twitter, .p2 .seed, .p2 .pronoun {
+  background: color-mix(in srgb, var(--p2-score-bg-color) 35%, var(--bg-color) 65%);
+}
+
+.real_name {
   font-size: 26px;
 }
 
@@ -272,11 +366,16 @@ body {
 }
 
 .p1 .sponsor {
-  color: var(--p1-sponsor-color);
+  color: var(--p1-score-bg-color);
 }
 
 .p2 .sponsor {
-  color: var(--p2-sponsor-color);
+  color: var(--p2-score-bg-color);
+}
+
+.player.container .sponsor {
+  font-size: 52px;
+  margin-right: 12px;
 }
 
 .losers_badge {
@@ -291,12 +390,12 @@ body {
 }
 
 .p1 .losers_badge {
-  background-color: var(--p1-sponsor-color);
+  background-color: var(--p1-score-bg-color);
   right: 16px;
 }
 
 .p2 .losers_badge {
-  background-color: var(--p2-sponsor-color);
+  background-color: var(--p2-score-bg-color);
   left: 16px;
 }
 
@@ -371,39 +470,18 @@ body {
   align-self: flex-end;
 }
 
-.flagscontainer {
-  display: flex;
-  gap: 8px;
-}
-
 .flag {
-  position: relative;
-  display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 56px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  border: 2px solid white;
-  margin-bottom: 16px;
-  border-radius: 8px;
+  display: block;
+  width: 50px;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .flagname {
-  position: absolute;
-  text-align: center;
-  font-size: 16px;
-  padding: 1px 8px;
-  border-radius: 2px;
-  background-color: #000000ff;
-  top: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 2px white solid;
-  border-radius: 10px;
-  color: white;
+  font-size: 24px;
+  white-space: nowrap;
+  color: var(--text-color);
 }
 
 .score {

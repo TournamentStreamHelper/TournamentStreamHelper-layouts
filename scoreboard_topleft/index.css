@@ -1,18 +1,3 @@
-@font-face {
-  font-family: "NotoSans";
-  src: url("../include/NotoSans-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../include/RobotoCondensed.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../include/Roboto-Regular.ttf") format("truetype");
-}
-
 body {
   font-family: var(--font);
   font-weight: bold;
@@ -123,6 +108,7 @@ body {
 
 .name_twitter .name {
   font-size: 24px;
+  max-width: 100%;
 }
 
 .name_twitter .twitter {
@@ -130,7 +116,7 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -254,9 +240,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: 28px;
   height: 20px;
   border-radius: 4px;
@@ -341,11 +325,11 @@ body {
 }
 
 .p1 .sponsor {
-  color: var(--p1-sponsor-color);
+  color: var(--p1-score-bg-color);
 }
 
 .p1 .pronoun {
-  background-color: var(--p1-sponsor-color);
+  background-color: var(--p1-score-bg-color);
 }
 
 .p2 .score {
@@ -354,11 +338,11 @@ body {
 }
 
 .p2 .sponsor {
-  color: var(--p2-sponsor-color);
+  color: var(--p2-score-bg-color);
 }
 
 .p2 .pronoun {
-  background-color: var(--p2-sponsor-color);
+  background-color: var(--p2-score-bg-color);
 }
 
 .losers {
@@ -374,9 +358,11 @@ body {
 }
 
 .p1 .losers {
-  background: #ff3837ff;
+  background: var(--p1-score-bg-color);
+  color: var(--p1-score-color);
 }
 
 .p2 .losers {
-  background: #308affff;
+  background: var(--p2-score-bg-color);
+  color: var(--p2-score-color);
 }

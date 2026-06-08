@@ -164,13 +164,13 @@ LoadEverything().then(() => {
       ].entries()) {
         for (const [p, player] of [team.player["1"]].entries()) {
           if (player) {
+            // Get player name presentation using player_presentation strategy
+            let playerPresentation = `<span class="sponsor">${player && player.team ? player.team : ""}</span>${player ? await Transcript(player.name) : ""}`;
+
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
               `
-                <span class="sponsor">
-                  ${player.team ? player.team : ""}
-                </span>
-                ${await Transcript(player.name)}
+                ${playerPresentation}
               `
             );
 
@@ -183,7 +183,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1} .flagcountry`),
               player.country.asset
                 ? `
-                  <div class='flag' style="background-image: url('../../${player.country.asset.toLowerCase()}')"></div>
+                  <img class='flag' src='../../${player.country.asset.toLowerCase()}' />
                   <div>${player.country.code}</div>
                 `
                 : ""
@@ -193,7 +193,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1} .flagstate`),
               player.state.asset
                 ? `
-                  <div class='flag' style="background-image: url('../../${player.state.asset}')"></div>
+                  <img class='flag' src='../../${player.state.asset}' />
                   <div>${player.state.code}</div>
                 `
                 : ""
@@ -203,6 +203,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1}.container .character_container`),
               {
                 source: `score.${window.scoreboardNumber}.team.${t + 1}`,
+                flip_x: t === 1,
               },
               event
             );
@@ -237,12 +238,12 @@ LoadEverything().then(() => {
 
             SetInnerHtml(
               $(`.p${t + 1} .pronoun`),
-              player.pronoun ? player.pronoun : ""
+              player.pronoun ? `<span class="pronoun_logo"></span>${player.pronoun}` : ""
             );
 
             SetInnerHtml(
               $(`.p${t + 1} .seed`),
-              player.seed ? `Seed ${player.seed}` : ""
+              player.seed ? `<span class="seed_logo"></span>Seed ${player.seed}` : ""
             );
 
             SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));
@@ -263,8 +264,7 @@ LoadEverything().then(() => {
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
-        let teamName = team.teamName;
-
+        // Get team name presentation using player_presentation strategy
         let names = [];
         for (const [p, player] of Object.values(team.player).entries()) {
           if (player && player.name) {
@@ -272,10 +272,7 @@ LoadEverything().then(() => {
           }
         }
         let playerNames = names.join(" / ");
-
-        if (!team.teamName || team.teamName == "") {
-          teamName = playerNames;
-        }
+        let teamName = team.teamName || playerNames;
 
         SetInnerHtml(
           $(`.p${t + 1}.container .name`),
@@ -297,6 +294,7 @@ LoadEverything().then(() => {
           $(`.p${t + 1}.container .character_container`),
           {
             source: `score.${window.scoreboardNumber}.team.${t + 1}`,
+                flip_x: t === 1,
             slice_character: [0, 1],
           },
           event
@@ -308,8 +306,8 @@ LoadEverything().then(() => {
 
         SetInnerHtml($(`.p${t + 1}.container .online_avatar`), "");
 
-        SetInnerHtml($(`.p${t + 1} .twitter`), 
-          playerNames != team.teamName ? playerNames : ""
+        SetInnerHtml($(`.p${t + 1} .twitter`),
+          playerNames != teamName ? playerNames : ""
         );
 
         SetInnerHtml($(`.p${t + 1}.container .score`), String(team.score));

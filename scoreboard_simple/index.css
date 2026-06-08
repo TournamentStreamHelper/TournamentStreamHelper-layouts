@@ -99,6 +99,7 @@ body {
   justify-content: left;
   text-transform: uppercase;
   z-index: 999;
+  gap: 2px;
 }
 
 .twitter-container {
@@ -127,7 +128,7 @@ body {
 }
 
 .twitter_logo {
-  -webkit-mask-image: url(./twitter.svg);
+  -webkit-mask-image: url(../icons/twitter.svg);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -159,9 +160,7 @@ body {
 
 .flag {
   display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   width: 38px;
   height: 26px;
   border-radius: 6px;

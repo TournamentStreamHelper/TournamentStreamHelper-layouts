@@ -67,16 +67,7 @@ LoadEverything().then(() => {
         for (const [p, player] of players.entries()) {
           SetInnerHtml(
             $(`.p${t + 1} .name`),
-            `
-              <span>
-                  <div>
-                    <span class='sponsor'>
-                        ${player.team ? player.team : ""}
-                    </span>
-                    ${await Transcript(player.name)}
-                  </div>
-              </span>
-            `
+            `${player.team ? `<span class="sponsor">${player.team}</span>` : ""}${await Transcript(player.name)}`
           );
 
           gsap.to($(`.p${t + 1} .losers_badge`), {
@@ -85,20 +76,14 @@ LoadEverything().then(() => {
             duration: 0.8,
           });
 
-          SetInnerHtml($(`.p${t + 1} .pronoun`), player.pronoun);
-
           SetInnerHtml(
             $(`.p${t + 1} > .sponsor_logo`),
             player.sponsor_logo
-              ? `
-                <div class='sponsor_logo' style="background-image: url('../../${player.sponsor_logo}')"></div>
-                `
+              ? `<img class='sponsor_logo' src='../../${player.sponsor_logo}' />`
               : ""
           );
 
           SetInnerHtml($(`.p${t + 1} .real_name`), player.real_name);
-
-          SetInnerHtml($(`.p${t + 1} .seed`), player.seed ? `Seed ${player.seed}` : "");
 
           let characterNames = [];
           let single_variant = null;
@@ -140,43 +125,13 @@ LoadEverything().then(() => {
             `
           );
 
-          SetInnerHtml(
-            $(`.p${t + 1} .twitter`),
-            `
-              ${
-                player.twitter
-                  ? `
-                  <div class="twitter_logo"></div>
-                  ${player.twitter}
-                  `
-                  : ""
-              }
-          `
-          );
-
-          SetInnerHtml(
-            $(`.p${t + 1} .flagcountry`),
-            player.country.asset
-              ? `
-              <div>
-                  <div class='flag' style="background-image: url('../../${player.country.asset}');">
-                      <div class="flagname">${player.country.code}</div>
-                  </div>
-              </div>`
-              : ""
-          );
-
-          SetInnerHtml(
-            $(`.p${t + 1} .flagstate`),
-            player.state.asset
-              ? `
-              <div>
-                  <div class='flag' style="background-image: url('../../${player.state.asset}');">
-                      <div class="flagname">${player.state.code}</div>
-                  </div>
-              </div>`
-              : ""
-          );
+          let infoGridHtml = "";
+          if (player.pronoun) infoGridHtml += `<div class="pronoun"><div class="pronoun_logo"></div>${player.pronoun}</div>`;
+          if (player.twitter) infoGridHtml += `<div class="twitter"><div class="twitter_logo"></div>${player.twitter}</div>`;
+          if (player.seed) infoGridHtml += `<div class="seed"><div class="seed_logo"></div>Seed ${player.seed}</div>`;
+          if (player.country.asset) infoGridHtml += `<div class="flagcountry"><img class='flag' src='../../${player.country.asset.toLowerCase()}' /><div class="flagname">${player.country.code}</div></div>`;
+          if (player.state.asset) infoGridHtml += `<div class="flagstate"><img class='flag' src='../../${player.state.asset}' /><div class="flagname">${player.state.code}</div></div>`;
+          SetInnerHtml($(`.p${t + 1} .info_grid`), infoGridHtml);
 
           let zIndexMultiplyier = 1;
           if (t == 1) zIndexMultiplyier = -1;
@@ -206,10 +161,9 @@ LoadEverything().then(() => {
               $(`.p${t + 1}.character`),
               `
                 <div class="player_avatar">
-                  <div style="background-image: url('${
+                  <img src='${
                     player.online_avatar ? player.online_avatar : "./person.svg"
-                  }');">
-                  </div>
+                  }' />
                 </div>
               `,
               {
@@ -231,10 +185,9 @@ LoadEverything().then(() => {
               $(`.p${t + 1}.character`),
               `
                 <div class="player_avatar">
-                  <div style="background-image: url('${
+                  <img src='${
                     player.avatar ? '../../'+player.avatar : "./person.svg"
-                  }');">
-                  </div>
+                  }' />
                 </div>
               `,
               {
@@ -252,6 +205,10 @@ LoadEverything().then(() => {
               }
             );
           }
+        }
+
+        if (team.color && !tsh_settings["forceDefaultScoreColors"]) {
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
         }
       }
     } else {
@@ -294,16 +251,10 @@ LoadEverything().then(() => {
         });
 
         SetInnerHtml($(`.p${t + 1} > .sponsor_logo`), "");
-
-        SetInnerHtml($(`.p${t + 1} .twitter`), ``);
-
-        SetInnerHtml($(`.p${t + 1} .flagcountry`), "");
-
-        SetInnerHtml($(`.p${t + 1} .flagstate`), "");
-
-        SetInnerHtml($(`.p${t + 1} .pronoun`), "");
-
-        SetInnerHtml($(`.p${t + 1} .seed`), _.get(team, "player.1.seed") ? `Seed ${_.get(team, "player.1.seed")}` : "");
+        const teamSeed = _.get(team, "player.1.seed");
+        SetInnerHtml($(`.p${t + 1} .info_grid`),
+          teamSeed ? `<div class="seed"><div class="seed_logo"></div>Seed ${teamSeed}</div>` : ""
+        );
 
         let characterNames = [];
 
@@ -370,9 +321,9 @@ LoadEverything().then(() => {
           let avatars_html = "";
           for (const [p, player] of Object.values(team.player).entries()) {
             if (player)
-              avatars_html += `<div style="background-image: url('${
+              avatars_html += `<img src='${
                 player.online_avatar ? player.online_avatar : "./person.svg"
-              }');"></div>`;
+              }' />`;
           }
           SetInnerHtml(
             $(`.p${t + 1}.character`),
@@ -399,9 +350,9 @@ LoadEverything().then(() => {
           let avatars_html = "";
           for (const [p, player] of Object.values(team.player).entries()) {
             if (player)
-              avatars_html += `<div style="background-image: url('${
+              avatars_html += `<img src='${
                 player.avatar ? '../../'+player.avatar : "./person.svg"
-              }');"></div>`;
+              }' />`;
           }
           SetInnerHtml(
             $(`.p${t + 1}.character`),
@@ -424,6 +375,10 @@ LoadEverything().then(() => {
               },
             }
           );
+        }
+
+        if (team.color && !tsh_settings["forceDefaultScoreColors"]) {
+          document.querySelector(':root').style.setProperty(`--p${t + 1}-score-bg-color`, team.color);
         }
       }
     }
