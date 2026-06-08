@@ -508,33 +508,6 @@ function GenerateMulticharacterPositions(
 
 // Use a HTML canvas to resize an image
 // Only needed when downscaling images, to avoid bad image quality
-function resizeInCanvas(image, width, height) {
-  // Only resize if image is being downscaled
-  if (width >= image.width || height >= image.height) {
-    return image.src;
-  }
-
-  // Initialize the canvas and it's size
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-
-  // Set width and height
-  canvas.width = width;
-  canvas.height = height;
-
-  ctx.imageSmoothingQuality = "medium";
-  ctx.imageSmoothingEnabled = true;
-
-  // Draw image and export to a data-uri
-  ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-  const dataURI = canvas.toDataURL("image/webp");
-
-  canvas.remove();
-
-  // Do something with the result, like overwrite original
-  return dataURI;
-}
-
 // Detect div size changes for character images
 var imageResizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
@@ -803,30 +776,17 @@ async function CenterImageDo(element) {
               $(element).parent().css("z-index", 0);
             }
 
-            $(element)
-              .css({
-                "background-position": `
-                  ${xx}px
-                  ${yy}px
-                `,
-                "background-size": `
-                  ${img.naturalWidth * zoom}px
-                  ${img.naturalHeight * zoom}px
-                `,
-                "background-repeat": "no-repeat",
-                "background-image":
-                  `url(${
-                    resizeInCanvas(
-                      img,
-                      img.naturalWidth * zoom,
-                      img.naturalHeight * zoom,
-                  )})`
-              }).promise();
+            $(element).css({ position: "relative" });
+            $(element).find("img.tsh-img").remove();
+            const $img = $("<img>").addClass("tsh-img").css({
+              position: "absolute",
+              left: `${xx}px`,
+              top: `${yy}px`,
+              width: `${img.naturalWidth * zoom}px`,
+              height: `${img.naturalHeight * zoom}px`,
+            }).attr("src", "../../" + assetData.asset);
+            $(element).append($img);
 
-            //element.css("background-position", "initial");
-            //element.css("position", "fixed");
-            //element.css("width", img.naturalWidth * zoom);
-            //element.css("height", img.naturalHeight * zoom);
             resolve();
           };
         });

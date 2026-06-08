@@ -304,8 +304,10 @@ async function updateCharacterContainer(e, event) {
       $(e).find(".tsh_character").each((i, charEl) => {
         const variantPath = $(charEl).data('variant-icon-path');
         const $variantIcon = $(charEl).find('.tsh_variant_icon');
+        $variantIcon.empty();
         if (variantPath) {
-          $variantIcon.css('background-image', variantPath).css('display', 'block');
+          const src = variantPath.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
+          $variantIcon.append($("<img>").attr("src", src)).css('display', 'block');
         } else {
           $variantIcon.css('display', 'none');
         }
