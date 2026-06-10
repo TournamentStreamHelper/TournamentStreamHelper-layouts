@@ -33,6 +33,7 @@ LoadEverything().then(() => {
           <div class="p1 color${window.PLAYER == 1 ? 1 : 2} ${
             sets.player_score > sets.oponent_score ? "winner" : "loser"
           }">
+            <div class="character_icon"></div>
             <div class="name">
             </div>
             <div class="score"></div>
@@ -40,6 +41,7 @@ LoadEverything().then(() => {
           <div class="p2 color${window.PLAYER == 1 ? 2 : 1} ${
             sets.player_score > sets.oponent_score ? "loser" : "winner"
           }">
+            <div class="character_icon"></div>
             <div class="name">
             </div>
             <div class="score"></div>
@@ -53,7 +55,7 @@ LoadEverything().then(() => {
       $(".player1_content").html(sets_html);
       startingAnimation = gsap.timeline({paused: true});
 
-      for (const [s, sets] of Object.values(data.score[window.scoreboardNumber].last_sets[window.PLAYER])
+      for (const [s, [stateKey, sets]] of Object.entries(data.score[window.scoreboardNumber].last_sets[window.PLAYER])
         .slice(0, 3)
         .reverse()
         .entries()) {
@@ -81,6 +83,13 @@ LoadEverything().then(() => {
           $(`.player1_content .set${s + 1} .p1 .score`),
           sets.player_score
         );
+        await CharacterDisplay(
+          $(`.player1_content .set${s + 1} .p1 .character_icon`),
+          {
+            source: `score.${window.scoreboardNumber}.last_sets.${window.PLAYER}.${stateKey}.player_char`,
+          },
+          event
+        );
         SetInnerHtml(
           $(`.player1_content .set${s + 1} .p2 .name`),
           `
@@ -93,6 +102,13 @@ LoadEverything().then(() => {
         SetInnerHtml(
           $(`.player1_content .set${s + 1} .p2 .score`),
           sets.oponent_score
+        );
+        await CharacterDisplay(
+          $(`.player1_content .set${s + 1} .p2 .character_icon`),
+          {
+            source: `score.${window.scoreboardNumber}.last_sets.${window.PLAYER}.${stateKey}.oponent_char`,
+          },
+          event
         );
         startingAnimation.from(
           $(`.set${s + 1}`),

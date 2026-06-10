@@ -1,8 +1,3 @@
-@font-face {
-  font-family: "Roboto Condensed";
-  src: url("../include/RobotoCondensed.ttf") format("truetype");
-}
-
 :root {
   --player-width: 900px;
   --infos-wdith: 850px;
@@ -557,7 +552,6 @@ body {
   color: var(--bg-color);
   filter: drop-shadow(0px 0px 4px white);
   text-shadow: 0 0 10px white;
-  font-family: "BomberEscortIta";
   font-weight: normal;
 }
 
@@ -807,6 +801,8 @@ body {
   width: 100%;
   height: 100%;
   flex-direction: row;
+  position: relative;
+  overflow: hidden;
   background-color: var(--bg-color);
   border-radius: var(--border-radius);
   justify-content: flex-start;
@@ -817,6 +813,41 @@ body {
 
 .p2 .set_container_inner {
   flex-direction: row-reverse;
+}
+
+.sets .player_char,
+.sets .oponent_char {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 25%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  flex-direction: column;
+}
+
+.sets .player_char {
+  left: 0;
+}
+
+.sets .oponent_char {
+  right: 0;
+}
+
+.sets .player_char .tsh_character > div:first-child {
+  mask-image: linear-gradient(to right, black 20%, transparent 100%);
+  opacity: 0.8;
+}
+
+.sets .oponent_char .tsh_character > div:first-child {
+  mask-image: linear-gradient(to left, black 20%, transparent 100%);
+  opacity: 0.8;
+}
+
+.sets .set_score {
+  position: relative;
+  z-index: 1;
 }
 
 .result_tag {
@@ -832,6 +863,8 @@ body {
   font-size: 35px;
 
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .result_tag.winner {
@@ -849,12 +882,23 @@ body {
   */
 
 .sets .phase_match {
-  width: 400px;
+  width: 300px;
   padding-left: 16px;
   padding-right: 16px;
-  max-width: 400px;
+  max-width: 300px;
+  min-width: 300px;
   overflow: hidden;
-}  
+  position: relative;
+  z-index: 1;
+}
+
+.sets .phase_match > .text {
+  justify-content: flex-end;
+}
+
+.p2.sets .phase_match > .text {
+  justify-content: flex-start;
+}
 
 .sets .versus {
   width: 50px;
@@ -875,6 +919,18 @@ body {
   padding-left: 16px;
   flex-grow: 1;
   max-width: 260px;
+  flex-shrink: 1;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.sets .name > .text {
+  justify-content: flex-start;
+}
+
+.p2.sets .name > .text {
+  justify-content: flex-end;
 }
 
 .sets .sponsor {

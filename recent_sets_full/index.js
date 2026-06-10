@@ -66,6 +66,7 @@ LoadEverything().then(() => {
                   <div class="${_set.winner == 0 ? "set_winner" : "set_loser"}">
                     ${_set.score[0]}
                   </div>
+                  <div class="p1_char"></div>
                   <div class="set_info">
                     <div class="set_col col_1">
                         <div class="set_text"></div>
@@ -76,6 +77,7 @@ LoadEverything().then(() => {
                         <div class="set_subtext"></div>
                     </div>
                   </div>
+                  <div class="p2_char"></div>
                   <div class="${_set.winner == 1 ? "set_winner" : "set_loser"}">
                     ${_set.score[1]}
                   </div>
@@ -107,6 +109,22 @@ LoadEverything().then(() => {
           );
           SetInnerHtml($(`.set_${i} .col_2 .set_subtext`), _set.round);
         });
+        for (const [i] of playersRecentSets.sets.slice(0, 5).entries()) {
+          await CharacterDisplay(
+            $(`.set_${i} .p1_char`),
+            {
+              source: `score.${window.scoreboardNumber}.recent_sets.sets.${i}.p1_char`,
+            },
+            event
+          );
+          await CharacterDisplay(
+            $(`.set_${i} .p2_char`),
+            {
+              source: `score.${window.scoreboardNumber}.recent_sets.sets.${i}.p2_char`,
+            },
+            event
+          );
+        }
       }
     }
 

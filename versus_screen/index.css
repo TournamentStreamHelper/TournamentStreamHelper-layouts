@@ -1,8 +1,3 @@
-@font-face {
-  font-family: "Roboto Condensed";
-  src: url("../include/RobotoCondensed.ttf") format("truetype");
-}
-
 body {
   font-family: var(--font);
   letter-spacing: 1.2px;

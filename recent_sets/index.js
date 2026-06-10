@@ -41,12 +41,13 @@ LoadEverything().then(() => {
     } else if (playersRecentSets.state != "done") {
       recentSetsHtml += `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`;
     } else {
-      for (const _set of playersRecentSets.sets.slice(0, 5)) {
+      playersRecentSets.sets.slice(0, 5).forEach((_set, i) => {
         recentSetsHtml += `
-            <div class="set_container">
+            <div class="set_container set_${i}">
               <div class="${_set.winner == 0 ? "set_winner" : "set_loser"}">
                 ${_set.score[0]}
               </div>
+              <div class="p1_char"></div>
               <div class="set_info">
                 <div class="set_title">
                   ${_set.online ? `<div class="wifi_icon"></div>` : ""}
@@ -63,14 +64,30 @@ LoadEverything().then(() => {
                   )}
                 </div>
               </div>
+              <div class="p2_char"></div>
               <div class="${_set.winner == 1 ? "set_winner" : "set_loser"}">
                 ${_set.score[1]}
               </div>
             </div>
           `;
+      });
+      $(`.recent_sets_content`).html(recentSetsHtml);
+      for (const [i] of playersRecentSets.sets.slice(0, 5).entries()) {
+        await CharacterDisplay(
+          $(`.set_${i} .p1_char`),
+          {
+            source: `score.${window.scoreboardNumber}.recent_sets.sets.${i}.p1_char`,
+          },
+          event
+        );
+        await CharacterDisplay(
+          $(`.set_${i} .p2_char`),
+          {
+            source: `score.${window.scoreboardNumber}.recent_sets.sets.${i}.p2_char`,
+          },
+          event
+        );
       }
     }
-
-    SetInnerHtml($(`.recent_sets_content`), recentSetsHtml);
   };
 });

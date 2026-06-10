@@ -120,8 +120,8 @@ body {
   width: 100%;
   display: flex;
   flex-direction: row;
+  position: relative;
   color: var(--text-color);
-  align-content: center;
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 12px;
@@ -212,6 +212,44 @@ body {
   height: 24px;
   margin-right: 6px;
   display: inline-block;
+}
+
+.p1_char,
+.p2_char {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35%;
+  z-index: 0;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.p1_char {
+  left: 0;
+}
+
+.p2_char {
+  right: 0;
+}
+
+.p1_char .tsh_character > div:first-child {
+  mask-image: linear-gradient(to right, black 20%, transparent 100%);
+  opacity: 0.8;
+}
+
+.p2_char .tsh_character > div:first-child {
+  mask-image: linear-gradient(to left, black 20%, transparent 100%);
+  opacity: 0.8;
+}
+
+.set_winner,
+.set_loser,
+.set_info,
+.set_col,
+.set_data {
+  position: relative;
+  z-index: 1;
 }
 
 .set_winner {

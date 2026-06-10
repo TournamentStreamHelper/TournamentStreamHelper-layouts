@@ -1,20 +1,5 @@
-@font-face {
-  font-family: "NotoSans";
-  src: url("../include/NotoSans-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../include/RobotoCondensed.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../include/Roboto-Regular.ttf") format("truetype");
-}
-
 body {
-  font-family: NotoSans;
+  font-family: var(--font);
   font-weight: bold;
   opacity: 0;
   overflow: hidden;
@@ -115,6 +100,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: row;
+  position: relative;
   background-color: var(--bg-color);
   text-align: center;
   align-items: center;
@@ -133,6 +119,10 @@ body {
   overflow: hidden;
 }
 
+.name > .text {
+  justify-content: flex-start;
+}
+
 .color1 .sponsor {
   color: var(--p1-sponsor-color);
   font-size: 24px;
@@ -142,6 +132,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: row;
+  position: relative;
   background-color: var(--bg-color);
   text-align: center;
   align-items: center;
@@ -181,6 +172,32 @@ body {
   width: 48px;
   height: 48px;
   border-radius: var(--border-radius);
+}
+
+.character_icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  flex-direction: column;
+}
+
+.character_icon {
+  right: 0;
+}
+
+.character_icon .tsh_character > div:first-child {
+  mask-image: linear-gradient(to left, black 20%, transparent 100%);
+  opacity: 0.8;
+}
+
+.name,
+.score {
+  position: relative;
+  z-index: 1;
 }
 
 .score {

@@ -375,8 +375,9 @@ LoadEverything().then(() => {
                 <div class = "set_container_inner">
                   <div class = "result_tag ${winner ? "winner" : ""}">${winner ? "W" : "L"}</div>
                   <div class = "phase_match"></div>
-  
+                  <div class = "player_char"></div>
                   <div class = "set_score"></div>
+                  <div class = "oponent_char"></div>
                   <div class = "name"></div>
                 </div>
 
@@ -386,26 +387,14 @@ LoadEverything().then(() => {
         $(".sets").html(sets_html);
         
         let tl = gsap.timeline();
-        for (const [s, set] of Object.values(last_sets)
+        for (const [s, [stateKey, set]] of Object.entries(last_sets)
           .slice(0, SETS)
           .reverse()
           .entries()
           ) {
-            console.log(set);
           let phaseTexts = [];
           if (set.phase_name) phaseTexts.push(set.phase_name);
           if (set.phase_id) phaseTexts.push(set.phase_id);
-          /*
-                    SetInnerHtml(
-            $(`.sets .set${s + 1} .phase`),
-            phaseTexts.join(" ")
-          );
-          console.log(set.round_name, `.sets .set${s + 1} .match`);
-          SetInnerHtml(
-            $(`.sets .set${s + 1} .match`),
-            set.round_name
-          );
-           */
           SetInnerHtml(
             $(`.sets .set${s + 1} .phase_match`),
             phaseTexts.join(" ") + " - " + set.round_name
@@ -414,14 +403,29 @@ LoadEverything().then(() => {
             $(`.sets .set${s + 1} .name`),
             `
               <div class = "versus">VS</div>
-              ${set.oponent_team ? `<span class="sponsor">${set.oponent_team}</span>` : ""} 
+              ${set.oponent_team ? `<span class="sponsor">${set.oponent_team}</span>` : ""}
               ${await Transcript(set.oponent_name)}
             `
           );
-          let score_text = "" + set.player_score + " - " + set.oponent_score;
           SetInnerHtml(
             $(`.sets .set${s + 1} .set_score`),
-            score_text
+            window.PLAYER == 2
+              ? `${set.oponent_score} - ${set.player_score}`
+              : `${set.player_score} - ${set.oponent_score}`
+          );
+          await CharacterDisplay(
+            $(`.sets .set${s + 1} .player_char`),
+            {
+              source: `score.${window.scoreboardNumber}.last_sets.${window.PLAYER}.${stateKey}.player_char`,
+            },
+            event
+          );
+          await CharacterDisplay(
+            $(`.sets .set${s + 1} .oponent_char`),
+            {
+              source: `score.${window.scoreboardNumber}.last_sets.${window.PLAYER}.${stateKey}.oponent_char`,
+            },
+            event
           );
           tl.from(
             $(`.set${s + 1}`),
