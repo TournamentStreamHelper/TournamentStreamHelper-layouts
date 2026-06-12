@@ -389,17 +389,9 @@ LoadEverything().then(() => {
     SetInnerHtml($(".tournament"), data.tournamentInfo.tournamentName);
     SetInnerHtml($(".match"), data.score[window.scoreboardNumber].match);
 
-    let stage = null;
-
-    if (_.get(data, `score.${window.scoreboardNumber}.stage_strike.selectedStage`)) {
-      let stageId = _.get(data, `score.${window.scoreboardNumber}.stage_strike.selectedStage`);
-
-      let allStages = _.get(data, "score.ruleset.neutralStages", []).concat(
-        _.get(data, "score.ruleset.counterpickStages", [])
-      );
-
-      stage = allStages.find((s) => s.codename == stageId);
-    }
+    let selectedStage = _.get(data, `score.${window.scoreboardNumber}.stage_strike.selectedStage`);
+    let stage = _.get(data, `score.${window.scoreboardNumber}.stage_strike.selectedStageData`)
+      || (selectedStage ? _.get(data, `game.stages.${selectedStage}`) : null);
 
     if (
       stage &&
