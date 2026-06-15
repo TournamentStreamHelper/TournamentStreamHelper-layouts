@@ -319,11 +319,25 @@ function FitText(target) {
     }
 
     textElement.css("transform", "");
-    let scaleX = 1;
+    textElement.css("font-size", "");
 
-    if (textElement[0].scrollWidth * scaleX > target.width()) {
-      scaleX = target.width() / textElement[0].scrollWidth;
-      textElement.css("transform", "scaleX(" + scaleX + ")");
+    if (target.hasClass("font-scale-fit")) {
+      const originalFontSize = parseFloat(
+        window.getComputedStyle(textElement[0]).fontSize
+      );
+
+      const ratio = target.width() / textElement[0].scrollWidth;
+
+      if (ratio < 1) {
+        textElement.css("font-size", (originalFontSize * ratio) + "px");
+      }
+    } else {
+      let scaleX = 1;
+
+      if (textElement[0].scrollWidth * scaleX > target.width()) {
+        scaleX = target.width() / textElement[0].scrollWidth;
+        textElement.css("transform", "scaleX(" + scaleX + ")");
+      }
     }
   });
 }
