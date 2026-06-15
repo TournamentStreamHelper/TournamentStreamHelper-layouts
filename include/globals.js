@@ -328,11 +328,13 @@ function FitText(target) {
 
       let fontSize = originalFontSize;
 
+      const targetWidth = target.width();
+
       while (
-        textElement[0].scrollWidth > target.width() &&
+        textElement[0].scrollWidth > targetWidth &&
         fontSize > 1
       ) {
-        fontSize -= 1;
+        fontSize -= 0.1;
         textElement.css("font-size", fontSize + "px");
       }
     } else {
