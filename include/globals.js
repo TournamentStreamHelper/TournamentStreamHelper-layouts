@@ -326,10 +326,14 @@ function FitText(target) {
         window.getComputedStyle(textElement[0]).fontSize
       );
 
-      const ratio = target.width() / textElement[0].scrollWidth;
+      let fontSize = originalFontSize;
 
-      if (ratio < 1) {
-        textElement.css("font-size", (originalFontSize * ratio) + "px");
+      while (
+        textElement[0].scrollWidth > target.width() &&
+        fontSize > 1
+      ) {
+        fontSize -= 1;
+        textElement.css("font-size", fontSize + "px");
       }
     } else {
       let scaleX = 1;
