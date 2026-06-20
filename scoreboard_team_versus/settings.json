@@ -1,0 +1,17 @@
+{
+    "main_icon": {
+        "spl3": {
+            "asset_key": "base_files/icon"
+        }
+    },
+    "secondary_icon": {
+        "spl3": {
+            "asset_key": "sub"
+        }
+    },
+    "tertiary_icon": {
+        "spl3": {
+            "asset_key": "special"
+        }
+    }
+}
