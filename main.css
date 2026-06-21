@@ -188,8 +188,19 @@ img {
 
   /* Player accent colors — defaults; overridden per-match via
      DEFAULT_TEAM1_COLOR / DEFAULT_TEAM2_COLOR in TSHScoreboardWidget.py */
-  --p1-sponsor-color: #ff7a6d;
-  --p2-sponsor-color: #4fc3f7;
+  --p1-sponsor-color: oklch(
+    from var(--p1-score-bg-color)
+    calc(l + 0.13)
+    c
+    h
+  );
+
+  --p2-sponsor-color: oklch(
+    from var(--p2-score-bg-color)
+    calc(l + 0.13)
+    c
+    h
+  );
   --p1-score-bg-color: #e53935;
   --p2-score-bg-color: #1e88e5;
   --p1-score-color: #ffffff;
