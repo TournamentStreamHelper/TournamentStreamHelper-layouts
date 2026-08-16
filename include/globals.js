@@ -466,6 +466,12 @@ async function SetInnerHtml(element, html, settings = {}) {
         middleFunction();
       }
 
+      if (document.hidden) {
+        gsap.killTweensOf(element.find(".text"));
+        element.find(".text").css({ opacity: 1, visibility: "inherit" });
+        return;
+      }
+
       if (firstRun) {
         gsap.set(element.find(".text"), anim_in);
       } else {
@@ -473,6 +479,11 @@ async function SetInnerHtml(element, html, settings = {}) {
         gsap.fromTo(element.find(".text"), anim_out, anim_in);
       }
     };
+
+    if (document.hidden) {
+      updateElement(element, html, firstRun);
+      return;
+    }
 
     if (!firstRun) {
       anim_out.onComplete = () => updateElement(element, html, firstRun);

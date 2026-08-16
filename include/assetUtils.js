@@ -88,6 +88,15 @@ document.addEventListener("tsh_update", (event) => {
     let path = $(e).attr("data-source");
     let data = _.get(event.data, path + ".1.assets");
 
+    if (document.hidden) {
+      gsap.killTweensOf($(e));
+      $(e).css({
+        opacity: data ? 1 : 0,
+        visibility: data ? "inherit" : "hidden",
+      });
+      return;
+    }
+
     if (!data) {
       gsap.timeline().to($(e), { autoAlpha: 0 });
     } else {
@@ -321,11 +330,22 @@ async function updateCharacterContainer(e, event) {
 
       if($(e) && $(e).children(".tsh_character").length > 0){
         anim_out.onComplete = null;
+        if (document.hidden) {
+          gsap.killTweensOf($(e).children(".tsh_character"));
+          $(e).children(".tsh_character").css({
+            opacity: 1,
+            visibility: "inherit",
+          });
+          return;
+        }
         gsap.fromTo($(e).children(".tsh_character"), anim_out, anim_in);
       }
     };
 
-    if (firstRun) {
+    if (document.hidden) {
+      gsap.killTweensOf($(e).children(".tsh_character"));
+      await callback();
+    } else if (firstRun) {
       // No need to fade out
       await callback();
     } else {
@@ -344,6 +364,16 @@ document.addEventListener("tsh_update", (event) => {
   $(".tsh_text").each((i, e) => {
     let path = $(e).attr("data-source");
     let data = _.get(event.data, path);
+
+    if (document.hidden) {
+      gsap.killTweensOf($(e));
+      $(e).css({
+        opacity: data ? 1 : 0,
+        visibility: data ? "inherit" : "hidden",
+      });
+      if (data) SetInnerHtml($(e), data);
+      return;
+    }
 
     if (!data) {
       gsap.timeline().to($(e), { autoAlpha: 0 });
